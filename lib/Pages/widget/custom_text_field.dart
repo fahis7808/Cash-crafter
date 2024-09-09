@@ -97,25 +97,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintStyle: TextStyle(fontSize: 13),
               label: Text(widget.labelText ?? ""),
               labelStyle: TextStyle(fontSize: 12),
-              fillColor: AppColors.white,
+              fillColor: AppColors.cardColor,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.red),
                   borderRadius: BorderRadius.circular(10)),
               contentPadding: widget.padding ??
-                  const EdgeInsets.symmetric(vertical: 23, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
               suffixIcon: widget.suffix,
               enabledBorder: OutlineInputBorder(
                   borderSide: widget.labelText == null
                       ? BorderSide.none
                       : const BorderSide(
                       width: 1, color: AppColors.primaryColor),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(15)),
               focusedBorder: OutlineInputBorder(
                 borderSide: widget.labelText == null
                     ? BorderSide.none
                     : const BorderSide(width: 2, color: AppColors.primaryColor),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(15),
               )),
         )
       ],
