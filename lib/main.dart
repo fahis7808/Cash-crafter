@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'Pages/home_page.dart';
+import 'package:money_manage_app2/constant/app_colors.dart';
+import 'Pages/screen/authentication/mobile_number.dart';
 
 void main() async{
   await Hive.initFlutter();
@@ -20,8 +21,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.teal,
+        scaffoldBackgroundColor: AppColors.primaryColor
       ),
-      home: const HomePage(),
+      home: const MobileNumberPage(),
     );
   }
 }

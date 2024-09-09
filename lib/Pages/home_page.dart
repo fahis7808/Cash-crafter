@@ -169,13 +169,13 @@ class _HomePageState extends State<HomePage> {
 
             return ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(
+                  const Padding(
+                    padding: EdgeInsets.all(
                       12.0,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 20,
                         ),
