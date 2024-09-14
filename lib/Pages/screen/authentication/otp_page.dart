@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/profile_page.dart';
 import 'package:money_manage_app2/Pages/widget/button.dart';
 import 'package:pinput/pinput.dart';
 
@@ -41,7 +42,7 @@ class OTPPage extends StatelessWidget {
           CustomButton(
             buttonText: "Verify",
             onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const OTPPage())),
+                context, MaterialPageRoute(builder: (context) => const ProfilePage())),
           ),
           Spacer()
         ],

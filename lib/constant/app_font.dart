@@ -11,4 +11,11 @@ class AppFont {
 
   static TextStyle buttonText = const TextStyle(
       fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.white);
+
+  static TextStyle head = const TextStyle(
+    fontWeight: FontWeight.w900,
+    fontSize: 35,
+    color: AppColors.white,
+  );
+
 }

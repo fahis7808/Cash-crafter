@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.black,
       onTap: onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
