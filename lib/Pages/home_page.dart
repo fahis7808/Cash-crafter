@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
-import 'package:money_manage_app2/Widgets/incomeandexpance_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:money_manage_app2/Model/db_model.dart';
 import 'package:money_manage_app2/Widgets/snackbar_info.dart';
 import 'package:money_manage_app2/Widgets/transaction_model.dart';
+import 'package:money_manage_app2/constant/app_colors.dart';
+import 'package:money_manage_app2/constant/app_font.dart';
 
 import '../Widgets/show_confirm_dialog.dart';
+import 'widget/custom_widget/custom_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,8 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   late Box box;
   DbHelper dbHelper = DbHelper();
   Map? data;
@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
   int totalExpense = 0;
   List<FlSpot> dataSet = [];
   DateTime today = DateTime.now();
-
 
   List<String> months = [
     "Jan",
@@ -60,10 +59,9 @@ class _HomePageState extends State<HomePage> {
       box.toMap().values.forEach((element) {
         items.add(
           TransactionModel(
-            element['amount']
-            ,
+            element['amount'],
             element['note'],
-            element['date'] ,
+            element['date'],
             element['type'],
           ),
         );
@@ -113,305 +111,185 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF05376C),
-        toolbarHeight: 0.0,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(CupertinoPageRoute(
-            builder: (context) => const TransactionPage(),
-          ),
-          )
-            .then((value) {
-                setState(() {});
-                 });
-              },
-
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            16.0,
-          ),
-        ),
-        backgroundColor: const Color(0xFF05376C),
-        child: const Icon(
-          Icons.add_outlined,
-          size: 32.0,
-        ),
-      ),
-      body: FutureBuilder<List<TransactionModel>>(
-        future: fetch(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text(
-                "Oopssss !!! There is some error !",
-                style: TextStyle(
-                  fontSize: 24.0,
-                ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(
+              MaterialPageRoute(
+                builder: (context) => const TransactionPage(),
               ),
-            );
-          }
-          if (snapshot.hasData) {
-            if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(
-                  "You haven't added Any Data !",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                  ),
-                ),
-              );
-            }
-            getTotalBalance(snapshot.data!);
-            getPlotPoints(snapshot.data!);
-
-            return ListView(
+            )
+                .then((value) {
+              setState(() {});
+            });
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              10.0,
+            ),
+          ),
+          backgroundColor: const Color(0xFF05376C),
+          child: const Icon(
+            Icons.add_outlined,
+            size: 32.0,
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.all(
+                12.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(
-                      12.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        SizedBox(
-                          width: 200.0,
-                          child: Text(
-                            "Welcome ! ",
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF05376C),
-                            ),
-                            maxLines: 1,
-                          ),
-                        )
-                      ],
-                    ),
+                  Text(
+                    "Fahis ",
+                    style: AppFont.buttonText,
+                    maxLines: 1,
                   ),
-
-
-                  Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.9,
-                    margin: const EdgeInsets.all(
-                      12.0,
-                    ),
-                    child: Ink(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF05376C),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            24.0,
-                          ),
-                        ),
-                      ),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              24.0,
-                            ),
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 18.0,
-                          horizontal: 8.0,
-                        ),
+                  const CircleAvatar(
+                    backgroundColor: AppColors.secondaryColor,
+                    child: Icon(Icons.account_circle_outlined,color: Colors.white,size: 30),
+                  )
+                ],
+              ),
+            ),
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 3,
+                      child: CustomCard(
+                        color1: const Color(0x24EAEAEA),
+                        color2: const Color(0x800A015D),
+                        padding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Total Balance',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            Text(
-                              'Rs $totalBalance',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 36.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  IncomeExpanceCard(value:  totalIncome.toString(),
-                                    text: "Income",
-                                    iconData: Icons.arrow_downward,
-                                    iconcColor: Colors.green,),
-                                  IncomeExpanceCard(value: totalExpense.toString(),
-                                    text: "Expance",
-                                    iconData: Icons.arrow_upward,
-                                    iconcColor: Colors.red,),
-                                ],
-                              ),
-                            ),
+                            Text('Balance', style: AppFont.cardTitle),
+                            const Spacer(),
+                            Text('\u{20B9} 79564', style: AppFont.cardMainText),
+                            const SizedBox(height: 10,),
+                            const Row(
+                              children: [
+                                SizedBox(width: 10,),
+                                Text("\u{20B9} 945.00",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF007505))),
+                              ],
+                            )
                           ],
                         ),
-                      ),
-                    ),
+                      )),
+                  const SizedBox(
+                    width: 10,
                   ),
-
-                  dataSet.isEmpty || dataSet.length < 2
-                      ? Container(
-                           padding: const EdgeInsets.symmetric(
-                           vertical: 40.0,
-                            horizontal: 20.0,
-                           ),
-                          margin: const EdgeInsets.all(
-                          12.0,
-                         ),
-                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                            8.0,
-                         ),
-                            color: Colors.white,
-                            boxShadow: [
-                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                   spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset:
-                                   const Offset(0, 3), // changes position of shadow
-                               ),
-                            ],
-                           ),
-                          child: const Text(
-                               "Not Enough Data to render Chart",
-                                 style: TextStyle(
-                                 fontSize: 20.0,
-                                 ),
-                          ),
-                       )
-
-
-                      : Container(
-                          height: 400.0,
-                          padding: const EdgeInsets.symmetric(
-                             vertical: 40.0,
-                             horizontal: 12.0,
-                          ),
-                           margin: const EdgeInsets.all(
-                                12.0,
-                          ),
-                            decoration: BoxDecoration(
-                               color: Colors.white,
-                               borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                   topRight: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                  bottomRight: Radius.circular(8),
-                               ),
-                                 boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.grey.withOpacity(0.5),
-                                       spreadRadius: 5,
-                                       blurRadius: 7,
-                                       offset:
-                                       const Offset(0, 3), // changes position of shadow
-                                     ),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        CustomCard(
+                          color1: const Color(0x24EAEAEA),
+                          // color2: Color(0x80004212),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              // Center content vertically
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Income",
+                                      style: AppFont.cardTitle,
+                                    ),
+                                    Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: const Icon(
+                                        Icons.arrow_outward,
+                                        // Use the appropriate icon
+                                        color: Colors.white, // Icon color
+                                        size: 20, // Icon size
+                                      ),
+                                    )
                                   ],
-                               ),
-                            child: LineChart(
-                                LineChartData(
-                                    borderData: FlBorderData(
-                                        show: false,
-                                     ),
-                                    lineBarsData: [
-                                         LineChartBarData(
-                                             spots: getPlotPoints(snapshot.data!),
-                                             isCurved: false,
-                                              barWidth: 2.5,
-                                              color: const Color(0xFF05376C),
-                                              showingIndicators: [200, 200, 90, 10],
-                                              dotData: FlDotData(
-                                                     show: true,
-                                                 ),
-                                          ),
-                                        ],
-                                   ),
-                           ),
-                      ),
-
-                   const Padding(
-                      padding: EdgeInsets.all(12.0),
-                     child: Text(
-                      "Recent Transactions",
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w900,
-                      ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '\u{20B9} 6253',
+                                  textAlign: TextAlign.center,
+                                  style: AppFont.subCardMainText,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        CustomCard(
+                          color1: const Color(0x24EAEAEA),
+                          // color2: Color(0x79490000),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              // Center content vertically
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Expense",
+                                      style: AppFont.cardTitle,
+                                    ),
+                                    Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: const Icon(
+                                        Icons.arrow_outward,
+                                        // Use the appropriate icon
+                                        color: Colors.white, // Icon color
+                                        size: 20, // Icon size
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                Text(
+                                  '\u{20B9} 6253',
+                                  textAlign: TextAlign.center,
+                                  style: AppFont.subCardMainText,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data!.length + 1,
-                    itemBuilder: (context, index) {
-                      TransactionModel dataAtIndex;
-                      try {
-                        dataAtIndex = snapshot.data![index];
-                      } catch (e) {
-                        return Container();
-                      }
-
-                      if (dataAtIndex.date.month == today.month) {
-                        if (dataAtIndex.type == "Income") {
-                          return incomeTile(
-                            dataAtIndex.amount,
-                            dataAtIndex.note,
-                            dataAtIndex.date,
-                            index,
-                          );
-                        } else {
-                          return expenseTile(
-                            dataAtIndex.amount,
-                            dataAtIndex.note,
-                            dataAtIndex.date,
-                            index,
-                          );
-                        }
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-
-                ]
-            );
-          } else {
-            return const Text(
-              "Loading...",
-            );
-          }
-        },
-      ),
-    );
+                  )
+                ],
+              ),
+            ),
+          ]),
+        ));
   }
-
 
   Widget expenseTile(int value, String note, DateTime date, int index) {
     return InkWell(

@@ -30,13 +30,13 @@ class IncomeExpanceCard extends StatelessWidget {
           padding:const EdgeInsets.all(
             6.0,
           ),
+          margin:const EdgeInsets.only(
+            right: 8.0,
+          ),
           child: Icon(
             iconData,
             size: 28.0,
             color: iconcColor,
-          ),
-          margin:const EdgeInsets.only(
-            right: 8.0,
           ),
         ),
         Column(

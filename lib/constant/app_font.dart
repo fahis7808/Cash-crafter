@@ -18,4 +18,19 @@ class AppFont {
     color: AppColors.white,
   );
 
+  static TextStyle cardTitle = const TextStyle(
+    fontSize: 15.0,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+  static TextStyle cardMainText = const TextStyle(
+    fontSize: 40.0,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+  static TextStyle subCardMainText = const TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
 }

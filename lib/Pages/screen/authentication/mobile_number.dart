@@ -16,15 +16,15 @@ class MobileNumberPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Spacer(),
-            Spacer(),
+            const Spacer(),
+            const Spacer(),
             Text(
               "Get Started on Your  Financial Journey",
               textAlign: TextAlign.center,
               style: AppFont.head,
             ),
 
-            Spacer(),
+            const Spacer(),
             const Row(
               children: [
                 SizedBox(
@@ -42,14 +42,14 @@ class MobileNumberPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             CustomButton(
               buttonText: "Verify",
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const OTPPage())),
             ),
-            Spacer(),
-            Spacer(),
+            const Spacer(),
+            const Spacer(),
           ],
         ),
       ),
