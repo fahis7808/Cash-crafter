@@ -19,8 +19,8 @@ class AppFont {
   );
 
   static TextStyle cardTitle = const TextStyle(
-    fontSize: 15.0,
-    fontWeight: FontWeight.w500,
+    fontSize: 16.0,
+    fontWeight: FontWeight.w600,
     color: Colors.white,
   );
   static TextStyle subCardMainText = const TextStyle(

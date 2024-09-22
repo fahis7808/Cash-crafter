@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
+import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/widget/pie_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
-import 'widget/custom_widget/custom_card.dart';
+import '../../widget/custom_widget/custom_card.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                 IntrinsicHeight(
+                IntrinsicHeight(
                   child: Row(
                     children: [
                       Expanded(
@@ -98,18 +99,25 @@ class HomePage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Budget",style: AppFont.buttonText,),
-
+                                  Text(
+                                    "Budget",
+                                    style: AppFont.buttonText,
+                                  ),
                                   const SizedBox(
                                     height: 200,
                                     child: PieChartSample2(),
                                   ),
-                                  Text("\u{20B9} 1200 spent of 15000",style: AppFont.cardSubTitle,)
+                                  Text(
+                                    "\u{20B9} 1200 spent of 15000",
+                                    style: AppFont.cardSubTitle,
+                                  )
                                 ],
                               ),
                             )),
                       ),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       const Expanded(
                         flex: 2,
                         child: Column(
@@ -125,64 +133,20 @@ class HomePage extends StatelessWidget {
                               child: CustomCard(
                                 color1: AppColors.containerColor,
                                 child: IncomeExpenseCard(
-                                    angle: 3.5, head: "Expense", amount: 23423),
+                                    angle: 3.1, head: "Expense", amount: 23423),
                               ),
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+               GoalPart()
               ]),
         ));
   }
 }
-/* Expanded(
-                    flex: 3,
-                    child: CustomCard(
-                      color1: AppColors.containerColor,
-                      color2: const Color(0x800A015D),
-                      padding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Balance', style: AppFont.cardTitle),
-                          const Spacer(),
-                          Text('\u{20B9} 79564', style: AppFont.cardMainText),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Row(
-                            children: [
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("\u{20B9} 945.00",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF007505))),
-                            ],
-                          )
-                        ],
-                      ),
-                    ))*/
-/* const Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      CustomCard(
-                          color1: AppColors.containerColor,
-                          child: IncomeExpenseCard(
-                              head: "Income", amount: 23423)),
-                      SizedBox(height: 10),
-                      CustomCard(
-                        color1: AppColors.containerColor,
-                        child: IncomeExpenseCard(
-                            angle: 3.5, head: "Expense", amount: 23423),
-                      ),
-                    ],
-                  ),
-                )*/

@@ -38,7 +38,7 @@ class PieChart2State extends State {
         centerSpaceRadius: 60,
         sections: [
           PieChartSectionData(
-            color: Color(0xFF1E8EEE),
+            color: AppColors.secondaryColor,
             value: 50,
             title: '40%',
             showTitle: false,
@@ -46,7 +46,7 @@ class PieChart2State extends State {
 
           ),
           PieChartSectionData(
-            color: AppColors.primaryColor,
+            color: AppColors.barBackground,
             value: 50,
             title: '40%',
             showTitle: false,
