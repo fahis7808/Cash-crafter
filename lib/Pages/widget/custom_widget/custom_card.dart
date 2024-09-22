@@ -19,14 +19,10 @@ class CustomCard extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
           gradient: color1 != null && color2 != null
-              ? LinearGradient(
-                  colors: [
-                    color1 ?? const Color(0x24EAEAEA),
-                    color2 ?? const Color(0x800A015D)
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment(1.0, 1.0)
-                )
+              ? LinearGradient(colors: [
+                  color1 ?? const Color(0x24EAEAEA),
+                  color2 ?? const Color(0x800A015D)
+                ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
               : null,
           color: color2 == null ? color1 : null,
           borderRadius: const BorderRadius.all(
@@ -41,11 +37,14 @@ class CustomCard extends StatelessWidget {
   }
 }
 
-
-class CardInnerChild extends StatelessWidget {
+class IncomeExpenseCard extends StatelessWidget {
   final String head;
   final double amount;
-  const CardInnerChild({Key? key, required this.head, required this.amount}) : super(key: key);
+  final double? angle;
+
+  const IncomeExpenseCard(
+      {Key? key, required this.head, required this.amount, this.angle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,24 +63,39 @@ class CardInnerChild extends StatelessWidget {
             Container(
               width: 35,
               height: 35,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(8))
-              ),
-              child: Icon(
-                Icons.arrow_outward,
-                color: Colors.white,
-                size: 20,
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              child: Transform.rotate(
+                angle: angle ?? 0,
+                child: const Icon(
+                  Icons.arrow_outward,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
             )
           ],
         ),
-        const SizedBox(height: 5),
+        const Spacer(),
         Text(
           '\u{20B9} $amount',
           textAlign: TextAlign.center,
-          style: AppFont.subCardMainText,
+          style: AppFont.buttonText,
         ),
+        const Row(
+          children: [
+            Icon(
+              Icons.arrow_upward,
+              color: AppColors.positiveColor,
+              size: 22,
+            ),
+            Text(
+              "10%",
+              style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18,color: AppColors.positiveColor),
+            ),
+          ],
+        )
       ],
     );
   }
