@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
+import 'package:money_manage_app2/Pages/screen/home_screen/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
-import 'package:money_manage_app2/Pages/widget/pie_chart.dart';
+import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
@@ -66,21 +67,32 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 15, bottom: 10),
-                  child: Text(
-                    "Total Balance",
-                    style: AppFont.cardSubTitle,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "\u{20B9} 79,564",
-                    style: TextStyle(
-                        fontSize: 35,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AccountPage()));
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 15, bottom: 10),
+                        child: Text(
+                          "Total Balance",
+                          style: AppFont.cardSubTitle,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          "\u{20B9} 79,564",
+                          style: TextStyle(
+                              fontSize: 35,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -142,10 +154,10 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-               GoalPart()
+                const GoalPart(),
               ]),
         ));
   }
