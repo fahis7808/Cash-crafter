@@ -52,7 +52,9 @@ class AccountPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Row(
                 children: [
                   AccountCard(
@@ -68,7 +70,14 @@ class AccountPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 250,child: LineChartSample2(),)
+              const SizedBox(
+                height: 250,
+                child: LineChartSample2(),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemBuilder: ((context, index) => const TransactionCard())),
+              )
             ],
           ),
         ),
@@ -80,27 +89,78 @@ class AccountPage extends StatelessWidget {
 class AccountCard extends StatelessWidget {
   final String accName;
   final double amount;
-  const AccountCard({Key? key, required this.accName, required this.amount}) : super(key: key);
+
+  const AccountCard({Key? key, required this.accName, required this.amount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: CustomCard(
-          color1: AppColors.containerColor,
           child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            accName,
+            style: AppFont.cardSubTitle,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(
+              "\u{20B9} $amount",
+              style: AppFont.buttonText,
+            ),
+          )
+        ],
+      )),
+    );
+  }
+}
+
+class TransactionCard extends StatelessWidget {
+  const TransactionCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: CustomCard(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                accName,
-                style: AppFont.cardSubTitle,
+                "Monthly Salary",
+                style: AppFont.textFieldLabel,
               ),
-              const SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text("\u{20B9} $amount",style: AppFont.buttonText,),
+              Text(
+                "Wallet",
+                style: AppFont.cardSubTitle,
               )
             ],
-          )),
+          ),
+          Column(
+            children: [
+              const Text(
+                "\u{20B9} 25,000",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: AppColors.positiveColor,
+                    fontWeight: FontWeight.w800),
+              ),
+              Text(
+                "24 Sep 24",
+                style: AppFont.cardSubTitle,
+              )
+            ],
+          )
+        ],
+      )),
     );
   }
 }

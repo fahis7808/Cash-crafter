@@ -12,11 +12,8 @@ class LineChartSample2 extends StatefulWidget {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-    // Color(0xFF05169F),
     AppColors.secondaryColor,
-    // Color(0xFF05169F),
     Color(0xBD4857C0),
-    // AppColors.primaryColor,
   ];
 
   @override
@@ -71,6 +68,26 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   LineChartData mainData() {
     return LineChartData(
+      lineTouchData: LineTouchData(
+        enabled: true,
+        touchTooltipData: LineTouchTooltipData(
+          getTooltipColor: (touchedSpot) {
+            return AppColors.secondaryColor;
+          },
+          getTooltipItems: (List<LineBarSpot> touchedSpots) {
+            return touchedSpots.map((spot) {
+              return LineTooltipItem(
+                '\u{20B9} ${spot.y} K', // Customize the displayed text
+                const TextStyle(
+                  color: Color(0xFF8C95A6), // Text color
+                  fontWeight: FontWeight.bold, // Text weight
+                  fontSize: 16, // Font size
+                ),
+              );
+            }).toList();
+          },
+        ),
+      ),
       gridData: const FlGridData(
         show: false,
         drawVerticalLine: false,
@@ -119,9 +136,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             FlSpot(9, 3),
             FlSpot(10, 3.5),
             FlSpot(11, 2),
-            // FlSpot(12, 6),
           ],
-
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -138,6 +153,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 AppColors.barBackground,
                 AppColors.primaryColor,
               ],
+              tileMode: TileMode.clamp,
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),

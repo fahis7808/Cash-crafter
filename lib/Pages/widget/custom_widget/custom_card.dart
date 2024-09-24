@@ -24,7 +24,7 @@ class CustomCard extends StatelessWidget {
                   color2 ?? const Color(0x800A015D)
                 ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
               : null,
-          color: color2 == null ? color1 : null,
+          color: color2 == null ? color1 ?? AppColors.containerColor : null,
           borderRadius: const BorderRadius.all(
             Radius.circular(
               10,
@@ -92,7 +92,10 @@ class IncomeExpenseCard extends StatelessWidget {
             ),
             Text(
               "10%",
-              style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18,color: AppColors.positiveColor),
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                  color: AppColors.positiveColor),
             ),
           ],
         )
