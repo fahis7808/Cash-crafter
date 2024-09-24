@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/single_acc_page.dart';
+import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -14,36 +16,22 @@ class AccountPage extends StatelessWidget {
     {"accName": "Savings", "amount": 10000},
     {"accName": "Business", "amount": 4500},
   ];
-   AccountPage({Key? key}) : super(key: key);
+
+  AccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              CupertinoIcons.back,
-              color: AppColors.white,
-            )),
-        backgroundColor: AppColors.primaryColor,
-        title: Text(
-          "Balance",
-          style: AppFont.appBarHead,
-        ),
-      ),
+      appBar: const CustomAppBar(title: "Balance"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           const MainBalance(
-             amount: 23523,
-             text: "Main",
-           ),
+            const MainBalance(
+              amount: 23523,
+              text: "Main",
+            ),
             const SizedBox(
               height: 25,
             ),
@@ -58,13 +46,26 @@ class AccountPage extends StatelessWidget {
                         spacing: 8,
                         runSpacing: 8, // Vertical space between rows of cards
                         children: accountData
-                            .map((data) => SizedBox(
-                          width: MediaQuery.of(context).size.width / 2 - 15, // Each card takes half of the width minus spacing
-                          child: AccountCard(
-                            accName: data['accName'],
-                            amount: 1234,
-                          ),
-                        ))
+                            .map((data) => InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SingleAccountPage(
+                                                    title: data['accName'])));
+                                  },
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            15,
+                                    // Each card takes half of the width minus spacing
+                                    child: AccountCard(
+                                      accName: data['accName'],
+                                      amount: 1234,
+                                    ),
+                                  ),
+                                ))
                             .toList(),
                       ),
                       const SizedBox(

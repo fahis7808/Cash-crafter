@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
+import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../widget/custom_widget/custom_card.dart';
 
@@ -68,33 +68,13 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 15,),
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => AccountPage()));
                   },
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 15, bottom: 10),
-                        child: Text(
-                          "Total Balance",
-                          style: AppFont.cardSubTitle,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Text(
-                          FormattedText.formattedAmount(34234),
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: const MainBalance(amount: 65955,text: "Total",)
                 ),
                 const SizedBox(
                   height: 40,
