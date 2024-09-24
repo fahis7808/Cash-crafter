@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
@@ -17,23 +18,10 @@ class AccountPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 20, bottom: 10),
-                child: Text(
-                  "Total Balance",
-                  style: AppFont.cardSubTitle,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  "\u{20B9} 79,564",
-                  style: TextStyle(
-                      fontSize: 35,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800),
-                ),
-              ),
+             const MainBalance(
+               amount: 23523,
+               text: "Main",
+             ),
               const SizedBox(
                 height: 25,
               ),
