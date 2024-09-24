@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/authentication/otp_page.dart';
+import 'package:money_manage_app2/Pages/widget/button.dart';
+import 'package:money_manage_app2/Pages/widget/custom_text_field.dart';
+import 'package:money_manage_app2/constant/app_colors.dart';
+import 'package:money_manage_app2/constant/app_font.dart';
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            const Spacer(),
+            Text(
+              "Welcome back!",
+              textAlign: TextAlign.center,
+              style: AppFont.head,
+            ),
+            const Spacer(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  CustomTextField(value: "", text: "Email"),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(value: "", text: "Password"),
+                ],
+              ),
+            ),
+           Spacer(),
+            CustomButton(
+              buttonText: "Log in",
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const OTPPage())),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Row(
+              children: [
+                GoogleFBCard(name: "Google"),
+                SizedBox(
+                  width: 10,
+                ),
+                GoogleFBCard(name: "Facebook")
+              ],
+            ),
+            const Spacer(),
+            RichText(
+              text: TextSpan(text: "Don't have an account? ",style: AppFont.cardTitle, children: [
+                TextSpan(
+                    text: " Register Now",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.secondaryColor))
+              ]),
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GoogleFBCard extends StatelessWidget {
+  final String name;
+
+  const GoogleFBCard({Key? key, required this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.cardColor, width: 2)),
+          child: Center(
+              child: Text(
+            name,
+            style: const TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
+          ))),
+    );
+  }
+}

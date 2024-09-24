@@ -97,7 +97,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintStyle: TextStyle(fontSize: 13),
               label: Text(widget.labelText ?? ""),
               labelStyle: TextStyle(fontSize: 12),
-              fillColor: AppColors.cardColor,
+              fillColor: AppColors.containerColor,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.red),

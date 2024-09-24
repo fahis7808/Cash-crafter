@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
-import 'Pages/screen/authentication/mobile_number.dart';
+import 'Pages/screen/authentication/login_page.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.teal,
           scaffoldBackgroundColor: AppColors.primaryColor),
-      home: const MobileNumberPage(),
+      home: const LoginPage(),
     );
   }
 }
