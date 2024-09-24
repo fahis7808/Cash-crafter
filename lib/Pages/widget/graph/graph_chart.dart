@@ -21,7 +21,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 2  ,
           child: Padding(
             padding: const EdgeInsets.only(right: 5),
             child: LineChart(
@@ -102,7 +102,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: true,
+            showTitles: false,
             reservedSize: 30,
             interval: 1,
             getTitlesWidget: bottomTitleWidgets,
