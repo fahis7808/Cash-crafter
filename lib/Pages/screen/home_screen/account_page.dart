@@ -37,46 +37,66 @@ class AccountPage extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              const Row(
-                children: [
-                  AccountCard(
-                    accName: "Wallet",
-                    amount: 2342,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  AccountCard(
-                    accName: "Federal",
-                    amount: 23433,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Row(
-                children: [
-                  AccountCard(
-                    accName: "Wallet",
-                    amount: 2342,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  AccountCard(
-                    accName: "Federal",
-                    amount: 23433,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 250,
-                child: LineChartSample2(),
-              ),
               Expanded(
-                child: ListView.builder(
-                    itemBuilder: ((context, index) => const TransactionCard())),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(
+                          children: [
+                            AccountCard(
+                              accName: "Wallet",
+                              amount: 2342,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            AccountCard(
+                              accName: "Federal",
+                              amount: 23433,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Row(
+                          children: [
+                            AccountCard(
+                              accName: "Wallet",
+                              amount: 2342,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            AccountCard(
+                              accName: "Federal",
+                              amount: 23433,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 210,
+                          child: LineChartSample2(),
+                        ),
+                        Text(
+                          "Transaction History",
+                          style: AppFont.buttonText,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemBuilder: ((context, index) =>
+                                  const TransactionCard())),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               )
             ],
           ),
