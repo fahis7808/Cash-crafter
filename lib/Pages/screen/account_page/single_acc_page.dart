@@ -6,6 +6,8 @@ import 'package:money_manage_app2/Pages/widget/graph/graph_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
+import 'account_page.dart';
+
 class SingleAccountPage extends StatelessWidget {
   const SingleAccountPage({Key? key}) : super(key: key);
 
@@ -27,64 +29,61 @@ class SingleAccountPage extends StatelessWidget {
           style: AppFont.subCardMainText,
         ),
       ),
-      body: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MainBalance(amount: 1243),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: SizedBox(
-              height: 120,
-              child: Row(
-                children: [
-                  Expanded(child: IncomeExpenseCard(amount: 1239)),
-                  SizedBox(width: 10,),
-                  Expanded(child: IncomeExpenseCard(income:false,amount: 1239))
-                ],
-              ),
-            ),
-          ),
-          LineChartSample2(),
-
-        ],
-      ),
-    );
-  }
-}
-
-class CustomATMCard extends StatelessWidget {
-  const CustomATMCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomCard(
-        child: Row(
-      children: [
-        Column(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Wallet",
-              style: AppFont.cardSubTitle,
-            ),
+            const MainBalance(amount: 1243),
             const SizedBox(
-              height: 70,
+              height: 10,
             ),
-            const Text(
-              "**** **** **** 3265",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w800),
+            Expanded(
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: 960,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 120,
+                        child: Row(
+                          children: [
+                            Expanded(child: IncomeExpenseCard(amount: 1239)),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                                child: IncomeExpenseCard(
+                                    income: false, amount: 1239))
+                          ],
+                        ),
+                      ),
+                      const LineChartSample2(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Transaction History",
+                        style: AppFont.buttonText,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 10,
+                            itemBuilder: ((context, index) =>
+                                const TransactionCard())),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(height: 15,),
-            Text("09/24",style: AppFont.cardSubTitle,)
           ],
         ),
-      ],
-    ));
+      ),
+    );
   }
 }

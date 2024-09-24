@@ -13,7 +13,7 @@ import 'package:money_manage_app2/util/formated_text.dart';
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, top: 20, bottom: 10),
+            padding: const EdgeInsets.only(left: 10, top: 0, bottom: 10),
             child: Text(
               "${text ?? ""}Balance",
               style: AppFont.cardSubTitle,

@@ -33,4 +33,9 @@ class AppFont {
     fontWeight: FontWeight.w600,
     color: Color(0xFF8C95A6),
   );
+  static TextStyle appBarHead = const TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.w600,
+    color: Color(0xFF8C95A6),
+  );
 }
