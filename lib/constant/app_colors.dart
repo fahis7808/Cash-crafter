@@ -8,5 +8,6 @@ class AppColors{
   static const cardColor = Color(0x458C8C8C);
   static const containerColor = Color(0x10C6C6C9);
   static const positiveColor = Color(0xFF017E25);
+  static const negativeColor = Color(0xFFA80000);
   static const barBackground = Color(0x320B3ECC);
 }

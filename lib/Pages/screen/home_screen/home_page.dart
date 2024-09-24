@@ -5,6 +5,7 @@ import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
+import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../widget/custom_widget/custom_card.dart';
 
@@ -82,10 +83,10 @@ class HomePage extends StatelessWidget {
                           style: AppFont.cardSubTitle,
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Text(
-                          "\u{20B9} 79,564",
+                          FormattedText.formattedAmount(34234),
                           style: TextStyle(
                               fontSize: 35,
                               color: Colors.white,
@@ -135,18 +136,12 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           children: [
                             Expanded(
-                              child: CustomCard(
-                                  color1: AppColors.containerColor,
-                                  child: IncomeExpenseCard(
-                                      head: "Income", amount: 23423)),
+                              child: IncomeExpenseCard(amount: 23423),
                             ),
                             SizedBox(height: 10),
                             Expanded(
-                              child: CustomCard(
-                                color1: AppColors.containerColor,
-                                child: IncomeExpenseCard(
-                                    angle: 3.1, head: "Expense", amount: 23423),
-                              ),
+                              child: IncomeExpenseCard(
+                                  income: false, amount: 23423),
                             ),
                           ],
                         ),

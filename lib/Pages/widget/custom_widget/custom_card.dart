@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
@@ -38,68 +38,68 @@ class CustomCard extends StatelessWidget {
 }
 
 class IncomeExpenseCard extends StatelessWidget {
-  final String head;
+  final bool income;
   final double amount;
-  final double? angle;
 
-  const IncomeExpenseCard(
-      {Key? key, required this.head, required this.amount, this.angle})
+  const IncomeExpenseCard({Key? key, required this.amount, this.income = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      // Center content vertically
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              head,
-              style: AppFont.cardTitle,
-            ),
-            Container(
-              width: 35,
-              height: 35,
-              decoration: const BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: Transform.rotate(
-                angle: angle ?? 0,
-                child: const Icon(
-                  Icons.arrow_outward,
-                  color: Colors.white,
-                  size: 20,
+    return CustomCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        // Center content vertically
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                    color: income
+                        ? AppColors.positiveColor
+                        : AppColors.negativeColor,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: Transform.rotate(
+                  angle: income ? 1.6 : 0,
+                  child: const Icon(
+                    Icons.arrow_outward,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-        const Spacer(),
-        Text(
-          '\u{20B9} $amount',
-          textAlign: TextAlign.center,
-          style: AppFont.buttonText,
-        ),
-        const Row(
-          children: [
-            Icon(
-              Icons.arrow_upward,
-              color: AppColors.positiveColor,
-              size: 22,
-            ),
-            Text(
-              "10%",
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
-                  color: AppColors.positiveColor),
-            ),
-          ],
-        )
-      ],
+              const Row(
+                children: [
+                  Text(
+                    "+10%",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                        color: AppColors.positiveColor),
+                  ),
+                ],
+              )
+            ],
+          ),
+          const Spacer(),
+          Text(
+            income ? "Income" : "Spending",
+            style: AppFont.cardTitle,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            FormattedText.formattedAmount(amount),
+            textAlign: TextAlign.center,
+            style: AppFont.buttonText,
+          ),
+        ],
+      ),
     );
   }
 }

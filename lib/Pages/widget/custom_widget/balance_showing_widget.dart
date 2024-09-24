@@ -1,5 +1,5 @@
   import 'package:flutter/material.dart';
-  import 'package:intl/intl.dart';
+import 'package:money_manage_app2/util/formated_text.dart';
   import '../../../constant/app_font.dart';
 
   class MainBalance extends StatelessWidget {
@@ -9,8 +9,8 @@
 
     @override
     Widget build(BuildContext context) {
-      final formattedAmount = NumberFormat('#,##0').format(amount);
       return  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 20, bottom: 10),
@@ -22,7 +22,7 @@
            Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Text(
-              "\u{20B9} $formattedAmount",
+              FormattedText.formattedAmount(amount),
               style: const TextStyle(
                   fontSize: 35,
                   color: Colors.white,
