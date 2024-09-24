@@ -12,10 +12,10 @@ class LineChartSample2 extends StatefulWidget {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-   // Color(0xFF05169F),
-   //  AppColors.primaryColor,
-   Color(0xFF05169F),
-   Color(0xBD4857C0),
+    // Color(0xFF05169F),
+    AppColors.secondaryColor,
+    // Color(0xFF05169F),
+    Color(0xBD4857C0),
     // AppColors.primaryColor,
   ];
 
@@ -25,8 +25,11 @@ class _LineChartSample2State extends State<LineChartSample2> {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.70,
-          child: LineChart(
-          mainData(),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: LineChart(
+              mainData(),
+            ),
           ),
         ),
       ],
@@ -38,25 +41,25 @@ class _LineChartSample2State extends State<LineChartSample2> {
     Widget text;
     switch (value.toInt()) {
       case 1:
-        text =  Text('JAN', style: style);
+        text = Text('FEB', style: style);
         break;
       case 3:
-        text =  Text('MAR', style: style);
+        text = Text('APR', style: style);
         break;
       case 5:
-        text =  Text('MAY', style: style);
+        text = Text('JUN', style: style);
         break;
       case 7:
-        text =  Text('JULY', style: style);
+        text = Text('AUG', style: style);
         break;
       case 9:
-        text =  Text('SEP', style: style);
+        text = Text('OCT', style: style);
         break;
       case 11:
-        text =  Text('NOV', style: style);
+        text = Text('DEC', style: style);
         break;
       default:
-        text =  Text('', style: style);
+        text = Text('', style: style);
         break;
     }
 
@@ -71,8 +74,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
       gridData: const FlGridData(
         show: false,
         drawVerticalLine: false,
-        horizontalInterval: 1,
-        verticalInterval: 1,
       ),
       titlesData: FlTitlesData(
         show: true,
@@ -100,21 +101,27 @@ class _LineChartSample2State extends State<LineChartSample2> {
         show: false,
       ),
       minX: 0,
-      maxX: 12,
+      maxX: 11,
       minY: 0,
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
           spots: const [
             FlSpot(0, 5),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 8),
-            FlSpot(6.8, 2),
+            FlSpot(1, 3),
+            FlSpot(2, 2),
+            FlSpot(3, 3),
+            FlSpot(4, 4),
+            FlSpot(5, 8),
+            FlSpot(6, 2),
+            FlSpot(7, 1),
             FlSpot(8, 4.2),
-            FlSpot(9.5, 3),
+            FlSpot(9, 3),
+            FlSpot(10, 3.5),
             FlSpot(11, 2),
-            FlSpot(12, 6),
+            // FlSpot(12, 6),
           ],
+
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -126,16 +133,17 @@ class _LineChartSample2State extends State<LineChartSample2> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 AppColors.barBackground,
                 AppColors.primaryColor,
-              ]
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
         ),
       ],
     );
   }
-
 }
