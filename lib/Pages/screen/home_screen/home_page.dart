@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
-import 'package:money_manage_app2/Pages/screen/home_screen/account_page.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
