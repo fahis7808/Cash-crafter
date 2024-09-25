@@ -14,7 +14,7 @@ class AppFont {
 
   static TextStyle head = const TextStyle(
     fontWeight: FontWeight.w900,
-    fontSize: 35,
+    fontSize: 30,
     color: AppColors.white,
   );
 
