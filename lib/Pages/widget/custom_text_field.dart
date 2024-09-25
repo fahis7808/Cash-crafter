@@ -94,9 +94,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           onEditingComplete: widget.onEditingComplete,
           decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: TextStyle(fontSize: 13),
+              hintStyle: AppFont.cardSubTitle,
               label: Text(widget.labelText ?? ""),
-              labelStyle: TextStyle(fontSize: 12),
+              labelStyle: AppFont.textFieldLabelText,
               fillColor: AppColors.containerColor,
               filled: true,
               border: OutlineInputBorder(

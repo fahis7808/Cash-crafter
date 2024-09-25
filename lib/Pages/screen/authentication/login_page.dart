@@ -29,11 +29,11 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                CustomTextField(value: "", text: "Email"),
+                CustomTextField(value: "", labelText: "Email"),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                CustomTextField(value: "", text: "Password"),
+                CustomTextField(value: "", labelText: "Password"),
               ],
             ),
           ),

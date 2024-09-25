@@ -29,14 +29,14 @@ class RegistrationPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                  CustomTextField(value: "", text: "Name"),
+                  CustomTextField(value: "", labelText: "Name"),
                   SizedBox(
                     height: 10,
-                  ),CustomTextField(value: "", text: "Email"),
+                  ),CustomTextField(value: "", labelText: "Email"),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(value: "", text: "Password"),
+                  CustomTextField(value: "", labelText: "Password"),
                 ],
               ),
             ),

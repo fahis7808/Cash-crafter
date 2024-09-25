@@ -7,7 +7,9 @@ class AppFont {
       fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w600);
 
   static TextStyle textFieldText = const TextStyle(
-      fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+      fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.white);
+static TextStyle textFieldLabelText = const TextStyle(
+      fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.textColor);
 
   static TextStyle buttonText = const TextStyle(
       fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.white);
@@ -31,11 +33,11 @@ class AppFont {
   static TextStyle cardSubTitle = const TextStyle(
     fontSize: 15.0,
     fontWeight: FontWeight.w600,
-    color: Color(0xFF8C95A6),
+    color: AppColors.textColor,
   );
   static TextStyle appBarHead = const TextStyle(
     fontSize: 20.0,
     fontWeight: FontWeight.w600,
-    color: Color(0xFF8C95A6),
+    color: AppColors.textColor,
   );
 }

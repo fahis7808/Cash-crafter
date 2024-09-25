@@ -7,6 +7,7 @@ class AppColors{
   static const tertiaryColor = Color(0xFF0019FF);
   static const white = Color(0xFFFFFFFF);
   static const cardColor = Color(0x458C8C8C);
+  static const textColor = Color(0xFF8C95A6);
   static const containerColor = Color(0x10C6C6C9);
   static const positiveColor = Color(0xFF017E25);
   static const negativeColor = Color(0xFFA80000);

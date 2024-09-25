@@ -16,28 +16,28 @@ class ProfilePage extends StatelessWidget {
           children: [
             const CustomTextField(
               value: "",
-              text: "Name",
+              labelText: "Name",
             ),
             const SizedBox(
               height: 20,
             ),
             const CustomTextField(
               value: "",
-              text: "Number",
+              labelText: "Number",
             ),
             const SizedBox(
               height: 20,
             ),
             const CustomTextField(
               value: "",
-              text: "E-mail",
+              labelText: "E-mail",
             ),
             const SizedBox(
               height: 20,
             ),
             const CustomTextField(
               value: "",
-              text: "Job",
+              labelText: "Job",
             ),
             const SizedBox(
               height: 40,
