@@ -45,8 +45,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.money_manage_app2"
-        minSdkVersion 21 // Replace 'flutter.minSdkVersion' with a concrete value
-        targetSdkVersion 34 // Replace 'flutter.targetSdkVersion' with a concrete value
+        minSdkVersion 23
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -56,13 +56,10 @@ android {
 
     buildTypes {
         release {
-            // Enable code shrinking
             minifyEnabled true
 
-            // Enable resource shrinking
             shrinkResources true
 
-            // Use ProGuard or R8 for code shrinking
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -76,5 +73,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:33.3.0')
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'androidx.multidex:multidex:2.0.1' // Add MultiDex dependency if needed
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
