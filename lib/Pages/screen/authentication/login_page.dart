@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/authentication/registration_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
-import 'package:money_manage_app2/Pages/widget/button.dart';
+import 'package:money_manage_app2/Pages/widget/button/button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
-import 'package:money_manage_app2/Pages/widget/button.dart';
+import 'package:money_manage_app2/Pages/widget/button/button.dart';
 import 'package:money_manage_app2/provider/authentication_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../constant/app_colors.dart';

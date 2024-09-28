@@ -4,7 +4,7 @@ import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
-import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
+import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
@@ -91,35 +91,16 @@ class HomePage extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: CustomCard(
+                        child: PieChartCard(
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BudgetPage()));
                             },
-                            color1: AppColors.containerColor,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Monthly Budget",
-                                    style: AppFont.buttonText,
-                                  ),
-                                  const SizedBox(
-                                    height: 200,
-                                    child: PieChartSample2(),
-                                  ),
-                                  Text(
-                                    "\u{20B9} 1200 spent of 15000",
-                                    style: AppFont.cardSubTitle,
-                                  )
-                                ],
-                              ),
-                            )),
+                            title: "Monthly Budget",
+                            spentAmount: 1232,
+                            totalAmount: 23424),
                       ),
                       const SizedBox(
                         width: 10,

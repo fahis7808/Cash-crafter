@@ -4,13 +4,14 @@ import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
 class PieChartSample2 extends StatefulWidget {
-  const PieChartSample2({super.key});
+  final double? radius;
+  const PieChartSample2({super.key, this.radius});
 
   @override
-  State<StatefulWidget> createState() => PieChart2State();
+  State<PieChartSample2> createState() => PieChart2State();
 }
 
-class PieChart2State extends State {
+class PieChart2State extends State<PieChartSample2> {
   int touchedIndex = -1;
 
   @override
@@ -20,26 +21,12 @@ class PieChart2State extends State {
       children: [
         PieChart(
           PieChartData(
-            pieTouchData: PieTouchData(
-              touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                setState(() {
-                  if (!event.isInterestedForInteractions ||
-                      pieTouchResponse == null ||
-                      pieTouchResponse.touchedSection == null) {
-                    touchedIndex = -1;
-                    return;
-                  }
-                  touchedIndex =
-                      pieTouchResponse.touchedSection!.touchedSectionIndex;
-                });
-              },
-            ),
             borderData: FlBorderData(
               show: false,
             ),
             sectionsSpace: 0,
             startDegreeOffset: -90,
-            centerSpaceRadius: 60,
+            centerSpaceRadius: widget.radius ?? 60,
             sections: [
               PieChartSectionData(
                 color: AppColors.secondaryColor,
