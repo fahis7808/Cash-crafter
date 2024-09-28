@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
+import 'package:money_manage_app2/constant/app_font.dart';
 
 class PieChartSample2 extends StatefulWidget {
   const PieChartSample2({super.key});
@@ -14,47 +15,51 @@ class PieChart2State extends State {
 
   @override
   Widget build(BuildContext context) {
-    return PieChart(
-      PieChartData(
-        pieTouchData: PieTouchData(
-          touchCallback: (FlTouchEvent event, pieTouchResponse) {
-            setState(() {
-              if (!event.isInterestedForInteractions ||
-                  pieTouchResponse == null ||
-                  pieTouchResponse.touchedSection == null) {
-                touchedIndex = -1;
-                return;
-              }
-              touchedIndex = pieTouchResponse
-                  .touchedSection!.touchedSectionIndex;
-            });
-          },
-        ),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        sectionsSpace: 0,
-        startDegreeOffset: -90,
-        centerSpaceRadius: 60,
-        sections: [
-          PieChartSectionData(
-            color: AppColors.secondaryColor,
-            value: 50,
-            title: '40%',
-            showTitle: false,
-            radius: 15,
-
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        PieChart(
+          PieChartData(
+            pieTouchData: PieTouchData(
+              touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                setState(() {
+                  if (!event.isInterestedForInteractions ||
+                      pieTouchResponse == null ||
+                      pieTouchResponse.touchedSection == null) {
+                    touchedIndex = -1;
+                    return;
+                  }
+                  touchedIndex =
+                      pieTouchResponse.touchedSection!.touchedSectionIndex;
+                });
+              },
+            ),
+            borderData: FlBorderData(
+              show: false,
+            ),
+            sectionsSpace: 0,
+            startDegreeOffset: -90,
+            centerSpaceRadius: 60,
+            sections: [
+              PieChartSectionData(
+                color: AppColors.secondaryColor,
+                value: 50,
+                title: '40%',
+                showTitle: false,
+                radius: 15,
+              ),
+              PieChartSectionData(
+                color: AppColors.barBackground,
+                value: 50,
+                title: '40%',
+                showTitle: false,
+                radius: 15,
+              )
+            ],
           ),
-          PieChartSectionData(
-            color: AppColors.barBackground,
-            value: 50,
-            title: '40%',
-            showTitle: false,
-            radius: 15,
-
-          )
-        ],
-      ),
+        ),
+        Text("54%",style: AppFont.appBarHead,)
+      ],
     );
   }
 
@@ -70,7 +75,6 @@ class PieChart2State extends State {
             title: '40%',
             showTitle: false,
             radius: radius,
-
           );
         case 1:
           return PieChartSectionData(

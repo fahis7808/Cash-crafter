@@ -9,31 +9,42 @@ class CustomCard extends StatelessWidget {
   final Color? color2;
   final Widget child;
   final EdgeInsets? padding;
+  final void Function()? onTap;
 
   const CustomCard(
-      {Key? key, this.color1, this.color2, required this.child, this.padding})
+      {Key? key,
+      this.color1,
+      this.color2,
+      required this.child,
+      this.padding,
+      this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          gradient: color1 != null && color2 != null
-              ? LinearGradient(colors: [
-                  color1 ?? const Color(0x24EAEAEA),
-                  color2 ?? const Color(0x800A015D)
-                ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
-              : null,
-          color: color2 == null ? color1 ?? AppColors.containerColor : null,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              10,
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.black,
+      onTap: onTap,
+      child: Container(
+          decoration: BoxDecoration(
+            gradient: color1 != null && color2 != null
+                ? LinearGradient(colors: [
+                    color1 ?? const Color(0x24EAEAEA),
+                    color2 ?? const Color(0x800A015D)
+                  ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
+                : null,
+            color: color2 == null ? color1 ?? AppColors.containerColor : null,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                10,
+              ),
             ),
           ),
-        ),
-        padding:
-            padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: child);
+          padding:
+              padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          child: child),
+    );
   }
 }
 

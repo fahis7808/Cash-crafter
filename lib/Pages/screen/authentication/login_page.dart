@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/authentication/registration_page.dart';
+import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
 import 'package:money_manage_app2/Pages/widget/button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -13,17 +14,16 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => AuthenticationProvider(),
-      child: Consumer<AuthenticationProvider>(
-        builder: (context,data,_) {
-          return Scaffold(
-            body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                    const Spacer(),
+      create: (context) => AuthenticationProvider(),
+      child: Consumer<AuthenticationProvider>(builder: (context, data, _) {
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
                 const Spacer(),
                 Text(
                   "Welcome back!",
@@ -31,22 +31,40 @@ class LoginPage extends StatelessWidget {
                   style: AppFont.head,
                 ),
                 const Spacer(),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
-                      CustomTextField(value: "", labelText: "Email"),
+                      CustomTextField(
+                        value: data.email,
+                        labelText: "Email",
+                        onChanged: (val) {
+                          data.email = val;
+                        },
+                      ),
                       SizedBox(
                         height: 20,
                       ),
-                      CustomTextField(value: "", labelText: "Password"),
+                      CustomTextField(
+                        value: data.password,
+                        labelText: "Password",
+                        onChanged: (val) {
+                          data.password = val;
+                        },
+                      ),
                     ],
                   ),
                 ),
                 const Spacer(),
-                CustomButton(
-                  buttonText: "Log in",
-                  onPressed: () {}),
+                CustomButton(buttonText: "Log in", onPressed: () async{
+                  final message = await data.login();
+                  if(message == "Signed In"){
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomePage()));
+                  }else{
+                    SnackBar(content: Text(message),);
+                  }
+                }),
                 const SizedBox(
                   height: 50,
                 ),
@@ -63,11 +81,17 @@ class LoginPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? ", style: AppFont.cardTitle,),
+                    Text(
+                      "Don't have an account? ",
+                      style: AppFont.cardTitle,
+                    ),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => const RegistrationPage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RegistrationPage()));
                       },
                       child: const Text("Register Now",
                           style: TextStyle(
@@ -78,12 +102,11 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-            ],
-          ),)
-          ,
-          );
-        }
-      ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }
@@ -103,12 +126,10 @@ class GoogleFBCard extends StatelessWidget {
               border: Border.all(color: AppColors.cardColor, width: 2)),
           child: Center(
               child: Text(
-                name,
-                style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600),
-              ))),
+            name,
+            style: const TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
+          ))),
     );
   }
 }

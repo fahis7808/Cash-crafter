@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/add_transaction_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
+import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
@@ -68,14 +69,20 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 15,),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AccountPage()));
-                  },
-                  child: const MainBalance(amount: 65955,text: "Total",)
+                const SizedBox(
+                  height: 15,
                 ),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AccountPage()));
+                    },
+                    child: const MainBalance(
+                      amount: 65955,
+                      text: "Total",
+                    )),
                 const SizedBox(
                   height: 40,
                 ),
@@ -85,6 +92,12 @@ class HomePage extends StatelessWidget {
                       Expanded(
                         flex: 3,
                         child: CustomCard(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BudgetPage()));
+                            },
                             color1: AppColors.containerColor,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

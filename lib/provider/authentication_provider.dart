@@ -8,6 +8,24 @@ class AuthenticationProvider extends ChangeNotifier {
   static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final userRef = FirebaseFirestore.instance.collection("users");
   String? password;
+  String? email;
+
+  Future<String> login() async{
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.toString(),
+          password: password.toString()
+      );
+      return "Signed In";
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        return 'Wrong password provided for that user.';
+      }
+      return "Something went wrong";
+    }
+  }
 
   Future<String> handleSignUp() async {
     print(user);
