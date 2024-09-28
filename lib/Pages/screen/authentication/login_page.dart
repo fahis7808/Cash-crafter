@@ -46,11 +46,7 @@ class LoginPage extends StatelessWidget {
                 const Spacer(),
                 CustomButton(
                   buttonText: "Log in",
-                  onPressed: () =>
-                      Navigator.push(context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegistrationPage())),
-                ),
+                  onPressed: () {}),
                 const SizedBox(
                   height: 50,
                 ),

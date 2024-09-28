@@ -35,4 +35,13 @@ class AuthenticationProvider extends ChangeNotifier {
 
     await userRef.doc(uid).set(user.toMap());
   }
+
+  createUserToFireStore() {
+    addUserToDB(
+        uid: firebaseAuth.currentUser?.uid,
+        email: firebaseAuth.currentUser?.email,
+      username: user.username,
+      timestamp: DateTime.now()
+    );
+  }
 }
