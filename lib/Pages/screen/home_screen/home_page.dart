@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Budget",
+                                    "Monthly Budget",
                                     style: AppFont.buttonText,
                                   ),
                                   const SizedBox(
