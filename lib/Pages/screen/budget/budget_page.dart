@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
@@ -119,6 +120,9 @@ class BudgetPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: CustomFloatingActionButton(
+        onTap: (){},
       ),
     );
   }
