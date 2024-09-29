@@ -5,7 +5,7 @@ import 'package:money_manage_app2/provider/authentication_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
-import '../../widget/custom_text_field.dart';
+import '../../widget/text_field/custom_text_field.dart';
 import 'login_page.dart';
 
 class RegistrationPage extends StatefulWidget {

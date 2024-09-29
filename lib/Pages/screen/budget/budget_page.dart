@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/budget/budge_add_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
@@ -69,8 +70,8 @@ class BudgetPage extends StatelessWidget {
                           height: 10,
                         ),
                         Container(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
                           decoration: BoxDecoration(
                               color: const Color(0x49049F35),
                               borderRadius: BorderRadius.circular(10)),
@@ -107,14 +108,12 @@ class BudgetPage extends StatelessWidget {
                 spacing: 5,
                 children: accountData
                     .map((e) => SizedBox(
-                  width:
-                  MediaQuery.of(context).size.width / 2 -
-                      15,
-                  child: PieChartCard(
-                          title: e["title"],
-                          spentAmount: e["spent"],
-                          totalAmount: e["amount"]),
-                    ))
+                          width: MediaQuery.of(context).size.width / 2 - 15,
+                          child: PieChartCard(
+                              title: e["title"],
+                              spentAmount: e["spent"],
+                              totalAmount: e["amount"]),
+                        ))
                     .toList(),
               )
             ],
@@ -122,7 +121,8 @@ class BudgetPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onTap: (){},
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddBudgetPage())),
       ),
     );
   }

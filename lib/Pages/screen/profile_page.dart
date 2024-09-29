@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/button.dart';
-import 'package:money_manage_app2/Pages/widget/custom_text_field.dart';
+import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
