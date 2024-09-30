@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final bool readOnly;
   final bool isPassWord;
+  final void Function()? onTap;
   final void Function(String value)? onChanged;
   final void Function(String? value)? onSaved;
   final void Function()? onEditingComplete;
@@ -36,7 +37,7 @@ class CustomTextField extends StatefulWidget {
         this.onSaved,
         this.onEditingComplete,
         required this.value,
-        this.validator});
+        this.validator, this.onTap});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -69,6 +70,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: TextFormField(
+        onTap: widget.onTap,
         controller: controller,
         keyboardType: widget.keyboardType,
         style: AppFont.textFieldText,
