@@ -29,10 +29,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
       lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? child) {
         return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: AppColors.secondaryColor,
-            backgroundColor: AppColors.secondaryColor,
-          ),
+          data: ThemeData.light(),
           child: child!,
         );
       },

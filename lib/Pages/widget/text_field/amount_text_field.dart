@@ -42,7 +42,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Padding(
-          padding: EdgeInsets.only(bottom: 9, right: 10),
+          padding: EdgeInsets.only(bottom: 12, right: 10),
           child: Text(
             "\u{20B9}",
             style: TextStyle(

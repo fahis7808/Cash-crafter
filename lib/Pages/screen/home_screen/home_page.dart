@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/add_transaction_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/add_transation.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
+import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -16,24 +17,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const TransactionPage(),
-              ),
-            );
+        floatingActionButton: CustomFloatingActionButton(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddTransaction()));
           },
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              10.0,
-            ),
-          ),
-          backgroundColor: const Color(0xFF05376C),
-          child: const Icon(
-            Icons.add_outlined,
-            size: 32.0,
-          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
