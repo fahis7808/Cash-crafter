@@ -3,8 +3,15 @@ import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 
-class AddTransaction extends StatelessWidget {
+class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
+
+  @override
+  _AddTransactionState createState() => _AddTransactionState();
+}
+
+class _AddTransactionState extends State<AddTransaction> {
+  int selectedIndex = -1; // Initialize with no button selected
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +20,7 @@ class AddTransaction extends StatelessWidget {
       body: Column(
         children: [
           const AmountTextField(value: '324'),
-          const SizedBox(
-            height: 40,
-          ),
+          const SizedBox(height: 40),
           SizedBox(
             width: 310,
             child: Row(
@@ -24,72 +29,94 @@ class AddTransaction extends StatelessWidget {
                 TransactionSwitch(
                   icon: Icons.swap_horiz,
                   label: 'Transfer',
-                  onTap: () => print('Transfer'),
+                  index: 0,
+                  isSelected: selectedIndex == 0, // Check if this button is selected
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 0; // Update selected index
+                    });
+                  },
                 ),
                 TransactionSwitch(
                   icon: Icons.attach_money,
                   label: 'Income',
-                  onTap: () => print('Income'),
+                  index: 1,
+                  isSelected: selectedIndex == 1, // Check if this button is selected
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 1; // Update selected index
+                    });
+                  },
                 ),
                 TransactionSwitch(
                   icon: Icons.money_off,
                   label: 'Expense',
-                  onTap: () => print('Expense'),
+                  index: 2,
+                  isSelected: selectedIndex == 2, // Check if this button is selected
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 2; // Update selected index
+                    });
+                  },
                 ),
                 TransactionSwitch(
                   icon: Icons.warning,
                   label: 'Debt',
-                  onTap: () => print('Debt'),
+                  index: 3,
+                  isSelected: selectedIndex == 3, // Check if this button is selected
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 3; // Update selected index
+                    });
+                  },
                 ),
               ],
             ),
-          )
+
+          ),
         ],
       ),
     );
   }
 }
 
-class TransactionSwitch extends StatefulWidget {
+class TransactionSwitch extends StatelessWidget {
   final void Function() onTap;
   final IconData icon;
   final String label;
+  final int index;
+  final bool isSelected; // Pass whether the button is selected
 
-  const TransactionSwitch(
-      {Key? key, required this.onTap, required this.icon, required this.label})
-      : super(key: key);
-  @override
-  State<TransactionSwitch> createState() => _TransactionSwitchState();
-}
+  const TransactionSwitch({
+    Key? key,
+    required this.onTap,
+    required this.icon,
+    required this.label,
+    required this.index,
+    required this.isSelected, // Use this to track selection
+  }) : super(key: key);
 
-int selectedIndex = 1;
-
-class _TransactionSwitchState extends State<TransactionSwitch> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-
-      },
+      onTap: onTap,
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: AppColors.cardColor,
+              color: isSelected ? AppColors.tertiaryColor : AppColors.cardColor, // Change color based on selection
               borderRadius: BorderRadius.circular(13),
             ),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             child: Icon(
-              widget.icon,
+              icon,
               size: 40,
               color: Colors.white,
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Text(
-            widget.label,
+            label,
             style: const TextStyle(
               fontSize: 18,
               color: Colors.white,
@@ -99,6 +126,5 @@ class _TransactionSwitchState extends State<TransactionSwitch> {
         ],
       ),
     );
-
   }
 }
