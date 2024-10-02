@@ -73,7 +73,7 @@ class IncomeExpenseCard extends StatelessWidget {
                     color: income
                         ? AppColors.positiveColor
                         : AppColors.negativeColor,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                    borderRadius: const BorderRadius.all(Radius.circular(8))),
                 child: Transform.rotate(
                   angle: income ? 1.6 : 0,
                   child: const Icon(
@@ -101,7 +101,7 @@ class IncomeExpenseCard extends StatelessWidget {
             income ? "Income" : "Spending",
             style: AppFont.cardTitle,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(
