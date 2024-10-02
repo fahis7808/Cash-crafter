@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
                       CustomTextField(
@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                           data.email = val;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       CustomTextField(
@@ -56,15 +56,22 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                CustomButton(buttonText: "Log in", onPressed: () async{
-                  final message = await data.login();
-                  if(message == "Signed In"){
-                    // ignore: use_build_context_synchronously
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-                  }else{
-                    SnackBar(content: Text(message),);
-                  }
-                }),
+                CustomButton(
+                    buttonText: "Log in",
+                    onPressed: () async {
+                      await data.login().then((value) {
+                        if (value == "Signed In") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()));
+                        } else {
+                          SnackBar(
+                            content: Text(value),
+                          );
+                        }
+                      });
+                    }),
                 const SizedBox(
                   height: 50,
                 ),

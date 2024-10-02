@@ -96,7 +96,7 @@ class IncomeExpenseCard extends StatelessWidget {
               )
             ],
           ),
-          const Spacer(),
+          SizedBox(height: 15,),
           Text(
             income ? "Income" : "Spending",
             style: AppFont.cardTitle,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../../constant/app_font.dart';
@@ -32,20 +33,40 @@ class PieChartCard extends StatelessWidget {
                 title,
                 style: AppFont.buttonText,
               ),
-              const SizedBox(
-                height: 200,
-                child: PieChartSample2(),
-              ),
-              RichText(
-                  text: TextSpan(
-                      text: FormattedText.formattedAmount(1233),
-                      style: AppFont.subCardMainText,
+              Row(
+                children: [
+                  const Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      child: PieChartSample2(),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        TextSpan(
-                            text:
-                            " / ${FormattedText.formattedAmount(3242)}",
-                            style: AppFont.cardSubTitle)
-                      ])),
+                        RichText(
+                            text: TextSpan(
+                                text: FormattedText.formattedAmount(1233),
+                                style: AppFont.subCardMainText,
+                                children: [
+                              TextSpan(
+                                  text:
+                                      " / ${FormattedText.formattedAmount(3242)}",
+                                  style: AppFont.cardSubTitle)
+                            ])),
+                        // Text(FormattedText.formattedAmount(32423),style: AppFont.subCardMainText,),
+                        const Text(
+                          "50% of your budget spent. 20 days until renewal.",
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                              fontSize: 14, color: AppColors.textColor),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ));

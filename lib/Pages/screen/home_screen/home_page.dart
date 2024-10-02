@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
         floatingActionButton: CustomFloatingActionButton(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddTransaction()));
+                MaterialPageRoute(builder: (context) => const AddTransaction()));
           },
         ),
         body: Padding(
@@ -72,45 +72,35 @@ class HomePage extends StatelessWidget {
                       text: "Total",
                     )),
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
-                IntrinsicHeight(
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 3,
-                        child: PieChartCard(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => BudgetPage()));
-                            },
-                            title: "Monthly Budget",
-                            spentAmount: 1232,
-                            totalAmount: 23424),
+                        child: IncomeExpenseCard(
+                            income: true, amount: 23423),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: IncomeExpenseCard(amount: 23423),
-                            ),
-                            SizedBox(height: 10),
-                            Expanded(
-                              child: IncomeExpenseCard(
-                                  income: false, amount: 23423),
-                            ),
-                          ],
-                        ),
+                      SizedBox(width: 15,),
+                      Expanded(
+                        child: IncomeExpenseCard(
+                            income: false, amount: 23423),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 15,),
+                PieChartCard(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BudgetPage()));
+                    },
+                    title: "Monthly Budget",
+                    spentAmount: 1232,
+                    totalAmount: 23424),
                 const SizedBox(
                   height: 10,
                 ),

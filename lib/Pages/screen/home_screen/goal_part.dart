@@ -5,7 +5,7 @@ import 'package:money_manage_app2/constant/app_colors.dart';
 import '../../../constant/app_font.dart';
 
 class GoalPart extends StatelessWidget {
-  const GoalPart({Key? key}) : super(key: key);
+  const   GoalPart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
