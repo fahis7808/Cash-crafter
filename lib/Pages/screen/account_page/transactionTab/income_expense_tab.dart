@@ -19,14 +19,14 @@ class IncomeExpenseTab extends StatelessWidget {
           value: "",
           labelText: "Category",
         ),
-        CustomDateField(
+        const CustomDateField(
           labelText: "Date",
-          prefixIcon: Icon(FluentIcons.calendar_3_day_16_filled,color: Colors.white,),
+          prefixIcon: FluentIcons.calendar_3_day_16_filled,
         ),
-        CustomTextField(
+        const CustomTextField(
           value: "",
           labelText: "Comment",
-          prefixIcon: Icon(FluentIcons.comment_note_20_filled,color: Colors.white,),
+          prefixIcon: FluentIcons.comment_note_20_filled,
         )
       ],
     );

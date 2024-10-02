@@ -7,8 +7,8 @@ class CustomTextField extends StatefulWidget {
   final String? value;
   final String? text;
   final String? labelText;
-  final Widget? prefix;
-  final Widget? prefixIcon;
+  final IconData? suffixIcon;
+  final IconData? prefixIcon;
   final String? hintText;
   final Widget? suffix;
   final TextInputType? keyboardType;
@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField(
       {super.key,
         this.text,
-        this.prefix,
+        this.suffixIcon,
         this.prefixIcon,
         this.labelText,
         this.hintText,
@@ -81,8 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         onEditingComplete: widget.onEditingComplete,
         decoration: InputDecoration(
-          prefix: widget.prefix,
-          prefixIcon:widget.prefixIcon,
+          prefixIcon:widget.prefixIcon == null ?null : Icon(widget.prefixIcon,color: AppColors.white,size: 25,),
             hintText: widget.hintText,
             hintStyle: AppFont.cardSubTitle,
             label: Text(widget.labelText ?? ""),

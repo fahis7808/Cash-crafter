@@ -10,7 +10,7 @@ class CustomDateField extends StatefulWidget {
   final ValueChanged<DateTime>? onDateSelected;
   final String? labelText;
   final String? value;
-  final Widget? prefixIcon;
+  final IconData? prefixIcon;
   final void Function(String val)? onChange;
 
   const CustomDateField({Key? key, this.onDateSelected, this.labelText, this.onChange, this.value, this.prefixIcon}) : super(key: key);
