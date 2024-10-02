@@ -32,7 +32,7 @@ class _DebtTabState extends State<DebtTab> {
               },
               label: "I Lend",
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
             _DebtSwitch(
@@ -46,7 +46,7 @@ class _DebtTabState extends State<DebtTab> {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         CustomTextField(
@@ -54,7 +54,7 @@ class _DebtTabState extends State<DebtTab> {
           labelText: selectedIndex == 0 ? "To Whom" : "From Whom",
           prefixIcon: FluentIcons.person_12_filled,
         ),
-        CustomDateField(
+        const CustomDateField(
           labelText: "Till Date",
           prefixIcon: FluentIcons.calendar_3_day_16_filled,
         ),
@@ -85,7 +85,7 @@ class _DebtSwitch extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
         decoration: BoxDecoration(
             color: isSelected ? AppColors.tertiaryColor : AppColors.cardColor,
             borderRadius: BorderRadius.circular(30)),

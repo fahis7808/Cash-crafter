@@ -17,7 +17,7 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  int selectedIndex = -1; // Initialize with no button selected
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 children: [
                   TransactionSwitch(
                     icon:
-                        Icons.swap_horiz /*CupertinoIcons.arrow_2_squarepath*/,
+                        Icons.swap_horiz,
                     label: 'Transfer',
                     index: 0,
                     isSelected: selectedIndex == 0,
@@ -155,13 +155,13 @@ class TransactionSwitch extends StatelessWidget {
 Widget tabPage(int index) {
   switch (index) {
     case 0:
-      return MoneyTransfer();
+      return const MoneyTransfer();
     case 1:
-      return IncomeExpenseTab();
+      return const IncomeExpenseTab();
     case 2:
-      return IncomeExpenseTab();
+      return const IncomeExpenseTab();
     case 3:
-      return DebtTab();default:
-      return MoneyTransfer();
+      return const DebtTab();default:
+      return const MoneyTransfer();
   }
 }
