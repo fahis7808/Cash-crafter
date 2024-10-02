@@ -35,7 +35,7 @@ class AddBudgetPage extends StatelessWidget {
               value: "",
               labelText: "Period",
             ),
-            DateTimePicker(
+            CustomDateField(
               labelText: "Start Date",
               onChange: (val) {},
             ),

@@ -6,19 +6,20 @@ import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
 
-class DateTimePicker extends StatefulWidget {
+class CustomDateField extends StatefulWidget {
   final ValueChanged<DateTime>? onDateSelected;
   final String? labelText;
   final String? value;
+  final Widget? prefixIcon;
   final void Function(String val)? onChange;
 
-  const DateTimePicker({Key? key, this.onDateSelected, this.labelText, this.onChange, this.value}) : super(key: key);
+  const CustomDateField({Key? key, this.onDateSelected, this.labelText, this.onChange, this.value, this.prefixIcon}) : super(key: key);
 
   @override
-  State<DateTimePicker> createState() => _DateTimePickerState();
+  State<CustomDateField> createState() => _CustomDateFieldState();
 }
 
-class _DateTimePickerState extends State<DateTimePicker> {
+class _CustomDateFieldState extends State<CustomDateField> {
   DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -50,16 +51,17 @@ class _DateTimePickerState extends State<DateTimePicker> {
     return GestureDetector(
       onTap: () => _selectDate(context),
       child: CustomTextField(
+        prefixIcon: widget.prefixIcon,
         value: widget.value ?? formattedDate,
         onTap: () => _selectDate(context),
         readOnly: true,
         labelText: widget.labelText,
         onChanged: widget.onChange,
-        suffix: const Icon(
+        suffix:widget.prefixIcon == null ? const Icon(
           Icons.calendar_month_outlined,
           color: AppColors.secondaryColor,
-          size: 25,
-        ),
+          size: 25
+        ):null
       ),
       /* child:Text(
         formattedDate,
