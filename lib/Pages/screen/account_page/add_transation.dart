@@ -1,7 +1,14 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/debt_tab.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/income_expense_tab.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/transfer_tab.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
+
+import '../../widget/button/button.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
@@ -17,64 +24,70 @@ class _AddTransactionState extends State<AddTransaction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
-      body: Column(
-        children: [
-          const AmountTextField(value: '324'),
-          const SizedBox(height: 40),
-          SizedBox(
-            width: 310,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TransactionSwitch(
-                  icon: Icons.swap_horiz,
-                  label: 'Transfer',
-                  index: 0,
-                  isSelected: selectedIndex == 0, // Check if this button is selected
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 0; // Update selected index
-                    });
-                  },
-                ),
-                TransactionSwitch(
-                  icon: Icons.attach_money,
-                  label: 'Income',
-                  index: 1,
-                  isSelected: selectedIndex == 1, // Check if this button is selected
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 1; // Update selected index
-                    });
-                  },
-                ),
-                TransactionSwitch(
-                  icon: Icons.money_off,
-                  label: 'Expense',
-                  index: 2,
-                  isSelected: selectedIndex == 2, // Check if this button is selected
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 2; // Update selected index
-                    });
-                  },
-                ),
-                TransactionSwitch(
-                  icon: Icons.warning,
-                  label: 'Debt',
-                  index: 3,
-                  isSelected: selectedIndex == 3, // Check if this button is selected
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 3; // Update selected index
-                    });
-                  },
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 15),
+        child: Column(
+          children: [
+            const SizedBox(height: 25),
+            const AmountTextField(value: '324'),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: 310,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TransactionSwitch(
+                    icon: Icons.swap_horiz/*CupertinoIcons.arrow_2_squarepath*/,
+                    label: 'Transfer',
+                    index: 0,
+                    isSelected: selectedIndex == 0, // Check if this button is selected
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 0; // Update selected index
+                      });
+                    },
+                  ),
+                  TransactionSwitch(
+                    icon: FluentIcons.arrow_square_up_right_24_filled,
+                    label: 'Income',
+                    index: 1,
+                    isSelected: selectedIndex == 1, // Check if this button is selected
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 1; // Update selected index
+                      });
+                    },
+                  ),
+                  TransactionSwitch(
+                    icon: FluentIcons.arrow_square_up_right_24_filled,
+                    label: 'Expense',
+                    index: 2,
+                    isSelected: selectedIndex == 2, // Check if this button is selected
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 2; // Update selected index
+                      });
+                    },
+                  ),
+                  TransactionSwitch(
+                    icon: FluentIcons.money_hand_24_filled,
+                    label: 'Debt',
+                    index: 3,
+                    isSelected: selectedIndex == 3, // Check if this button is selected
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 3; // Update selected index
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-
-          ),
-        ],
+              const SizedBox(height: 30,),
+              const Expanded(child: SingleChildScrollView(child: DebtTab())),
+            CustomButton(buttonText: "Transfer", onPressed: (){})
+          ],
+        ),
       ),
     );
   }
@@ -104,14 +117,14 @@ class TransactionSwitch extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: isSelected ? AppColors.tertiaryColor : AppColors.cardColor, // Change color based on selection
+              color: isSelected ? AppColors.tertiaryColor : AppColors.white, // Change color based on selection
               borderRadius: BorderRadius.circular(13),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Icon(
               icon,
-              size: 40,
-              color: Colors.white,
+              size: 30,
+              color: isSelected ? Colors.white : Colors.black,
             ),
           ),
           const SizedBox(height: 5),
