@@ -45,4 +45,9 @@ static TextStyle textFieldLabelText = const TextStyle(
     fontWeight: FontWeight.w600,
     color: AppColors.negativeColor,
   );
+  static TextStyle text25 = const TextStyle(
+    fontSize: 25.0,
+    fontWeight: FontWeight.w800,
+    color: AppColors.white,
+  );
 }
