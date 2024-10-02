@@ -25,7 +25,7 @@ class PieChartCard extends StatelessWidget {
     return CustomCard(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,25 +43,17 @@ class PieChartCard extends StatelessWidget {
                   ),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        RichText(
-                            text: TextSpan(
-                                text: FormattedText.formattedAmount(1233),
-                                style: AppFont.subCardMainText,
-                                children: [
-                              TextSpan(
-                                  text:
-                                      " / ${FormattedText.formattedAmount(3242)}",
-                                  style: AppFont.cardSubTitle)
-                            ])),
-                        // Text(FormattedText.formattedAmount(32423),style: AppFont.subCardMainText,),
-                        const Text(
-                          "50% of your budget spent. 20 days until renewal.",
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                              fontSize: 14, color: AppColors.textColor),
-                        )
+                        Text(
+                          "October 2024",
+                          style: AppFont.white20,
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        barIdentifier("Spent", 2343, AppColors.secondaryColor),
+                        barIdentifier("Balance", 2343, AppColors.barBackground)
                       ],
                     ),
                   ),
@@ -70,5 +62,27 @@ class PieChartCard extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Widget barIdentifier(String text, double amount, Color circleColor) {
+    return Row(
+      children: [
+        Icon(
+          Icons.circle,
+          color: circleColor,
+          size: 20,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          "${FormattedText.formattedAmount(amount)} $text",
+          style: const TextStyle(
+              fontSize: 18,
+              color: AppColors.textColor,
+              fontWeight: FontWeight.w600),
+        )
+      ],
+    );
   }
 }

@@ -57,7 +57,7 @@ class BudgetPage extends StatelessWidget {
                         RichText(
                             text: TextSpan(
                                 text: FormattedText.formattedAmount(1233),
-                                style: AppFont.subCardMainText,
+                                style: AppFont.textFieldText,
                                 children: [
                               TextSpan(
                                   text:

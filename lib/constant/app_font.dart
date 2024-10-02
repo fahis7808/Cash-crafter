@@ -4,11 +4,11 @@ import 'app_colors.dart';
 
 class AppFont {
   static TextStyle textFieldLabel = const TextStyle(
-      fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w600);
+      fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);
 
   static TextStyle textFieldText = const TextStyle(
       fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.white);
-static TextStyle textFieldLabelText = const TextStyle(
+  static TextStyle textFieldLabelText = const TextStyle(
       fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.textColor);
 
   static TextStyle buttonText = const TextStyle(
@@ -25,8 +25,8 @@ static TextStyle textFieldLabelText = const TextStyle(
     fontWeight: FontWeight.w600,
     color: Colors.white,
   );
-  static TextStyle subCardMainText = const TextStyle(
-    fontSize: 22.0,
+  static TextStyle white20 = const TextStyle(
+    fontSize: 20.0,
     fontWeight: FontWeight.w700,
     color: Colors.white,
   );
