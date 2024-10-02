@@ -1,5 +1,4 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/debt_tab.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/income_expense_tab.dart';
@@ -25,7 +24,7 @@ class _AddTransactionState extends State<AddTransaction> {
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
         child: Column(
           children: [
             const SizedBox(height: 25),
@@ -37,10 +36,12 @@ class _AddTransactionState extends State<AddTransaction> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TransactionSwitch(
-                    icon: Icons.swap_horiz/*CupertinoIcons.arrow_2_squarepath*/,
+                    icon:
+                        Icons.swap_horiz /*CupertinoIcons.arrow_2_squarepath*/,
                     label: 'Transfer',
                     index: 0,
-                    isSelected: selectedIndex == 0, // Check if this button is selected
+                    isSelected: selectedIndex == 0,
+                    // Check if this button is selected
                     onTap: () {
                       setState(() {
                         selectedIndex = 0; // Update selected index
@@ -51,7 +52,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     icon: FluentIcons.arrow_square_up_right_24_filled,
                     label: 'Income',
                     index: 1,
-                    isSelected: selectedIndex == 1, // Check if this button is selected
+                    isSelected: selectedIndex == 1,
+                    // Check if this button is selected
                     onTap: () {
                       setState(() {
                         selectedIndex = 1; // Update selected index
@@ -62,7 +64,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     icon: FluentIcons.arrow_square_up_right_24_filled,
                     label: 'Expense',
                     index: 2,
-                    isSelected: selectedIndex == 2, // Check if this button is selected
+                    isSelected: selectedIndex == 2,
+                    // Check if this button is selected
                     onTap: () {
                       setState(() {
                         selectedIndex = 2; // Update selected index
@@ -73,7 +76,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     icon: FluentIcons.money_hand_24_filled,
                     label: 'Debt',
                     index: 3,
-                    isSelected: selectedIndex == 3, // Check if this button is selected
+                    isSelected: selectedIndex == 3,
+                    // Check if this button is selected
                     onTap: () {
                       setState(() {
                         selectedIndex = 3; // Update selected index
@@ -83,9 +87,11 @@ class _AddTransactionState extends State<AddTransaction> {
                 ],
               ),
             ),
-              const SizedBox(height: 30,),
-              const Expanded(child: SingleChildScrollView(child: DebtTab())),
-            CustomButton(buttonText: "Transfer", onPressed: (){})
+            const SizedBox(
+              height: 30,
+            ),
+             Expanded(child: SingleChildScrollView(child: tabPage(selectedIndex))),
+            CustomButton(buttonText: "Transfer", onPressed: () {})
           ],
         ),
       ),
@@ -117,14 +123,18 @@ class TransactionSwitch extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: isSelected ? AppColors.tertiaryColor : AppColors.white, // Change color based on selection
+              color: isSelected ? AppColors.tertiaryColor : AppColors.white,
+              // Change color based on selection
               borderRadius: BorderRadius.circular(13),
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Icon(
-              icon,
-              size: 30,
-              color: isSelected ? Colors.white : Colors.black,
+            child: Transform.rotate(
+              angle: index == 1 ? 1.6 : 0,
+              child: Icon(
+                icon,
+                size: 30,
+                color: isSelected ? Colors.white : Colors.black,
+              ),
             ),
           ),
           const SizedBox(height: 5),
@@ -139,5 +149,19 @@ class TransactionSwitch extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Widget tabPage(int index) {
+  switch (index) {
+    case 0:
+      return MoneyTransfer();
+    case 1:
+      return IncomeExpenseTab();
+    case 2:
+      return IncomeExpenseTab();
+    case 3:
+      return DebtTab();default:
+      return MoneyTransfer();
   }
 }
