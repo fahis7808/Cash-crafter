@@ -5,9 +5,13 @@ import 'package:money_manage_app2/constant/app_font.dart';
 class CustomButton extends StatelessWidget {
   final String buttonText;
   final void Function() onPressed;
+  final bool loading;
 
   const CustomButton(
-      {Key? key, required this.buttonText, required this.onPressed})
+      {Key? key,
+      required this.buttonText,
+      required this.onPressed,
+      this.loading = false})
       : super(key: key);
 
   @override
@@ -19,15 +23,15 @@ class CustomButton extends StatelessWidget {
         color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(30),
       ),
-      child: InkWell(
-        highlightColor: Colors.black,
+      child: GestureDetector(
         onTap: onPressed,
-
         child: Center(
-            child: Text(
-          buttonText,
-          style: AppFont.buttonText,
-        )),
+            child: loading
+                ? const CircularProgressIndicator(color: AppColors.white,)
+                : Text(
+                    buttonText,
+                    style: AppFont.buttonText,
+                  )),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/button.dart';
 import 'package:money_manage_app2/provider/authentication_provider.dart';
+import 'package:money_manage_app2/util/snack_bar.dart';
 import 'package:provider/provider.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
@@ -14,12 +15,12 @@ class RegistrationPage extends StatefulWidget {
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
-bool _showPassword = true;
 
+bool _showPassword = true;
+bool _loading = false;
 class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
-    // final data = Provider.of<AuthenticationProvider>(context, listen: false);
     return ChangeNotifierProvider(
       create: (context) => AuthenticationProvider(),
       child: Consumer<AuthenticationProvider>(builder: (context, data, _) {
@@ -66,42 +67,64 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       CustomTextField(
                         isPassWord: _showPassword,
                         suffix: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _showPassword = !_showPassword;
                             });
                           },
-                          child: Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+                          child: Icon(_showPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility),
                         ),
                         value: data.password,
                         labelText: "Password",
                         onChanged: (val) {
                           setState(() {
-                          data.password = val;
-
+                            data.password = val;
                           });
                         },
                       ),
-                      if(data.password != null  && data.password!.length < 6)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text("Password must be more than 6",style: AppFont.errorText,),
-                      )
+                      if (data.password != null && data.password!.length < 6)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Password must be more than 6",
+                            style: AppFont.errorText,
+                          ),
+                        )
                     ],
                   ),
                 ),
                 const Spacer(),
                 CustomButton(
+                  loading: _loading,
                   buttonText: "Sign in",
                   onPressed: () async {
-                    final message = await data.handleSignUp();
-                    if (message == "Signed Up") {
-                      data.createUserToFireStore();
-                      // ignore: use_build_context_synchronously
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-                    } else {
-                      print("Error");
-                    }
+                    setState(() {
+                      _loading = true;
+                    });
+                    await data.handleSignUp().then((value) {
+                      if (value == "Signed Up") {
+                        setState(() {
+                          _loading =false;
+                        });
+                        final snackBar = CustomSnackBar.successesSnackBar(
+                            "Sign-up complete! Let’s get started.");
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()));
+
+                      } else {
+                        setState(() {
+                          _loading = false;
+                        });
+                        final snackBar =
+                            CustomSnackBar.errorSnackBar(value);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
                   },
                 ),
                 const SizedBox(

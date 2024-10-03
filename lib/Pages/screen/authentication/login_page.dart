@@ -8,9 +8,15 @@ import 'package:money_manage_app2/constant/app_font.dart';
 import 'package:money_manage_app2/provider/authentication_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+bool _showPassword = true;
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -46,6 +52,15 @@ class LoginPage extends StatelessWidget {
                         height: 20,
                       ),
                       CustomTextField(
+                        isPassWord: _showPassword,
+                        suffix: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
+                          child: Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+                        ),
                         value: data.password,
                         labelText: "Password",
                         onChanged: (val) {
@@ -60,6 +75,7 @@ class LoginPage extends StatelessWidget {
                     buttonText: "Log in",
                     onPressed: () async {
                       await data.login().then((value) {
+                          print(value);
                         if (value == "Signed In") {
                           Navigator.push(
                               context,
