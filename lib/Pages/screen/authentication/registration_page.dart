@@ -130,13 +130,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                 Row(
                   children: [
-                    GoogleFBCard(name: "Google"),
+                    GoogleFBCard(name: "Google",onTap: (){},),
                     SizedBox(
                       width: 10,
                     ),
-                    GoogleFBCard(name: "Facebook")
+                    GoogleFBCard(name: "Facebook",onTap: (){},)
                   ],
                 ),
                 const Spacer(),

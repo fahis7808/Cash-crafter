@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 bool _showPassword = true;
 bool _isLoading = false;
 
@@ -57,12 +58,14 @@ class _LoginPageState extends State<LoginPage> {
                       CustomTextField(
                         isPassWord: _showPassword,
                         suffix: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               _showPassword = !_showPassword;
                             });
                           },
-                          child: Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+                          child: Icon(_showPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility),
                         ),
                         value: data.password,
                         labelText: "Password",
@@ -75,12 +78,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const Spacer(),
                 CustomButton(
-                  loading: _isLoading,
+                    loading: _isLoading,
                     buttonText: "Log in",
                     onPressed: () async {
-                    setState(() {
-                      _isLoading = true;
-                    });
+                      setState(() {
+                        _isLoading = true;
+                      });
                       await data.login().then((value) {
                         if (value == "Logged In") {
                           setState(() {
@@ -97,8 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             _isLoading = false;
                           });
-                          final snackBar = CustomSnackBar.errorSnackBar(
-                              value);
+                          final snackBar = CustomSnackBar.errorSnackBar(value);
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
@@ -106,13 +108,33 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    GoogleFBCard(name: "Google"),
+                    GoogleFBCard(
+                      name: "Google",
+                      onTap: () {
+                        data.signInWithGoogle().then((value) {
+                          if (value == "Signed on Google") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                          } else {
+                            final snackBar =
+                                CustomSnackBar.errorSnackBar(value);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        });
+                      },
+                    ),
                     SizedBox(
                       width: 10,
                     ),
-                    GoogleFBCard(name: "Facebook")
+                    GoogleFBCard(
+                      name: "Facebook",
+                      onTap: () {},
+                    )
                   ],
                 ),
                 const Spacer(),
@@ -135,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.secondaryColor)),
+                              color: AppColors.tertiaryColor)),
                     )
                   ],
                 ),
@@ -151,23 +173,30 @@ class _LoginPageState extends State<LoginPage> {
 
 class GoogleFBCard extends StatelessWidget {
   final String name;
+  final void Function() onTap;
 
-  const GoogleFBCard({Key? key, required this.name}) : super(key: key);
+  const GoogleFBCard({Key? key, required this.name, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.cardColor, width: 2)),
-          child: Center(
-              child: Text(
-            name,
-            style: const TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
-          ))),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.cardColor, width: 2)),
+            child: Center(
+                child: Text(
+              name,
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
+            ))),
+      ),
     );
   }
 }
