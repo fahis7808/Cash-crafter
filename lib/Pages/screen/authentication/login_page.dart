@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/authentication/google_fb_buttons.dart';
 import 'package:money_manage_app2/Pages/screen/authentication/registration_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/button.dart';
@@ -108,35 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Row(
-                  children: [
-                    GoogleFBCard(
-                      name: "Google",
-                      onTap: () {
-                        data.signInWithGoogle().then((value) {
-                          if (value == "Signed on Google") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                          } else {
-                            final snackBar =
-                                CustomSnackBar.errorSnackBar(value);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GoogleFBCard(
-                      name: "Facebook",
-                      onTap: () {},
-                    )
-                  ],
-                ),
+                const GoogleFBButton(),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
