@@ -8,6 +8,8 @@ import 'package:money_manage_app2/constant/app_font.dart';
 import 'package:money_manage_app2/provider/authentication_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../util/snack_bar.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 bool _showPassword = true;
+bool _isLoading = false;
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -72,19 +75,31 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const Spacer(),
                 CustomButton(
+                  loading: _isLoading,
                     buttonText: "Log in",
                     onPressed: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
                       await data.login().then((value) {
-                          print(value);
-                        if (value == "Signed In") {
+                        if (value == "Logged In") {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          final snackBar = CustomSnackBar.successesSnackBar(
+                              "Login complete! Let’s get started.");
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const HomePage()));
                         } else {
-                          SnackBar(
-                            content: Text(value),
-                          );
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          final snackBar = CustomSnackBar.errorSnackBar(
+                              value);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
                     }),

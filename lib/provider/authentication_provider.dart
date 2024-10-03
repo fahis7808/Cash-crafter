@@ -16,7 +16,7 @@ class AuthenticationProvider extends ChangeNotifier {
           email: email.toString(),
           password: password.toString()
       );
-      return "Signed In";
+      return "Logged In";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
