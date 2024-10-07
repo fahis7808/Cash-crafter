@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Money Management app</string>
+    <string name="facebook_app_id">1327528774894449</string>
+    <string name="fb_login_protocol_scheme">fb1327528774894449</string>
+    <string name="facebook_client_token">72e343343bb3c751a78722a8c2d1c323</string>
+</resources>

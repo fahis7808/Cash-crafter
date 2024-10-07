@@ -37,7 +37,9 @@ class GoogleFBButton extends StatelessWidget {
         ),
         GoogleFBCard(
           name: "Facebook",
-          onTap: () {},
+          onTap: () {
+            data.signInWithFacebook();
+          },
         )
       ],
     );

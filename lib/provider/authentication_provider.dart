@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:money_manage_app2/Model/user_model.dart';
 
@@ -73,6 +74,36 @@ class AuthenticationProvider extends ChangeNotifier {
       return "Some thing went wrong";
     }
   }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<User?> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+
+        final OAuthCredential credential = FacebookAuthProvider.credential(accessToken.tokenString);
+
+        // Sign in to Firebase with the Facebook user credential
+        final UserCredential userCredential = await _auth.signInWithCredential(credential);
+        final User? user = userCredential.user;
+
+        if (user != null) {
+          // You can now store the user data in Firestore or perform other operations
+          return user;
+        }
+      } else if (result.status == LoginStatus.cancelled) {
+        print('Facebook login cancelled');
+      } else {
+        print('Facebook login failed: ${result.message}');
+      }
+    } catch (e) {
+      print('Error during Facebook sign-in: $e');
+    }
+    return null;
+  }
+
   Future<void> addUserToDB(
       {String? uid,
       String? username,
