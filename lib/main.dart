@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
-import 'Pages/screen/authentication/login_page.dart';
+import 'package:money_manage_app2/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.teal,
           scaffoldBackgroundColor: AppColors.primaryColor),
-      home: const LoginPage(),
+      home: const SplashScreenPage(),
     );
   }
 }

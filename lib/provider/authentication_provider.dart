@@ -84,13 +84,10 @@ class AuthenticationProvider extends ChangeNotifier {
         final AccessToken accessToken = result.accessToken!;
 
         final OAuthCredential credential = FacebookAuthProvider.credential(accessToken.tokenString);
-
-        // Sign in to Firebase with the Facebook user credential
         final UserCredential userCredential = await _auth.signInWithCredential(credential);
         final User? user = userCredential.user;
 
         if (user != null) {
-          // You can now store the user data in Firestore or perform other operations
           return user;
         }
       } else if (result.status == LoginStatus.cancelled) {
