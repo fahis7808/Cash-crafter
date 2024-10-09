@@ -16,17 +16,24 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () async {
+
+    Future<void> navigateBasedOnLoginStatus() async {
       String? dbValue = await LocalDB.readFromDB("LoginID");
-      if (dbValue != null || dbValue!.isNotEmpty) {
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      if (dbValue != null && dbValue.isNotEmpty) {
+        if (mounted) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
+        }
       } else {
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const LoginPage()));
+        if (mounted) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
+        }
       }
+    }
+
+    Timer(const Duration(seconds: 3), () async {
+      navigateBasedOnLoginStatus();
     });
   }
 

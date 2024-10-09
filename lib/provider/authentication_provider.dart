@@ -22,17 +22,11 @@ class AuthenticationProvider extends ChangeNotifier {
       saveToLocalDB(userCredential.user?.uid);
       return "Logged In";
     } on FirebaseAuthException catch (e) {
-      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
-      print(e.code);
-      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
       }
-      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
-      print(e.code);
-      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
       return "Something went wrong";
     }
   }
@@ -46,7 +40,9 @@ class AuthenticationProvider extends ChangeNotifier {
               email: user.email.toString(), password: password.toString());
 
       saveToLocalDB(userCredential.user?.uid);
-
+      if(userCredential.user != null){
+        createUserToFireStore();
+      }
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {

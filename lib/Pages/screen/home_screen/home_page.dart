@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                         const Spacer(),
                         GestureDetector(
                           onTap: ()async{
-                            String uid =await LocalDB.readFromDB("LoginID");
+                            String uid =await LocalDB.deleteFromDB("LoginID");
                             print(uid);
                           },
                           child: const Icon(
