@@ -21,11 +21,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       if (dbValue != null || dbValue!.isNotEmpty) {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => const LoginPage()));
       }
     });
   }

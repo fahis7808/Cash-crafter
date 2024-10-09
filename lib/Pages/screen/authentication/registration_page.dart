@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
 import '../../widget/text_field/custom_text_field.dart';
-import 'login_page.dart';
+import 'google_fb_buttons.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -130,15 +130,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                 Row(
-                  children: [
-                    GoogleFBCard(name: "Google",onTap: (){},),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GoogleFBCard(name: "Facebook",onTap: (){},)
-                  ],
-                ),
+                const GoogleFBButton(),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
