@@ -3,8 +3,11 @@ class UserModel {
   String? uid;
   String? username;
   DateTime? timestamp;
+  String? phone;
+  String? job;
 
-  UserModel({this.email, this.uid, this.username, this.timestamp});
+
+  UserModel({this.email, this.uid, this.username, this.timestamp,this.phone,this.job});
 
   Map<String, dynamic> toMap() {
     return {
@@ -12,6 +15,8 @@ class UserModel {
       "username": username,
       "email": email,
       "timestamp": timestamp,
+      "phone":phone,
+      "job" : job,
     };
   }
 
@@ -19,5 +24,7 @@ class UserModel {
     uid = mapData["uid"];
     username = mapData["username"];
     email = mapData["email"];
+    phone = mapData["phone"];
+    job = mapData["job"];
   }
 }
