@@ -11,4 +11,8 @@ class LocalDB {
     String? data = await db.read(key: key);
     return data;
   }
+
+  static deleteFromDB(String key) async {
+    await db.delete(key: key);
+  }
 }

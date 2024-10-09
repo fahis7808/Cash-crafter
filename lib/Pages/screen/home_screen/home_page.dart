@@ -8,6 +8,7 @@ import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_wid
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
+import 'package:money_manage_app2/service/secure_storage.dart';
 
 import '../../widget/custom_widget/custom_card.dart';
 
@@ -50,10 +51,16 @@ class HomePage extends StatelessWidget {
                           maxLines: 1,
                         ),
                         const Spacer(),
-                        const Icon(
-                          Icons.notifications_none_outlined,
-                          color: Colors.white,
-                          size: 26,
+                        GestureDetector(
+                          onTap: ()async{
+                            String uid =await LocalDB.readFromDB("LoginID");
+                            print(uid);
+                          },
+                          child: const Icon(
+                            Icons.notifications_none_outlined,
+                            color: Colors.white,
+                            size: 26,
+                          ),
                         )
                       ],
                     ),

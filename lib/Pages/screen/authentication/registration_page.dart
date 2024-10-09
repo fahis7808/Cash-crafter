@@ -111,7 +111,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         final snackBar = CustomSnackBar.successesSnackBar(
                             "Sign-up complete! Let’s get started.");
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const HomePage()));

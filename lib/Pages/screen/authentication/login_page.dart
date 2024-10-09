@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                           final snackBar = CustomSnackBar.successesSnackBar(
                               "Login complete! Let’s get started.");
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const HomePage()));

@@ -4,28 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:money_manage_app2/Model/user_model.dart';
+import 'package:money_manage_app2/service/secure_storage.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
   UserModel user = UserModel();
-   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   final userRef = FirebaseFirestore.instance.collection("users");
   String? password;
   String? email;
 
-  Future<String> login() async{
+  Future<String> login() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.toString(),
-          password: password.toString()
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: email.toString(), password: password.toString());
+      saveToLocalDB(userCredential.user?.uid);
       return "Logged In";
     } on FirebaseAuthException catch (e) {
+      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
+      print(e.code);
+      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
       }
+      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
+      print(e.code);
+      print("<<<<<<<<<<<<object>>>>>>>>>>>>");
       return "Something went wrong";
     }
   }
@@ -34,8 +41,12 @@ class AuthenticationProvider extends ChangeNotifier {
     print(user);
     print(password);
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
-          email: user.email.toString(), password: password.toString());
+      UserCredential userCredential =
+          await firebaseAuth.createUserWithEmailAndPassword(
+              email: user.email.toString(), password: password.toString());
+
+      saveToLocalDB(userCredential.user?.uid);
+
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
@@ -52,22 +63,22 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser == null) return "No user found on this email";
-      final GoogleSignInAuthentication googleAuth = await googleUser
-          .authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential userCredential = await firebaseAuth
-          .signInWithCredential(credential);
+      final UserCredential userCredential =
+          await firebaseAuth.signInWithCredential(credential);
       final User? user = userCredential.user;
-      if(userCredential.user != null){
+       saveToLocalDB(user?.uid);
+      if (userCredential.user != null) {
         addUserToDB(
-          uid: user?.uid,
-          username: user?.displayName,
-          email: user?.email,
-          timestamp: DateTime.now()
-        );
+            uid: user?.uid,
+            username: user?.displayName,
+            email: user?.email,
+            timestamp: DateTime.now());
       }
       return "Signed on Google";
     } catch (e) {
@@ -83,8 +94,10 @@ class AuthenticationProvider extends ChangeNotifier {
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
 
-        final OAuthCredential credential = FacebookAuthProvider.credential(accessToken.tokenString);
-        final UserCredential userCredential = await _auth.signInWithCredential(credential);
+        final OAuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.tokenString);
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
         final User? user = userCredential.user;
 
         if (user != null) {
@@ -112,12 +125,15 @@ class AuthenticationProvider extends ChangeNotifier {
     await userRef.doc(uid).set(user.toMap());
   }
 
+  saveToLocalDB(id) {
+    LocalDB.saveToDB("LoginID", id);
+  }
+
   createUserToFireStore() {
     addUserToDB(
         uid: firebaseAuth.currentUser?.uid,
         email: firebaseAuth.currentUser?.email,
-      username: user.username,
-      timestamp: DateTime.now()
-    );
+        username: user.username,
+        timestamp: DateTime.now());
   }
 }
