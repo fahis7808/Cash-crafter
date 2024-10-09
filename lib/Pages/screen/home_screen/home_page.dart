@@ -3,13 +3,12 @@ import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/add_transation.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
+import 'package:money_manage_app2/Pages/screen/profile_page/profile_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/service/secure_storage.dart';
-
 import '../../widget/custom_widget/custom_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,8 +19,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         floatingActionButton: CustomFloatingActionButton(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddTransaction()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddTransaction()));
           },
         ),
         body: Padding(
@@ -32,15 +33,21 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
                     child: Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 25,
-                          backgroundColor: AppColors.secondaryColor,
-                          child: Icon(Icons.account_circle_outlined,
-                              color: Colors.white, size: 40),
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage())),
+                          child: const CircleAvatar(
+                            radius: 25,
+                            backgroundColor: AppColors.secondaryColor,
+                            child: Icon(Icons.account_circle_outlined,
+                                color: Colors.white, size: 40),
+                          ),
                         ),
                         const SizedBox(
                           width: 15,
@@ -52,10 +59,6 @@ class HomePage extends StatelessWidget {
                         ),
                         const Spacer(),
                         GestureDetector(
-                          onTap: ()async{
-                            String uid =await LocalDB.deleteFromDB("LoginID");
-                            print(uid);
-                          },
                           child: const Icon(
                             Icons.notifications_none_outlined,
                             color: Colors.white,
@@ -87,18 +90,21 @@ class HomePage extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: IncomeExpenseCard(
-                              income: true, amount: 23423),
+                          child: IncomeExpenseCard(income: true, amount: 23423),
                         ),
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Expanded(
-                          child: IncomeExpenseCard(
-                              income: false, amount: 23423),
+                          child:
+                              IncomeExpenseCard(income: false, amount: 23423),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   PieChartCard(
                       onTap: () {
                         Navigator.push(
