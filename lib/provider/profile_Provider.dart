@@ -6,20 +6,40 @@ import 'package:money_manage_app2/service/secure_storage.dart';
 class ProfileProvider extends ChangeNotifier {
   UserModel userData = UserModel();
 
-    String? uid;
-    ProfileProvider(){
-      getLoginID();
-    }
-    getLoginID()async{
-      uid = await LocalDB.readFromDB("LoginID");
-    }
-  getData() async {
-print(uid);
-    QuerySnapshot data = await FirebaseFirestore.instance
-        .collection("users")
-        .where("uid", isEqualTo: uid)
-        .get();
+  String? uid;
 
-    print(data.metadata);
+  ProfileProvider() {
+    getLoginID();
+    getData();
   }
+
+  getLoginID() async {
+    uid = await LocalDB.readFromDB("LoginID");
+  }
+
+  getData() async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (snapshot.exists) {
+      userData = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+    }
+    notifyListeners();
+  }
+
+  updateData() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .update(userData.toMap());
+    } catch (e) {
+        print("error updating");
+    }
+  }
+
+  onRefresh(){
+    notifyListeners();
+  }
+
 }

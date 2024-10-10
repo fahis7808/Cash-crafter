@@ -85,7 +85,6 @@ class ProfilePage extends StatelessWidget {
                     CustomButton(
                         buttonText: "Update",
                         onPressed: () {
-                          data.getData();
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) => HomePage()));
                         })
