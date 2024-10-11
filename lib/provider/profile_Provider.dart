@@ -9,22 +9,32 @@ class ProfileProvider extends ChangeNotifier {
   String? uid;
 
   ProfileProvider() {
-    getLoginID();
     getData();
   }
 
-  getLoginID() async {
-    uid = await LocalDB.readFromDB("LoginID");
+  Future<String> getLoginID() async {
+    String uid = await LocalDB.readFromDB("LoginID");
+    return uid.toString();
   }
 
-  getData() async {
-    DocumentSnapshot snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  Future<String>getData() async {
+    String uid = await getLoginID();
+    print(uid.toString());
+    try {
+      DocumentSnapshot snapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-    if (snapshot.exists) {
-      userData = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+      if (snapshot.exists) {
+        userData = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        notifyListeners();
+        return "success";
+      } else {
+        return "no Data";
+      }
+    } catch (e) {
+      print("Something went wrong");
+      return "error";
     }
-    notifyListeners();
   }
 
   updateData() async {
@@ -34,12 +44,11 @@ class ProfileProvider extends ChangeNotifier {
           .doc(uid)
           .update(userData.toMap());
     } catch (e) {
-        print("error updating");
+      print("error updating");
     }
   }
 
-  onRefresh(){
+  onRefresh() {
     notifyListeners();
   }
-
 }

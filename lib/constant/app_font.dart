@@ -7,7 +7,7 @@ class AppFont {
       fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);
 
   static TextStyle textFieldText = const TextStyle(
-      fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.white);
+      fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white);
   static TextStyle textFieldLabelText = const TextStyle(
       fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.textColor);
 
