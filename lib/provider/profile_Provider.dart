@@ -19,7 +19,6 @@ class ProfileProvider extends ChangeNotifier {
 
   Future<String>getData() async {
     String uid = await getLoginID();
-    print(uid.toString());
     try {
       DocumentSnapshot snapshot =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/add_card_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/single_acc_page.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
@@ -32,9 +32,6 @@ class AccountPage extends StatelessWidget {
               amount: 23523,
               text: "Main",
             ),
-            const SizedBox(
-              height: 25,
-            ),
             Expanded(
               child: SingleChildScrollView(
                 child: SizedBox(
@@ -42,6 +39,25 @@ class AccountPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AddCardPage())),
+                        child: Container(
+                          height: 35,
+                          width: 70,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Center(
+                              child: Text(
+                            "+Add",
+                            style: AppFont.appBarHead,
+                          )),
+                        ),
+                      ),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8, // Vertical space between rows of cards
