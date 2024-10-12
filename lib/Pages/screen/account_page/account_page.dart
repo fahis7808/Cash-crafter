@@ -39,23 +39,26 @@ class AccountPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AddCardPage())),
-                        child: Container(
-                          height: 35,
-                          width: 70,
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Center(
-                              child: Text(
-                            "+Add",
-                            style: AppFont.appBarHead,
-                          )),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AddAccountPage())),
+                          child: Container(
+                            height: 35,
+                            width: 70,
+                            margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            decoration: BoxDecoration(
+                                color: AppColors.primaryColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Center(
+                                child: Text(
+                              "+Add",
+                              style: AppFont.appBarHead,
+                            )),
+                          ),
                         ),
                       ),
                       Wrap(
