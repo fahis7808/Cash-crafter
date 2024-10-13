@@ -1,31 +1,3 @@
-class BalanceModel {
-  double? totalBalance;
-  String? uid;
-  List<AccountModel>? accountModel; // Changed to List<CardModel>
-
-  BalanceModel({this.totalBalance, this.uid, this.accountModel});
-
-  Map<String, dynamic> toMap() {
-    return {
-      "TotalBalance": totalBalance,
-      "uid": uid,
-      "CardModels": accountModel?.map((card) => card.toMap()).toList(),
-      // Map list of CardModel to Maps
-    };
-  }
-
-  BalanceModel.fromMap(Map<String, dynamic> map) {
-    totalBalance = map["TotalBalance"];
-    uid = map["uid"];
-    if (map["CardModels"] != null) {
-      accountModel = List<AccountModel>.from(
-        map["CardModels"].map((cardMap) =>
-            AccountModel.fromMap(Map<String, dynamic>.from(cardMap))),
-      );
-    }
-  }
-}
-
 class AccountModel {
   double? balance;
   String? accountName;
@@ -61,7 +33,6 @@ class AccountModel {
     this.creditDueDate,
   });
 
-  // Convert the AccountModel to a Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
       "balance": balance,
@@ -82,7 +53,6 @@ class AccountModel {
     };
   }
 
-  // Create an AccountModel from a Map<String, dynamic>
   AccountModel.fromMap(Map<String, dynamic> map) {
     balance = map["balance"];
     accountName = map["accountName"];

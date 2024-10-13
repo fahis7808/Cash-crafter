@@ -49,14 +49,14 @@ class AccountPage extends StatelessWidget {
                           child: Container(
                             height: 35,
                             width: 70,
-                            margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            margin: const EdgeInsets.fromLTRB(0, 0, 5, 15),
                             decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
+                                color: AppColors.secondaryColor,
                                 borderRadius: BorderRadius.circular(8)),
                             child: Center(
                                 child: Text(
                               "+Add",
-                              style: AppFont.appBarHead,
+                              style: AppFont.white20,
                             )),
                           ),
                         ),
