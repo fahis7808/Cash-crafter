@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/widget/button/button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/custom_drop_down_field.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
+import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
@@ -10,11 +12,10 @@ class AddAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool haveATM = false;
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Card"),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,38 +38,80 @@ class AddAccountPage extends StatelessWidget {
                   labelText: "Account Type",
                   onChanged: (val) {},
                   value: ""),
-             CheckBoxRow(
-               text: "Have ATM Card",
-               initialCheckValue: haveATM,
-             ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "ATM Card",
-                  style: AppFont.buttonText,
-                ),
-              ),
-              const CustomTextField(
-                value: "",
-                labelText: "Card Number",
-              ),
-              const Row(
+              const CheckBoxRow(
+                text: "Have Debit Card",
+                initialCheckValue: true,
                 children: [
-                  Expanded(
-                      child: CustomTextField(
+                  CustomTextField(
                     value: "",
-                    labelText: "Valid upto",
-                  )),
-                  SizedBox(
-                    width: 10,
+                    labelText: "Card Number",
                   ),
-                  Expanded(
-                      child: CustomTextField(
-                    value: "",
-                    labelText: "CVV",
-                  )),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomTextField(
+                        value: "",
+                        labelText: "Valid upto",
+                      )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          child: CustomTextField(
+                        value: "",
+                        labelText: "CVV",
+                      )),
+                    ],
+                  )
                 ],
-              )
+              ),
+              const CheckBoxRow(
+                text: "Have Credit Card",
+                initialCheckValue: false,
+                children: [
+                  CustomTextField(
+                    value: "",
+                    labelText: "Card Number",
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomTextField(
+                        value: "",
+                        labelText: "Valid upto",
+                      )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          child: CustomTextField(
+                        value: "",
+                        labelText: "CVV",
+                      )),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          value: "",
+                          labelText: "Monthly Limit",
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          child: CustomDateField(
+                        labelText: "Payment Date",
+                      )),
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 10,),
+              CustomButton(buttonText: "Save", onPressed: (){})
             ],
           ),
         ),
@@ -80,8 +123,14 @@ class AddAccountPage extends StatelessWidget {
 class CheckBoxRow extends StatefulWidget {
   final bool initialCheckValue; // Rename to clarify its purpose
   final String text;
+  final List<Widget> children;
 
-  const CheckBoxRow({Key? key, this.initialCheckValue = false, required this.text}) : super(key: key);
+  const CheckBoxRow(
+      {Key? key,
+      this.initialCheckValue = false,
+      required this.text,
+      required this.children})
+      : super(key: key);
 
   @override
   State<CheckBoxRow> createState() => _CheckBoxRowState();
@@ -98,25 +147,37 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Text(
-          widget.text,
-          style: AppFont.textFieldLabelText,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                widget.text,
+                style: AppFont.textFieldLabelText,
+              ),
+            ),
+            Transform.scale(
+              scale: 1.5,
+              child: Checkbox(
+                activeColor: AppColors.secondaryColor,
+                value: checkValue,
+                onChanged: (val) {
+                  setState(() {
+                    checkValue = val ?? false; // Update the local state
+                  });
+                },
+              ),
+            ),
+          ],
         ),
-        Transform.scale(
-          scale: 1.5,
-          child: Checkbox(
-            activeColor: AppColors.secondaryColor,
-            value: checkValue,
-            onChanged: (val) {
-              setState(() {
-                checkValue = val ?? false; // Update the local state
-              });
-            },
-          ),
-        ),
+        if (checkValue)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widget.children,
+          )
       ],
     );
   }
