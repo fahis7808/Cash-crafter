@@ -9,8 +9,6 @@ import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_wid
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/home_provider.dart';
-import 'package:provider/provider.dart';
 import '../../widget/custom_widget/custom_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,9 +25,7 @@ class HomePage extends StatelessWidget {
                     builder: (context) => const AddTransaction()));
           },
         ),
-        body: Consumer<HomeProvider>(
-          builder: (context,data,_) {
-            return Padding(
+        body:  Padding(
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
               child: SingleChildScrollView(
                 child: Column(
@@ -125,8 +121,7 @@ class HomePage extends StatelessWidget {
                       const GoalPart(),
                     ]),
               ),
-            );
-          }
+
         ));
   }
 }

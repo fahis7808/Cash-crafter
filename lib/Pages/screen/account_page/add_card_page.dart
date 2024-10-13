@@ -6,120 +6,172 @@ import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart
 import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
+import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddAccountPage extends StatelessWidget {
   const AddAccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(title: "Add Card"),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomTextField(
-                value: "",
-                labelText: "Account Name",
-              ),
-              const CustomTextField(
-                value: "",
-                labelText: "Bank Name",
-              ),
-              const CustomTextField(
-                value: "",
-                labelText: "Account Number",
-              ),
-              const CustomTextField(
-                value: "",
-                labelText: "Current Balance",
-                keyboardType: TextInputType.number,
-              ),
-              CustomDropdownField(
-                  items: ["Salary", "Savings", "Current"],
-                  labelText: "Account Type",
-                  onChanged: (val) {},
-                  value: ""),
-              const CheckBoxRow(
-                text: "Have Debit Card",
-                initialCheckValue: false,
+    return ChangeNotifierProvider(
+      create: (context) => BalanceProvider(),
+      child: Consumer<BalanceProvider>(builder: (context, data, _) {
+        return Scaffold(
+          appBar: const CustomAppBar(title: "Add Card"),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextField(
-                    value: "",
-                    labelText: "Card Number",
+                    value: data.accModel.accountName,
+                    labelText: "Account Name",
+                    onChanged: (val) {
+                      data.accModel.accountName = val;
+                    },
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: CustomTextField(
-                        value: "",
-                        labelText: "Valid upto",
-                      )),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                          child: CustomTextField(
-                        value: "",
-                        labelText: "CVV",
-                      )),
-                    ],
-                  )
-                ],
-              ),
-              const CheckBoxRow(
-                text: "Have Credit Card",
-                initialCheckValue: false,
-                children: [
                   CustomTextField(
-                    value: "",
-                    labelText: "Card Number",
+                    value: data.accModel.bankName,
+                    labelText: "Bank Name",
+                    onChanged: (val) {
+                      data.accModel.bankName = val;
+                    },
                   ),
-                  Row(
+                  CustomTextField(
+                    value: data.accModel.accountNumber,
+                    labelText: "Account Number",
+                    onChanged: (val) {
+                      data.accModel.accountNumber = val;
+                    },
+                  ),
+                  CustomTextField(
+                    value: data.accModel.balance?.toString() ?? "",
+                    labelText: "Current Balance",
+                    keyboardType: TextInputType.number,
+                    onChanged: (val) {
+                      data.accModel.balance = double.tryParse(val) ?? 0;
+                    },
+                  ),
+                  CustomDropdownField(
+                      items: const ["Salary", "Savings", "Current"],
+                      labelText: "Account Type",
+                      onChanged: (val) {
+                        data.accModel.accountType = val;
+                      },
+                      value: data.accModel.accountType),
+                  CheckBoxRow(
+                    text: "Have Debit Card",
+                    initialCheckValue: data.accModel.debitCard ?? false,
                     children: [
-                      Expanded(
-                          child: CustomTextField(
-                        value: "",
-                        labelText: "Valid upto",
-                      )),
-                      SizedBox(
-                        width: 10,
+                      CustomTextField(
+                        value: data.accModel.debitCardNumber?.toString() ?? "",
+                        labelText: "Card Number",
+                        onChanged: (val) {
+                          data.accModel.debitCardNumber =
+                              double.tryParse(val) ?? 0;
+                        },
                       ),
-                      Expanded(
-                          child: CustomTextField(
-                        value: "",
-                        labelText: "CVV",
-                      )),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: CustomTextField(
+                            value: data.accModel.debitValidUpTo,
+                            labelText: "Valid upto",
+                            onChanged: (val) {
+                              data.accModel.debitValidUpTo = val;
+                            },
+                          )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              child: CustomTextField(
+                            value: data.accModel.debitCVV?.toString() ?? '',
+                            labelText: "CVV",
+                            onChanged: (val) {
+                              data.accModel.debitCVV =
+                                  double.tryParse(val) ?? 0;
+                            },
+                          )),
+                        ],
+                      )
                     ],
                   ),
-                  Row(
+                  CheckBoxRow(
+                    text: "Have Credit Card",
+                    initialCheckValue: data.accModel.creditCard ?? false,
                     children: [
-                      Expanded(
-                        child: CustomTextField(
-                          value: "",
-                          labelText: "Monthly Limit",
-                          keyboardType: TextInputType.number,
-                        ),
+                      CustomTextField(
+                        value: data.accModel.creditCardNumber?.toString() ?? "",
+                        labelText: "Card Number",
+                        onChanged: (val) {
+                          data.accModel.creditCardNumber =
+                              double.tryParse(val) ?? 0;
+                        },
                       ),
-                      SizedBox(
-                        width: 10,
+                      Row(
+                        children: [
+                          Expanded(
+                              child: CustomTextField(
+                            value: data.accModel.creditValidUpTo,
+                            labelText: "Valid upto",
+                            onChanged: (val) {
+                              data.accModel.creditValidUpTo = val;
+                            },
+                          )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              child: CustomTextField(
+                            value: data.accModel.creditCVV.toString(),
+                            labelText: "CVV",
+                            onChanged: (val) {
+                              data.accModel.creditCVV =
+                                  double.tryParse(val) ?? 0;
+                            },
+                          )),
+                        ],
                       ),
-                      Expanded(
-                          child: CustomDateField(
-                        labelText: "Due Date",
-                      )),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              value: data.accModel.creditLimit?.toString() ?? "",
+                              labelText: "Monthly Limit",
+                              keyboardType: TextInputType.number,
+                              onChanged: (val) {
+                                data.accModel.creditLimit =
+                                    double.tryParse(val) ?? 0.0;
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              child: CustomDateField(
+                            labelText: "Due Date",
+                            onDateSelected: (val) {
+                              data.accModel.creditDueDate = val;
+                            },
+                          )),
+                        ],
+                      )
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(buttonText: "Save", onPressed: () {})
                 ],
               ),
-              SizedBox(height: 10,),
-              CustomButton(buttonText: "Save", onPressed: (){})
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

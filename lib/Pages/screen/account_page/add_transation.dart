@@ -28,7 +28,7 @@ class _AddTransactionState extends State<AddTransaction> {
         child: Column(
           children: [
             const SizedBox(height: 25),
-            const AmountTextField(value: '324'),
+            const AmountTextField(value: 0),
             const SizedBox(height: 30),
             SizedBox(
               width: 310,

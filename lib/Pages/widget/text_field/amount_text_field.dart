@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/app_colors.dart';
 
 class AmountTextField extends StatefulWidget {
-  final String? value;
+  final double? value;
   final void Function(String)? onChange;
 
 
@@ -19,7 +19,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.value ?? "";
+    controller.text = widget.value?.toString() ?? "0";
     controller.selection =
         TextSelection(baseOffset: 0, extentOffset: controller.text.length);
   }
