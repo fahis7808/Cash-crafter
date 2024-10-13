@@ -26,6 +26,10 @@ class AddAccountPage extends StatelessWidget {
               ),
               const CustomTextField(
                 value: "",
+                labelText: "Bank Name",
+              ),
+              const CustomTextField(
+                value: "",
                 labelText: "Account Number",
               ),
               const CustomTextField(
@@ -40,7 +44,7 @@ class AddAccountPage extends StatelessWidget {
                   value: ""),
               const CheckBoxRow(
                 text: "Have Debit Card",
-                initialCheckValue: true,
+                initialCheckValue: false,
                 children: [
                   CustomTextField(
                     value: "",
@@ -104,7 +108,7 @@ class AddAccountPage extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomDateField(
-                        labelText: "Payment Date",
+                        labelText: "Due Date",
                       )),
                     ],
                   )
