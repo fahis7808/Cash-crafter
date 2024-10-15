@@ -24,9 +24,9 @@ class WalletInitialOpen extends StatelessWidget {
                 style: AppFont.appBarHead,
               )),
           AmountTextField(
-            value: 0,
+            value: provider.accModel.balance,
             onChange: (val) {
-              provider.balanceModel.totalBalance = double.tryParse(val) ?? 0;
+              provider.accModel.balance = double.tryParse(val) ?? 0;
             },
           ),
           const Spacer(),

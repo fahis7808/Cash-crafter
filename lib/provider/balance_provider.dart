@@ -23,52 +23,44 @@ class BalanceProvider extends ChangeNotifier {
     return uid.toString();
   }
 
-  Future<String> getAccountId(String userId) async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('account_details')
-        .orderBy('accountId', descending: true)
-        .limit(1)
-        .get();
 
-    if (snapshot.docs.isNotEmpty) {
-      String lastAccountId = snapshot.docs.first['accountId'];
-      int lastIdNumber = int.parse(lastAccountId.substring(7)); // Extract '001'
-      int newIdNumber = lastIdNumber + 1;
-      return 'account${newIdNumber.toString().padLeft(3, '0')}';
-    } else {
-      return 'account001';
+
+  Future<bool> addBalance() async {
+    String uid = await getLoginID();
+    try {
+      CollectionReference mainBalance = FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("account_details");
+
+      CollectionReference account = FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("account_details")
+          .doc("balance001")
+          .collection("accounts");
+
+      await mainBalance.doc("balance001").set(BalanceModel(
+            uid: mainBalance.id,
+            totalBalance: accModel.balance,
+          ).toMap());
+      await account.doc().set(AccountModel(
+        balance: accModel.balance,
+        accountName: "Wallet"
+      ).toMap());
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
-    Future<bool> addBalance() async {
-      String uid = await getLoginID();
-      List<AccountModel> accList = [
-        AccountModel(accountName: "Wallet", balance: balanceModel.totalBalance),
-      ];
-      try {
-        CollectionReference mainBalance =
-            FirebaseFirestore.instance.collection("users").doc(uid).collection("account_details");
 
-        await mainBalance.doc("balance 001").set(BalanceModel(
-                uid: mainBalance.id,
-                totalBalance: balanceModel.totalBalance,
-                accountModel: accList)
-            .toMap());
-        return true;
-      } catch (e) {
-        print(e);
-        return false;
-      }
-    }
-
-    onNextButton(){
+  onNextButton() {
     wallet = false;
     notifyListeners();
-    }
+  }
 
-onRefresh(){
+  onRefresh() {
     notifyListeners();
-}
-
+  }
 }

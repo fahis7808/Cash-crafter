@@ -14,8 +14,9 @@ class BalanceModel {
     return {
       "totalBalance": totalBalance,
       "uid": uid,
-      "cardDetails": accountModel?.map((card) => card.toMap()).toList(),
-      "transactionDetails": transactionModel?.map((card) => card.toMap()).toList(),
+
+      // "cardDetails": accountModel?.map((card) => card.toMap()).toList(),
+      // "transactionDetails": transactionModel?.map((card) => card.toMap()).toList(),
     };
   }
 
