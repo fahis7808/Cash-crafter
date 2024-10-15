@@ -7,10 +7,16 @@ import '../service/secure_storage.dart';
 
 class BalanceProvider extends ChangeNotifier {
   bool wallet = true;
+  bool isLoading = false;
 
   BalanceModel balanceModel = BalanceModel();
 
   AccountModel accModel = AccountModel();
+
+  BalanceProvider(){
+    getData();
+    onRefresh();
+  }
 
   addAccount() {
     try {} catch (e) {
@@ -23,7 +29,34 @@ class BalanceProvider extends ChangeNotifier {
     return uid.toString();
   }
 
+  getData() async {
+    isLoading = true;
+    notifyListeners();
+    String uid = await getLoginID();
+    try {
+      CollectionReference data =  FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("account_details");
 
+      QuerySnapshot accountData = await data.get();
+
+      if (accountData.docs.isNotEmpty) {
+        Map<String, dynamic> accountMap =
+            accountData.docs.first.data() as Map<String, dynamic>;
+        balanceModel = BalanceModel.fromMap(accountMap);
+        wallet = false;
+      }else{
+        wallet = true;
+      }
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      wallet = false;
+      print(e);
+      notifyListeners();
+    }
+  }
 
   Future<bool> addBalance() async {
     String uid = await getLoginID();
@@ -44,10 +77,9 @@ class BalanceProvider extends ChangeNotifier {
             uid: mainBalance.id,
             totalBalance: accModel.balance,
           ).toMap());
-      await account.doc().set(AccountModel(
-        balance: accModel.balance,
-        accountName: "Wallet"
-      ).toMap());
+      await account.doc().set(
+          AccountModel(balance: accModel.balance, accountName: "Wallet")
+              .toMap());
       return true;
     } catch (e) {
       print(e);

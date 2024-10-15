@@ -27,9 +27,10 @@ class AccountPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BalanceProvider(),
       child: Consumer<BalanceProvider>(builder: (context, data, _) {
+        print(data.wallet);
         return Scaffold(
           appBar: const CustomAppBar(title: "Balance"),
-          body: data.wallet
+          body:data.isLoading ?const Column(): data.wallet
               ? const WalletInitialOpen()
               : Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -50,11 +51,15 @@ class AccountPage extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: GestureDetector(
-                                    onTap: () => Navigator.push(
+                                    /*onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 const AddAccountPage())),
+                                    */
+                                    onTap: (){
+                                      data.getData();
+                                    },
                                     child: Container(
                                       height: 35,
                                       width: 70,
