@@ -82,8 +82,6 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   Future<User?> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
@@ -93,7 +91,7 @@ class AuthenticationProvider extends ChangeNotifier {
         final OAuthCredential credential =
             FacebookAuthProvider.credential(accessToken.tokenString);
         final UserCredential userCredential =
-            await _auth.signInWithCredential(credential);
+            await firebaseAuth.signInWithCredential(credential);
         final User? user = userCredential.user;
 
         if (user != null) {
