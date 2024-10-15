@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:money_manage_app2/Model/account_model/account_model.dart';
 import 'package:money_manage_app2/Model/account_model/balance_model.dart';
+import 'package:money_manage_app2/util/collection_reference.dart';
 
 import '../service/secure_storage.dart';
 
@@ -12,8 +13,9 @@ class BalanceProvider extends ChangeNotifier {
   BalanceModel balanceModel = BalanceModel();
 
   AccountModel accModel = AccountModel();
+  List<AccountModel> accountList = [];
 
-  BalanceProvider(){
+  BalanceProvider() {
     getData();
     onRefresh();
   }
@@ -32,21 +34,22 @@ class BalanceProvider extends ChangeNotifier {
   getData() async {
     isLoading = true;
     notifyListeners();
-    String uid = await getLoginID();
     try {
-      CollectionReference data =  FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("account_details");
+      /// accounts data ///
+      QuerySnapshot accounts = await CollectionReferenceData.accounts.get();
+      accountList = accounts.docs.map((e) {
+        return AccountModel.fromMap(e.data() as Map<String, dynamic>);
+      }).toList();
 
-      QuerySnapshot accountData = await data.get();
-
-      if (accountData.docs.isNotEmpty) {
+      /// main wallet data call ///
+      QuerySnapshot walletData =
+          await CollectionReferenceData.accountDetails.get();
+      if (walletData.docs.isNotEmpty) {
         Map<String, dynamic> accountMap =
-            accountData.docs.first.data() as Map<String, dynamic>;
+            walletData.docs.first.data() as Map<String, dynamic>;
         balanceModel = BalanceModel.fromMap(accountMap);
         wallet = false;
-      }else{
+      } else {
         wallet = true;
       }
       isLoading = false;
