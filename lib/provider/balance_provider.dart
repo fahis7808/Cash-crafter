@@ -62,30 +62,39 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   Future<bool> addBalance() async {
-    String uid = await getLoginID();
     try {
-      CollectionReference mainBalance = FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("account_details");
-
-      CollectionReference account = FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("account_details")
+      await CollectionReferenceData.accountDetails
           .doc("balance001")
-          .collection("accounts");
-
-      await mainBalance.doc("balance001").set(BalanceModel(
-            uid: mainBalance.id,
+          .set(BalanceModel(
             totalBalance: accModel.balance,
           ).toMap());
-      await account.doc().set(
+      await CollectionReferenceData.accounts.doc().set(
           AccountModel(balance: accModel.balance, accountName: "Wallet")
               .toMap());
       return true;
     } catch (e) {
       print(e);
+      return false;
+    }
+  }
+
+  Future<bool> editWallet() async {
+    isLoading = true;
+    onRefresh();
+    double balance = (balanceModel.totalBalance ?? 0) + (accModel.balance ?? 0);
+
+    try {
+      await CollectionReferenceData.accountDetails
+          .doc("balance001")
+          .update(BalanceModel(totalBalance: balance).toMap());
+
+      await CollectionReferenceData.accounts.doc().set(accModel.toMap());
+      isLoading = false;
+      return true;
+    } catch (e) {
+      print(e);
+      isLoading = false;
+      onRefresh();
       return false;
     }
   }

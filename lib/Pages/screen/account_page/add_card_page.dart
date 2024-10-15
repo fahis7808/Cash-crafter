@@ -9,6 +9,8 @@ import 'package:money_manage_app2/constant/app_font.dart';
 import 'package:money_manage_app2/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../util/snack_bar.dart';
+
 class AddAccountPage extends StatelessWidget {
   const AddAccountPage({Key? key}) : super(key: key);
 
@@ -28,6 +30,7 @@ class AddAccountPage extends StatelessWidget {
                   CustomTextField(
                     value: data.accModel.accountName,
                     labelText: "Account Name",
+                    keyboardType: TextInputType.name,
                     onChanged: (val) {
                       data.accModel.accountName = val;
                     },
@@ -42,6 +45,7 @@ class AddAccountPage extends StatelessWidget {
                   CustomTextField(
                     value: data.accModel.accountNumber,
                     labelText: "Account Number",
+                    keyboardType: TextInputType.number,
                     onChanged: (val) {
                       data.accModel.accountNumber = val;
                     },
@@ -68,6 +72,7 @@ class AddAccountPage extends StatelessWidget {
                       CustomTextField(
                         value: data.accModel.debitCardNumber?.toString() ?? "",
                         labelText: "Card Number",
+                        keyboardType: TextInputType.number,
                         onChanged: (val) {
                           data.accModel.debitCardNumber =
                               double.tryParse(val) ?? 0;
@@ -106,6 +111,7 @@ class AddAccountPage extends StatelessWidget {
                       CustomTextField(
                         value: data.accModel.creditCardNumber?.toString() ?? "",
                         labelText: "Card Number",
+                        keyboardType: TextInputType.number,
                         onChanged: (val) {
                           data.accModel.creditCardNumber =
                               double.tryParse(val) ?? 0;
@@ -165,7 +171,24 @@ class AddAccountPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomButton(buttonText: "Save", onPressed: () {})
+                  CustomButton(
+                      loading: data.isLoading,
+                      buttonText: "Save", onPressed: () {
+                    data.editWallet().then((value) {
+                      if(value == true){
+                        final snackBar = CustomSnackBar.successesSnackBar(
+                          "Successfully added your account",
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.pop(context);
+                      }else{
+                        final snackBar = CustomSnackBar.errorSnackBar(
+                          "Something went wrong",
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
+                  })
                 ],
               ),
             ),
