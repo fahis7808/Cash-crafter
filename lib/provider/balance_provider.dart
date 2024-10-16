@@ -2,17 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:money_manage_app2/Model/account_model/account_model.dart';
 import 'package:money_manage_app2/Model/account_model/balance_model.dart';
+import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
 import 'package:money_manage_app2/util/collection_reference.dart';
 
 import '../service/secure_storage.dart';
 
 class BalanceProvider extends ChangeNotifier {
-  bool wallet = true;
+  bool wallet = false;
   bool isLoading = false;
 
-  BalanceModel balanceModel = BalanceModel();
 
+  BalanceModel balanceModel = BalanceModel();
   AccountModel accModel = AccountModel();
+  TransactionModel transactionModel = TransactionModel();
+
   List<AccountModel> accountList = [];
 
   BalanceProvider() {

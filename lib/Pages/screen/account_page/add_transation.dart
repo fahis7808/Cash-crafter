@@ -6,6 +6,8 @@ import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/trans
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
+import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../widget/button/button.dart';
 
@@ -23,77 +25,94 @@ class _AddTransactionState extends State<AddTransaction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-        child: Column(
-          children: [
-            const SizedBox(height: 25),
-            const AmountTextField(value: 0),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: 310,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TransactionSwitch(
-                    icon:
-                        Icons.swap_horiz,
-                    label: 'Transfer',
-                    index: 0,
-                    isSelected: selectedIndex == 0,
-                    // Check if this button is selected
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 0; // Update selected index
-                      });
-                    },
+      body: ChangeNotifierProvider(
+        create: (cxt) => BalanceProvider(),
+        child: Consumer<BalanceProvider>(builder: (context, data, _) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+            child:data.wallet ? Column() : Column(
+              children: [
+                const SizedBox(height: 25),
+                AmountTextField(
+                  value: data.transactionModel.amount,
+                  onChange: (val) {
+                    data.transactionModel.amount = double.tryParse(val) ?? 0;
+                  },
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: 310,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TransactionSwitch(
+                        icon: Icons.swap_horiz,
+                        label: 'Transfer',
+                        index: 0,
+                        isSelected: selectedIndex == 0,
+                        // Check if this button is selected
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 0; // Update selected index
+                          });
+                        },
+                      ),
+                      TransactionSwitch(
+                        icon: FluentIcons.arrow_square_up_right_24_filled,
+                        label: 'Income',
+                        index: 1,
+                        isSelected: selectedIndex == 1,
+                        // Check if this button is selected
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 1; // Update selected index
+                          });
+                        },
+                      ),
+                      TransactionSwitch(
+                        icon: FluentIcons.arrow_square_up_right_24_filled,
+                        label: 'Expense',
+                        index: 2,
+                        isSelected: selectedIndex == 2,
+                        // Check if this button is selected
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 2; // Update selected index
+                          });
+                        },
+                      ),
+                      TransactionSwitch(
+                        icon: FluentIcons.money_hand_24_filled,
+                        label: 'Debt',
+                        index: 3,
+                        isSelected: selectedIndex == 3,
+                        // Check if this button is selected
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 3; // Update selected index
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                  TransactionSwitch(
-                    icon: FluentIcons.arrow_square_up_right_24_filled,
-                    label: 'Income',
-                    index: 1,
-                    isSelected: selectedIndex == 1,
-                    // Check if this button is selected
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 1; // Update selected index
-                      });
-                    },
-                  ),
-                  TransactionSwitch(
-                    icon: FluentIcons.arrow_square_up_right_24_filled,
-                    label: 'Expense',
-                    index: 2,
-                    isSelected: selectedIndex == 2,
-                    // Check if this button is selected
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 2; // Update selected index
-                      });
-                    },
-                  ),
-                  TransactionSwitch(
-                    icon: FluentIcons.money_hand_24_filled,
-                    label: 'Debt',
-                    index: 3,
-                    isSelected: selectedIndex == 3,
-                    // Check if this button is selected
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 3; // Update selected index
-                      });
-                    },
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                    child:
+                        SingleChildScrollView(child: tabPage(selectedIndex))),
+                CustomButton(
+                    buttonText: "Transfer",
+                    onPressed: () {
+                      print(data.accountList.map((e) {
+                        return e.accountName.toString();
+                      }).toList());
+                    })
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-             Expanded(child: SingleChildScrollView(child: tabPage(selectedIndex))),
-            CustomButton(buttonText: "Transfer", onPressed: () {})
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
@@ -161,7 +180,8 @@ Widget tabPage(int index) {
     case 2:
       return const IncomeExpenseTab();
     case 3:
-      return const DebtTab();default:
+      return const DebtTab();
+    default:
       return const MoneyTransfer();
   }
 }

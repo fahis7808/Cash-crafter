@@ -52,7 +52,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
           ),
         ),
         SizedBox(
-          width: 150,
+          width: 130,
           child: TextFormField(
             onChanged: widget.onChange,
             controller: controller,

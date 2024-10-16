@@ -11,8 +11,6 @@ class CustomDropdownField<T extends Object> extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final List<T> items;
   final IconData? prefixIcon;
-
-  // final String Function(T value) textConv;
   final void Function(T? value)? onChanged;
   final String? Function(T? value)? validator;
   final bool readOnly;
@@ -27,7 +25,8 @@ class CustomDropdownField<T extends Object> extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.validator,
-    this.readOnly = false, this.prefixIcon,
+    this.readOnly = false,
+    this.prefixIcon,
   });
 
   @override
@@ -64,7 +63,13 @@ class CustomDropdownField<T extends Object> extends StatelessWidget {
         onChanged: onChanged,
         style: AppFont.textFieldText,
         decoration: InputDecoration(
-            prefixIcon:prefixIcon == null ?null : Icon(prefixIcon,color: AppColors.white,size: 25,),
+            prefixIcon: prefixIcon == null
+                ? null
+                : Icon(
+                    prefixIcon,
+                    color: AppColors.white,
+                    size: 25,
+                  ),
             hintText: hintText,
             hintStyle: AppFont.textFieldText,
             label: Text(labelText ?? ""),
