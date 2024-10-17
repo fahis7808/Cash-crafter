@@ -18,7 +18,7 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Category"),
+      appBar: const CustomAppBar(title: "Category",),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -82,10 +82,11 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
             Spacer(),
+            if(widget.isListData)
             Align(
               alignment: Alignment.centerRight,
               child: NextButton(onTap: () {
-                print(selectedCategory);
+                Navigator.pop(context,selectedCategory);
               }),
             )
           ],
