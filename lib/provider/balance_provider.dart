@@ -11,7 +11,6 @@ class BalanceProvider extends ChangeNotifier {
   bool wallet = false;
   bool isLoading = false;
 
-
   BalanceModel balanceModel = BalanceModel();
   AccountModel accModel = AccountModel();
   TransactionModel transactionModel = TransactionModel();

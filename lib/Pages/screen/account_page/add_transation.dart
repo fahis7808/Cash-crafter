@@ -19,7 +19,7 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  int selectedIndex = -1;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
