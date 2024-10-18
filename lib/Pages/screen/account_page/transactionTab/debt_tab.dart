@@ -5,6 +5,10 @@ import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart
 import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
+import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../../../widget/text_field/custom_drop_down_field.dart';
 
 class DebtTab extends StatefulWidget {
   const DebtTab({Key? key}) : super(key: key);
@@ -18,6 +22,7 @@ class _DebtTabState extends State<DebtTab> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BalanceProvider>(context,listen: false);
     return Column(
       children: [
         Row(
@@ -53,6 +58,15 @@ class _DebtTabState extends State<DebtTab> {
           value: "",
           labelText: selectedIndex == 0 ? "To Whom" : "From Whom",
           prefixIcon: FluentIcons.person_12_filled,
+        ),
+        CustomDropdownField<String>(
+          items: provider.accountList.map((e) {
+            return e.accountName.toString();
+          }).toList(),
+          onChanged: (val) {},
+          value: "",
+          labelText: "Account",
+          prefixIcon: FluentIcons.building_bank_16_filled,
         ),
         const CustomDateField(
           labelText: "Till Date",

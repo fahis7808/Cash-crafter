@@ -6,7 +6,7 @@ class TransactionModel {
   String? note;
   String? category;
   String? debtType;
-  DateTime? date;
+  String? date;
 
   TransactionModel({
     this.amount,
@@ -28,7 +28,7 @@ class TransactionModel {
       "note": note,
       "category": category,
       "debtType": debtType,
-      "date": date?.toIso8601String(),
+      "date": date,
     };
   }
 
@@ -40,6 +40,6 @@ class TransactionModel {
     note = map["note"];
     category = map["category"];
     debtType = map["debtType"];
-    date = map["date"] != null ? DateTime.parse(map["date"]) : null;
+    date = map["date"];
   }
 }

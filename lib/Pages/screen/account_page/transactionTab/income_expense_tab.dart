@@ -6,6 +6,8 @@ import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
 import 'package:money_manage_app2/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widget/text_field/custom_drop_down_field.dart';
+
 class IncomeExpenseTab extends StatefulWidget {
   const IncomeExpenseTab({Key? key}) : super(key: key);
 
@@ -20,6 +22,17 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
     final provider = Provider.of<BalanceProvider>(context, listen: false);
     return Column(
       children: [
+        CustomDropdownField<String>(
+          items: provider.accountList.map((e) {
+            return e.accountName.toString();
+          }).toList(),
+          onChanged: (val) {
+            provider.transactionModel.from =val;
+          },
+          value: provider.transactionModel.from,
+          labelText: "Account",
+          prefixIcon: FluentIcons.building_bank_16_filled,
+        ),
         CustomTextField(
           prefixIcon: FluentIcons.app_folder_20_filled,
           readOnly: true,
@@ -37,14 +50,21 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           },
           labelText: "Category",
         ),
-        const CustomDateField(
+
+         CustomDateField(
           labelText: "Date",
           prefixIcon: FluentIcons.calendar_3_day_16_filled,
+          onChange: (val){
+        provider.transactionModel.date = val;
+          },
         ),
-        const CustomTextField(
-          value: "",
+         CustomTextField(
+          value: provider.transactionModel.note,
           labelText: "Comment",
           prefixIcon: FluentIcons.comment_note_20_filled,
+           onChanged: (val){
+            provider.transactionModel.note = val;
+           },
         ),
         // CustomButton(
         //     buttonText: "demo",
