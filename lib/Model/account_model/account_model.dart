@@ -1,4 +1,5 @@
 class AccountModel {
+  String? accId;
   double? balance;
   String? accountName;
   String? bankName;
@@ -16,6 +17,7 @@ class AccountModel {
   DateTime? creditDueDate;
 
   AccountModel({
+    this.accId,
     this.balance,
     this.accountName,
     this.bankName,
@@ -35,6 +37,7 @@ class AccountModel {
 
   Map<String, dynamic> toMap() {
     return {
+      "id":accId,
       "balance": balance,
       "accountName": accountName,
       "bankName": bankName,
@@ -54,6 +57,7 @@ class AccountModel {
   }
 
   AccountModel.fromMap(Map<String, dynamic> map) {
+    accId = map["id"];
     balance = map["balance"];
     accountName = map["accountName"];
     bankName = map["bankName"];

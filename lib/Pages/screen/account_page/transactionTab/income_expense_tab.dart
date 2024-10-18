@@ -9,14 +9,15 @@ import 'package:provider/provider.dart';
 import '../../../widget/text_field/custom_drop_down_field.dart';
 
 class IncomeExpenseTab extends StatefulWidget {
-  const IncomeExpenseTab({Key? key}) : super(key: key);
+  final bool isIncome;
+
+  const IncomeExpenseTab({Key? key, this.isIncome = false}) : super(key: key);
 
   @override
   State<IncomeExpenseTab> createState() => _IncomeExpenseTabState();
 }
 
 class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<BalanceProvider>(context, listen: false);
@@ -27,10 +28,12 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
             return e.accountName.toString();
           }).toList(),
           onChanged: (val) {
-            provider.transactionModel.from =val;
+            provider.transactionModel.from = val;
           },
-          value: provider.transactionModel.from,
-          labelText: "Account",
+          value: widget.isIncome
+              ? provider.transactionModel.to
+              : provider.transactionModel.from,
+          labelText:  "Account",
           prefixIcon: FluentIcons.building_bank_16_filled,
         ),
         CustomTextField(
@@ -39,7 +42,7 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           value: provider.transactionModel.category,
           onTap: () async {
             await Navigator.push(context,
-                MaterialPageRoute(builder: (ctx) => const CategoryPage()))
+                    MaterialPageRoute(builder: (ctx) => const CategoryPage()))
                 .then((value) {
               if (value != null) {
                 setState(() {
@@ -51,20 +54,20 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           labelText: "Category",
         ),
 
-         CustomDateField(
+        CustomDateField(
           labelText: "Date",
           prefixIcon: FluentIcons.calendar_3_day_16_filled,
-          onChange: (val){
-        provider.transactionModel.date = val;
+          onChange: (val) {
+            provider.transactionModel.date = val;
           },
         ),
-         CustomTextField(
+        CustomTextField(
           value: provider.transactionModel.note,
           labelText: "Comment",
           prefixIcon: FluentIcons.comment_note_20_filled,
-           onChanged: (val){
+          onChanged: (val) {
             provider.transactionModel.note = val;
-           },
+          },
         ),
         // CustomButton(
         //     buttonText: "demo",

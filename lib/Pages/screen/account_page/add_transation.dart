@@ -110,9 +110,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       CustomButton(
                           buttonText: "Transfer",
                           onPressed: () {
-                            print(data.accountList.map((e) {
-                              return e.accountName.toString();
-                            }).toList());
+                           data.addTransfer();
                           })
                     ],
                   ),
@@ -128,7 +126,7 @@ class TransactionSwitch extends StatelessWidget {
   final IconData icon;
   final String label;
   final int index;
-  final bool isSelected; // Pass whether the button is selected
+  final bool isSelected;
 
   const TransactionSwitch({
     Key? key,
@@ -136,7 +134,7 @@ class TransactionSwitch extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.index,
-    required this.isSelected, // Use this to track selection
+    required this.isSelected,
   }) : super(key: key);
 
   @override
@@ -148,7 +146,6 @@ class TransactionSwitch extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: isSelected ? AppColors.tertiaryColor : AppColors.white,
-              // Change color based on selection
               borderRadius: BorderRadius.circular(13),
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -181,7 +178,7 @@ Widget tabPage(int index) {
     case 0:
       return const MoneyTransfer();
     case 1:
-      return const IncomeExpenseTab();
+      return const IncomeExpenseTab(isIncome: true,);
     case 2:
       return const IncomeExpenseTab();
     case 3:
