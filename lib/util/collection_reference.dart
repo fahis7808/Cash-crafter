@@ -16,4 +16,11 @@ class CollectionReferenceData {
       .collection(DataBaseName.accDetails)
       .doc("balance001")
       .collection(DataBaseName.accounts);
+
+  static CollectionReference transaction = FirebaseFirestore.instance
+      .collection(DataBaseName.user)
+      .doc(user?.uid)
+      .collection(DataBaseName.accDetails)
+      .doc("balance001")
+      .collection(DataBaseName.transfer);
 }

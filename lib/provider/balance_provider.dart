@@ -101,6 +101,14 @@ class BalanceProvider extends ChangeNotifier {
     }
   }
 
+  addTransfer() async {
+    try {
+      await CollectionReferenceData.transaction
+          .doc()
+          .set(transactionModel.toMap());
+    } catch (e) {}
+  }
+
   onNextButton() {
     wallet = false;
     notifyListeners();
