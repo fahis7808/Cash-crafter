@@ -5,7 +5,7 @@ class TransactionModel {
   String? to;
   String? note;
   String? category;
-  String? debtType;
+  int? debtType;
   String? date;
 
   TransactionModel({
@@ -15,7 +15,7 @@ class TransactionModel {
     this.to,
     this.note,
     this.category,
-    this.debtType,
+    this.debtType = 0,
     this.date,
   });
 

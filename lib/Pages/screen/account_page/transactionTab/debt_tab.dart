@@ -18,21 +18,19 @@ class DebtTab extends StatefulWidget {
 }
 
 class _DebtTabState extends State<DebtTab> {
-  int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<BalanceProvider>(context,listen: false);
+    final provider = Provider.of<BalanceProvider>(context, listen: false);
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _DebtSwitch(
-              isSelected: selectedIndex == 0,
+              isSelected: provider.transactionModel.debtType == 0,
               onTap: () {
                 setState(() {
-                  selectedIndex = 0;
+                  provider.transactionModel.debtType = 0;
                 });
               },
               label: "I Lend",
@@ -41,10 +39,10 @@ class _DebtTabState extends State<DebtTab> {
               width: 15,
             ),
             _DebtSwitch(
-              isSelected: selectedIndex == 1,
+              isSelected: provider.transactionModel.debtType == 1,
               onTap: () {
                 setState(() {
-                  selectedIndex = 1;
+                  provider.transactionModel.debtType = 1;
                 });
               },
               label: "I Own",
@@ -56,7 +54,8 @@ class _DebtTabState extends State<DebtTab> {
         ),
         CustomTextField(
           value: "",
-          labelText: selectedIndex == 0 ? "To Whom" : "From Whom",
+          labelText:
+              provider.transactionModel.debtType == 0 ? "To Whom" : "From Whom",
           prefixIcon: FluentIcons.person_12_filled,
         ),
         CustomDropdownField<String>(
