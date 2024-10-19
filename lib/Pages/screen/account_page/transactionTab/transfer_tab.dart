@@ -22,7 +22,7 @@ class MoneyTransfer extends StatelessWidget {
             return e.accountName.toString();
           }).toList(),
           onChanged: (val) {
-            data.getACBalance(val.toString(), data.transactionModel.amount, false);
+            data.transactionModel.from = val;
           },
           value: data.transactionModel.from,
           labelText: "From",

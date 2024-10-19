@@ -128,19 +128,17 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   addTransfer() async {
-
-
-  /*  var fromAcc = getACBalance(
+    var fromAcc = getACBalance(
         transactionModel.from.toString(), transactionModel.amount, false);
     var toAcc = getACBalance(
         transactionModel.to.toString(), transactionModel.amount, true);
     print(fromAcc["id"]);
     print(fromAcc["balance"]);
     print(toAcc["id"]);
-    print(toAcc["balance"]);*/
+    print(toAcc["balance"]);
     transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transferType ?? "transfer";
-/*    try {
+    try {
       if (transactionModel.transferType == "transfer") {
         await CollectionReferenceData.accounts
             .doc(fromAcc["id"])
@@ -163,7 +161,7 @@ class BalanceProvider extends ChangeNotifier {
       await CollectionReferenceData.transaction
           .doc()
           .set(transactionModel.toMap());
-    } catch (e) {}*/
+    } catch (e) {}
   }
 
   onNextButton() {
