@@ -117,7 +117,7 @@ class BalanceProvider extends ChangeNotifier {
     print(accName);
     AccountModel? account = accountList.firstWhere(
       (e) => e.accountName == accName,
-      orElse: () => AccountModel(balance: 0, accId: 'unknown'),
+      orElse: () => AccountModel(),
     );
 
     double balance =
@@ -128,17 +128,19 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   addTransfer() async {
-    var fromAcc = getACBalance(
+
+
+  /*  var fromAcc = getACBalance(
         transactionModel.from.toString(), transactionModel.amount, false);
     var toAcc = getACBalance(
         transactionModel.to.toString(), transactionModel.amount, true);
     print(fromAcc["id"]);
     print(fromAcc["balance"]);
     print(toAcc["id"]);
-    print(toAcc["balance"]);
+    print(toAcc["balance"]);*/
     transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transferType ?? "transfer";
-    try {
+/*    try {
       if (transactionModel.transferType == "transfer") {
         await CollectionReferenceData.accounts
             .doc(fromAcc["id"])
@@ -146,12 +148,22 @@ class BalanceProvider extends ChangeNotifier {
         await CollectionReferenceData.accounts
             .doc(toAcc["id"])
             .update(AccountModel(balance: toAcc["balance"]).toMap());
+      } else {
+        if (transactionModel.from != null) {
+          await CollectionReferenceData.accounts
+              .doc(fromAcc["id"])
+              .update(AccountModel(balance: fromAcc["balance"]).toMap());
+        } else if (transactionModel.to != null) {
+          await CollectionReferenceData.accounts
+              .doc(toAcc["id"])
+              .update(AccountModel(balance: toAcc["balance"]).toMap());
+        }
       }
 
       await CollectionReferenceData.transaction
           .doc()
           .set(transactionModel.toMap());
-    } catch (e) {}
+    } catch (e) {}*/
   }
 
   onNextButton() {

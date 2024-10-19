@@ -98,7 +98,7 @@ class _DebtSwitch extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
         decoration: BoxDecoration(
             color: isSelected ? AppColors.tertiaryColor : AppColors.cardColor,
             borderRadius: BorderRadius.circular(30)),

@@ -15,7 +15,7 @@ class TransactionModel {
     this.to,
     this.note,
     this.category,
-    this.debtType,
+    this.debtType = 0,
     this.date,
   });
 

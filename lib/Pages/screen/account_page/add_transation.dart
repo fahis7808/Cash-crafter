@@ -30,9 +30,9 @@ class _AddTransactionState extends State<AddTransaction> {
         child: Consumer<BalanceProvider>(builder: (context, data, _) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-            child: data.wallet
+            child: /*data.wallet
                 ? Column()
-                : Column(
+                :*/ Column(
                     children: [
                       const SizedBox(height: 25),
                       AmountTextField(
