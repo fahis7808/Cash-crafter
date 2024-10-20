@@ -113,8 +113,19 @@ class BalanceProvider extends ChangeNotifier {
     }
   }
 
+  /// Edit MainBalance
+  Future<void> updateMainBalance(String id, double balance) async {
+    try {
+      await CollectionReferenceData.accountDetails
+          .doc("balance001")
+          .update(BalanceModel(totalBalance: balance).toMap());
+    } catch (e) {
+      throw Exception("Failed to update");
+    }
+  }
+
+  /// get account Balance
   getACBalance(String accName, double? amount, bool add) {
-    print(accName);
     AccountModel? account = accountList.firstWhere(
       (e) => e.accountName == accName,
       orElse: () => AccountModel(),
@@ -127,41 +138,43 @@ class BalanceProvider extends ChangeNotifier {
     return {'balance': balance, 'id': id};
   }
 
+  /// Edit account balance
+  Future<void> updateAccountBalance(String accId, double balance) async {
+    try {
+      await CollectionReferenceData.accounts
+          .doc(accId)
+          .update(AccountModel(balance: balance).toMap());
+    } catch (e) {
+      print("Error updating account balance: $e");
+      throw Exception("Failed to update account: $accId");
+    }
+  }
+
   addTransfer() async {
     var fromAcc = getACBalance(
         transactionModel.from.toString(), transactionModel.amount, false);
     var toAcc = getACBalance(
         transactionModel.to.toString(), transactionModel.amount, true);
-    print(fromAcc["id"]);
-    print(fromAcc["balance"]);
-    print(toAcc["id"]);
-    print(toAcc["balance"]);
     transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transferType ?? "transfer";
     try {
       if (transactionModel.transferType == "transfer") {
-        await CollectionReferenceData.accounts
-            .doc(fromAcc["id"])
-            .update(AccountModel(balance: fromAcc["balance"]).toMap());
-        await CollectionReferenceData.accounts
-            .doc(toAcc["id"])
-            .update(AccountModel(balance: toAcc["balance"]).toMap());
+        await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
+        await updateAccountBalance(toAcc["id"], toAcc["balance"]);
       } else {
         if (transactionModel.from != null) {
-          await CollectionReferenceData.accounts
-              .doc(fromAcc["id"])
-              .update(AccountModel(balance: fromAcc["balance"]).toMap());
+          await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
         } else if (transactionModel.to != null) {
-          await CollectionReferenceData.accounts
-              .doc(toAcc["id"])
-              .update(AccountModel(balance: toAcc["balance"]).toMap());
+          await updateAccountBalance(toAcc["id"], toAcc["balance"]);
         }
       }
 
       await CollectionReferenceData.transaction
           .doc()
           .set(transactionModel.toMap());
-    } catch (e) {}
+    } catch (e) {
+      return e;
+    }
   }
 
   onNextButton() {
