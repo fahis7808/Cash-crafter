@@ -35,8 +35,8 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   getData() async {
-    isLoading = true;
-    notifyListeners();
+    // isLoading = true;
+    // notifyListeners();
     try {
       /// accounts data ///
       QuerySnapshot accounts = await CollectionReferenceData.accounts.get();
@@ -55,8 +55,8 @@ class BalanceProvider extends ChangeNotifier {
       } else {
         wallet = true;
       }
-      isLoading = false;
-      notifyListeners();
+      // isLoading = false;
+      // notifyListeners();
     } catch (e) {
       wallet = false;
       print(e);
@@ -114,66 +114,84 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   /// Edit MainBalance
-  Future<void> updateMainBalance(String id, double balance) async {
+  Future<void> updateMainBalance(double amount, bool add) async {
+    double balance =
+        (balanceModel.totalBalance ?? 0) + (add ? (amount) : -(amount));
     try {
       await CollectionReferenceData.accountDetails
           .doc("balance001")
-          .update(BalanceModel(totalBalance: balance).toMap());
+          .update({"totalBalance": balance});
     } catch (e) {
       throw Exception("Failed to update");
     }
   }
 
   /// get account Balance
-  getACBalance(String accName, double? amount, bool add) {
-    AccountModel? account = accountList.firstWhere(
-      (e) => e.accountName == accName,
-      orElse: () => AccountModel(),
-    );
+  getACBalance(String? accName, double? amount, bool add) {
+    print("account name $accName");
+    if (accName == null) {
+      print("<<<<<<object>>>>>>");
+      print(accName);
+      print("<<<<<<object>>>>>>");
 
-    double balance =
-        (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
+      return null;
+    } else {
+      AccountModel? account = accountList.firstWhere(
+            (e) => e.accountName == accName,
+        orElse: () => AccountModel(),
+      );
 
-    String id = account.accId.toString();
-    return {'balance': balance, 'id': id};
+      double balance = (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
+
+      String id = account.accId.toString();
+      print(id);
+      return {'balance': balance, 'id': id};
+    }
   }
+
 
   /// Edit account balance
   Future<void> updateAccountBalance(String accId, double balance) async {
     try {
       await CollectionReferenceData.accounts
           .doc(accId)
-          .update(AccountModel(balance: balance).toMap());
+          .update({'balance': balance});
     } catch (e) {
       print("Error updating account balance: $e");
       throw Exception("Failed to update account: $accId");
     }
   }
 
-  addTransfer() async {
+  Future<bool> addTransfer() async {
+    isLoading = true;
+    onRefresh();
     var fromAcc = getACBalance(
-        transactionModel.from.toString(), transactionModel.amount, false);
+        transactionModel.from, transactionModel.amount, false);
     var toAcc = getACBalance(
-        transactionModel.to.toString(), transactionModel.amount, true);
+        transactionModel.to, transactionModel.amount, true);
     transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transferType ?? "transfer";
     try {
-      if (transactionModel.transferType == "transfer") {
+      print("from : ${transactionModel.from}");
+      print("to : ${transactionModel.to}");
+      print(toAcc);
+      if (fromAcc != null) {
         await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
+      }
+      if (toAcc != null) {
         await updateAccountBalance(toAcc["id"], toAcc["balance"]);
-      } else {
-        if (transactionModel.from != null) {
-          await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
-        } else if (transactionModel.to != null) {
-          await updateAccountBalance(toAcc["id"], toAcc["balance"]);
-        }
       }
 
       await CollectionReferenceData.transaction
           .doc()
           .set(transactionModel.toMap());
+      isLoading = false;
+      onRefresh();
+      return true;
     } catch (e) {
-      return e;
+      isLoading = false;
+      onRefresh();
+      return false;
     }
   }
 

@@ -53,11 +53,23 @@ class _DebtTabState extends State<DebtTab> {
           height: 20,
         ),
         CustomTextField(
-          value: "",
+          value: provider.transactionModel.from,
           labelText:
               provider.transactionModel.debtType == 0 ? "To Whom" : "From Whom",
           prefixIcon: FluentIcons.person_12_filled,
+          onChanged: (val){
+
+          },
         ),
+        CustomTextField(
+          value: provider.transactionModel.to,
+          labelText: "Phone Number",
+          prefixIcon: FluentIcons.call_12_filled,
+          onChanged: (val){
+
+          },
+        ),
+
         CustomDropdownField<String>(
           items: provider.accountList.map((e) {
             return e.accountName.toString();

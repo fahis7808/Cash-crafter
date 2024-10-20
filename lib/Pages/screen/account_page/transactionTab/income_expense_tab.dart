@@ -28,7 +28,9 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
             return e.accountName.toString();
           }).toList(),
           onChanged: (val) {
-            provider.transactionModel.from = val;
+            widget.isIncome
+                ? provider.transactionModel.to
+                : provider.transactionModel.from = val;
           },
           value: widget.isIncome
               ? provider.transactionModel.to

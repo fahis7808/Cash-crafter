@@ -33,87 +33,94 @@ class _AddTransactionState extends State<AddTransaction> {
             child: /*data.wallet
                 ? Column()
                 :*/ Column(
+              children: [
+                const SizedBox(height: 25),
+                AmountTextField(
+                  value: data.transactionModel.amount ?? 0,
+                  onChange: (val) {
+                    data.transactionModel.amount =
+                        double.tryParse(val) ?? 0;
+                  },
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: 310,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(height: 25),
-                      AmountTextField(
-                        value: data.transactionModel.amount ?? 0,
-                        onChange: (val) {
-                          data.transactionModel.amount =
-                              double.tryParse(val) ?? 0;
+                      TransactionSwitch(
+                        icon: Icons.swap_horiz,
+                        label: 'Transfer',
+                        index: 0,
+                        isSelected: selectedIndex == 0,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 0;
+                            data.transactionModel.transferType =
+                            "transfer";
+                          });
                         },
                       ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: 310,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TransactionSwitch(
-                              icon: Icons.swap_horiz,
-                              label: 'Transfer',
-                              index: 0,
-                              isSelected: selectedIndex == 0,
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = 0;
-                                  data.transactionModel.transferType =
-                                      "transfer";
-                                });
-                              },
-                            ),
-                            TransactionSwitch(
-                              icon: FluentIcons.arrow_square_up_right_24_filled,
-                              label: 'Income',
-                              index: 1,
-                              isSelected: selectedIndex == 1,
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = 1;
-                                  data.transactionModel.transferType = "income";
-                                });
-                              },
-                            ),
-                            TransactionSwitch(
-                              icon: FluentIcons.arrow_square_up_right_24_filled,
-                              label: 'Expense',
-                              index: 2,
-                              isSelected: selectedIndex == 2,
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = 2;
-                                  data.transactionModel.transferType =
-                                      "expense";
-                                });
-                              },
-                            ),
-                            TransactionSwitch(
-                              icon: FluentIcons.money_hand_24_filled,
-                              label: 'Debt',
-                              index: 3,
-                              isSelected: selectedIndex == 3,
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = 3;
-                                  data.transactionModel.transferType = "debt";
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                      TransactionSwitch(
+                        icon: FluentIcons.arrow_square_up_right_24_filled,
+                        label: 'Income',
+                        index: 1,
+                        isSelected: selectedIndex == 1,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 1;
+                            data.transactionModel.transferType = "income";
+                          });
+                        },
                       ),
-                      const SizedBox(
-                        height: 30,
+                      TransactionSwitch(
+                        icon: FluentIcons.arrow_square_up_right_24_filled,
+                        label: 'Expense',
+                        index: 2,
+                        isSelected: selectedIndex == 2,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 2;
+                            data.transactionModel.transferType =
+                            "expense";
+                          });
+                        },
                       ),
-                      Expanded(
-                          child: SingleChildScrollView(
-                              child: tabPage(selectedIndex))),
-                      CustomButton(
-                          buttonText: "Transfer",
-                          onPressed: () {
-                           data.addTransfer();
-                          })
+                      TransactionSwitch(
+                        icon: FluentIcons.money_hand_24_filled,
+                        label: 'Debt',
+                        index: 3,
+                        isSelected: selectedIndex == 3,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 3;
+                            data.transactionModel.transferType = "debt";
+                          });
+                        },
+                      ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                    child: SingleChildScrollView(
+                        child: tabPage(selectedIndex))),
+                CustomButton(
+                    buttonText: "Transfer",
+                    loading: data.isLoading,
+                    onPressed: () {
+                      // data.getACBalance(data.transactionModel.from, 100, false);
+
+                      data.addTransfer().then((value) {
+                        if(value == true){
+                         print(value);
+                        }
+                      });
+                    })
+              ],
+            ),
           );
         }),
       ),

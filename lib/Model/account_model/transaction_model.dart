@@ -2,6 +2,7 @@ class TransactionModel {
   double? amount;
   String? transferType;
   String? from;
+  double? phoneNumber;
   String? to;
   String? note;
   String? category;
@@ -12,6 +13,7 @@ class TransactionModel {
     this.amount,
     this.transferType,
     this.from,
+    this.phoneNumber,
     this.to,
     this.note,
     this.category,
