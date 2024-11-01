@@ -35,28 +35,31 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   getData() async {
-    // isLoading = true;
-    // notifyListeners();
+    isLoading = true;
+    notifyListeners();
     try {
-      /// accounts data ///
-      QuerySnapshot accounts = await CollectionReferenceData.accounts.get();
-      accountList = accounts.docs.map((e) {
-        return AccountModel.fromMap(e.data() as Map<String, dynamic>);
-      }).toList();
-
       /// main wallet data call ///
+
       QuerySnapshot walletData =
           await CollectionReferenceData.accountDetails.get();
+      print(walletData);
       if (walletData.docs.isNotEmpty) {
+        wallet = false;
         Map<String, dynamic> accountMap =
             walletData.docs.first.data() as Map<String, dynamic>;
         balanceModel = BalanceModel.fromMap(accountMap);
-        wallet = false;
+
+        /// accounts data ///
+        QuerySnapshot accounts = await CollectionReferenceData.accounts.get();
+        print(accounts);
+        accountList = accounts.docs.map((e) {
+          return AccountModel.fromMap(e.data() as Map<String, dynamic>);
+        }).toList();
       } else {
         wallet = true;
       }
-      // isLoading = false;
-      // notifyListeners();
+      isLoading = false;
+      notifyListeners();
     } catch (e) {
       wallet = false;
       print(e);
@@ -137,18 +140,18 @@ class BalanceProvider extends ChangeNotifier {
       return null;
     } else {
       AccountModel? account = accountList.firstWhere(
-            (e) => e.accountName == accName,
+        (e) => e.accountName == accName,
         orElse: () => AccountModel(),
       );
 
-      double balance = (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
+      double balance =
+          (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
 
       String id = account.accId.toString();
       print(id);
       return {'balance': balance, 'id': id};
     }
   }
-
 
   /// Edit account balance
   Future<void> updateAccountBalance(String accId, double balance) async {
@@ -165,10 +168,10 @@ class BalanceProvider extends ChangeNotifier {
   Future<bool> addTransfer() async {
     isLoading = true;
     onRefresh();
-    var fromAcc = getACBalance(
-        transactionModel.from, transactionModel.amount, false);
-    var toAcc = getACBalance(
-        transactionModel.to, transactionModel.amount, true);
+    var fromAcc =
+        getACBalance(transactionModel.from, transactionModel.amount, false);
+    var toAcc =
+        getACBalance(transactionModel.to, transactionModel.amount, true);
     transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transferType ?? "transfer";
     try {
