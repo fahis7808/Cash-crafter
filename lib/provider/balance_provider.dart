@@ -11,6 +11,7 @@ import '../service/secure_storage.dart';
 class BalanceProvider extends ChangeNotifier {
   bool wallet = false;
   bool isLoading = false;
+  bool isBtnLoading = false;
 
   BalanceModel balanceModel = BalanceModel();
   AccountModel accModel = AccountModel();
@@ -166,7 +167,7 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   Future<bool> addTransfer() async {
-    isLoading = true;
+    isBtnLoading = true;
     onRefresh();
     var fromAcc =
         getACBalance(transactionModel.from, transactionModel.amount, false);
@@ -188,11 +189,11 @@ class BalanceProvider extends ChangeNotifier {
       await CollectionReferenceData.transaction
           .doc()
           .set(transactionModel.toMap());
-      isLoading = false;
+      isBtnLoading = false;
       onRefresh();
       return true;
     } catch (e) {
-      isLoading = false;
+      isBtnLoading = false;
       onRefresh();
       return false;
     }
