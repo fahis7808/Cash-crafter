@@ -132,24 +132,17 @@ class BalanceProvider extends ChangeNotifier {
 
   /// get account Balance
   getACBalance(String? accName, double? amount, bool add) {
-    print("account name $accName");
     if (accName == null) {
-      print("<<<<<<object>>>>>>");
-      print(accName);
-      print("<<<<<<object>>>>>>");
-
       return null;
     } else {
       AccountModel? account = accountList.firstWhere(
         (e) => e.accountName == accName,
         orElse: () => AccountModel(),
       );
-
       double balance =
           (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
 
       String id = account.accId.toString();
-      print(id);
       return {'balance': balance, 'id': id};
     }
   }
@@ -169,21 +162,31 @@ class BalanceProvider extends ChangeNotifier {
   Future<bool> addTransfer() async {
     isBtnLoading = true;
     onRefresh();
+    transactionModel.date = transactionModel.date ??
+        DateFormat('dd-MM-yyyy').format(DateTime.now());
+    transactionModel.transactionType =
+        transactionModel.transactionType ?? "transfer";
+    print("from account name : ${transactionModel.debit}");
+    print("to account name : ${transactionModel.credit}");
     var fromAcc =
-        getACBalance(transactionModel.from, transactionModel.amount, false);
+        getACBalance(transactionModel.debit, transactionModel.amount, false);
     var toAcc =
-        getACBalance(transactionModel.to, transactionModel.amount, true);
-    transactionModel.date ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
-    transactionModel.transferType ?? "transfer";
+        getACBalance(transactionModel.credit, transactionModel.amount, true);
     try {
-      print("from : ${transactionModel.from}");
-      print("to : ${transactionModel.to}");
+      print("from : ${transactionModel.debit}");
+      print("to : ${transactionModel.credit}");
       print(toAcc);
       if (fromAcc != null) {
         await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
+        if(transactionModel.transactionType != "transfer"){
+          await updateMainBalance(transactionModel.amount?.toDouble() ?? 0, false);
+        }
       }
       if (toAcc != null) {
         await updateAccountBalance(toAcc["id"], toAcc["balance"]);
+        if(transactionModel.transactionType != "transfer"){
+          await updateMainBalance(transactionModel.amount?.toDouble() ?? 0, true);
+        }
       }
 
       await CollectionReferenceData.transaction
@@ -193,6 +196,7 @@ class BalanceProvider extends ChangeNotifier {
       onRefresh();
       return true;
     } catch (e) {
+      print(e);
       isBtnLoading = false;
       onRefresh();
       return false;

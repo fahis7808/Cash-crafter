@@ -13,13 +13,6 @@ import 'package:provider/provider.dart';
 import '../../widget/graph/graph_chart.dart';
 
 class AccountPage extends StatelessWidget {
-  final List<Map<String, dynamic>> accountData = [
-    {"accName": "Wallet", "amount": 2342},
-    {"accName": "Federal", "amount": 23433},
-    {"accName": "Savings", "amount": 10000},
-    {"accName": "Business", "amount": 4500},
-  ];
-
   AccountPage({Key? key}) : super(key: key);
 
   @override

@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/category_page.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
@@ -29,12 +30,14 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           }).toList(),
           onChanged: (val) {
             widget.isIncome
-                ? provider.transactionModel.to
-                : provider.transactionModel.from = val;
+                ? provider.transactionModel.credit = val
+                : provider.transactionModel.debit = val;
+            print(provider.transactionModel.debit);
+            print(provider.transactionModel.credit);
           },
           value: widget.isIncome
-              ? provider.transactionModel.to
-              : provider.transactionModel.from,
+              ? provider.transactionModel.credit
+              : provider.transactionModel.debit,
           labelText:  "Account",
           prefixIcon: FluentIcons.building_bank_16_filled,
         ),
@@ -59,8 +62,8 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
         CustomDateField(
           labelText: "Date",
           prefixIcon: FluentIcons.calendar_3_day_16_filled,
-          onChange: (val) {
-            provider.transactionModel.date = val;
+          onDateSelected: (val) {
+            provider.transactionModel.date = DateFormat('dd-MM-yyyy').format(val);
           },
         ),
         CustomTextField(

@@ -1,9 +1,9 @@
 class TransactionModel {
   double? amount;
-  String? transferType;
-  String? from;
+  String? transactionType;
+  String? debit;
   double? phoneNumber;
-  String? to;
+  String? credit;
   String? note;
   String? category;
   int? debtType;
@@ -11,10 +11,10 @@ class TransactionModel {
 
   TransactionModel({
     this.amount,
-    this.transferType,
-    this.from,
+    this.transactionType,
+    this.debit,
     this.phoneNumber,
-    this.to,
+    this.credit,
     this.note,
     this.category,
     this.debtType = 0,
@@ -24,9 +24,10 @@ class TransactionModel {
   Map<String, dynamic> toMap() {
     return {
       "amount": amount,
-      "transferType": transferType,
-      "from": from,
-      "to": to,
+      "transactionType": transactionType,
+      "debitAccount": debit,
+      "phoneNumber" : phoneNumber,
+      "creditAccount": credit,
       "note": note,
       "category": category,
       "debtType": debtType,
@@ -36,9 +37,10 @@ class TransactionModel {
 
   TransactionModel.fromMap(Map<String, dynamic> map) {
     amount = map["amount"];
-    transferType = map["transferType"];
-    from = map["from"];
-    to = map["to"];
+    transactionType = map["transactionType"];
+    debit = map["debitAccount"];
+    phoneNumber = map["phoneNumber"];
+    credit = map["creditAccount"];
     note = map["note"];
     category = map["category"];
     debtType = map["debtType"];

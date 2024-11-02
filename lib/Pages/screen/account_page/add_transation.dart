@@ -9,6 +9,7 @@ import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../util/snack_bar.dart';
 import '../../widget/button/button.dart';
 
 class AddTransaction extends StatefulWidget {
@@ -29,20 +30,20 @@ class _AddTransactionState extends State<AddTransaction> {
         create: (cxt) => BalanceProvider(),
         child: Consumer<BalanceProvider>(builder: (context, data, _) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
             child: /*data.wallet
                 ? Column()
                 :*/ Column(
               children: [
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
                 AmountTextField(
-                  value: data.transactionModel.amount ?? 0,
+                  value: data.transactionModel.amount,
                   onChange: (val) {
                     data.transactionModel.amount =
                         double.tryParse(val) ?? 0;
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: 310,
                   child: Row(
@@ -56,7 +57,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         onTap: () {
                           setState(() {
                             selectedIndex = 0;
-                            data.transactionModel.transferType =
+                            data.transactionModel.transactionType =
                             "transfer";
                           });
                         },
@@ -69,7 +70,8 @@ class _AddTransactionState extends State<AddTransaction> {
                         onTap: () {
                           setState(() {
                             selectedIndex = 1;
-                            data.transactionModel.transferType = "income";
+                            data.transactionModel.transactionType = "income";
+                            data.transactionModel.debit = null;
                           });
                         },
                       ),
@@ -81,8 +83,9 @@ class _AddTransactionState extends State<AddTransaction> {
                         onTap: () {
                           setState(() {
                             selectedIndex = 2;
-                            data.transactionModel.transferType =
+                            data.transactionModel.transactionType =
                             "expense";
+                            data.transactionModel.credit = null;
                           });
                         },
                       ),
@@ -94,7 +97,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         onTap: () {
                           setState(() {
                             selectedIndex = 3;
-                            data.transactionModel.transferType = "debt";
+                            data.transactionModel.transactionType = "debt";
                           });
                         },
                       ),
@@ -109,13 +112,22 @@ class _AddTransactionState extends State<AddTransaction> {
                         child: tabPage(selectedIndex))),
                 CustomButton(
                     buttonText: "Transfer",
-                    loading: data.isLoading,
+                    loading: data.isBtnLoading,
                     onPressed: () {
                       // data.getACBalance(data.transactionModel.from, 100, false);
 
                       data.addTransfer().then((value) {
                         if(value == true){
-                         print(value);
+                          final snackBar = CustomSnackBar.successesSnackBar(
+                            "Successfully added your account",
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // Navigator.pop(context);
+                        }else{
+                          final snackBar = CustomSnackBar.errorSnackBar(
+                            "Something went wrong",
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
                     })

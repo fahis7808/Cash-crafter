@@ -22,9 +22,9 @@ class MoneyTransfer extends StatelessWidget {
             return e.accountName.toString();
           }).toList(),
           onChanged: (val) {
-            data.transactionModel.from = val;
+            data.transactionModel.debit = val;
           },
-          value: data.transactionModel.from,
+          value: data.transactionModel.debit,
           labelText: "From",
           prefixIcon: FluentIcons.building_bank_16_filled,
         ),
@@ -33,9 +33,9 @@ class MoneyTransfer extends StatelessWidget {
             return e.accountName.toString();
           }).toList(),
           onChanged: (val) {
-            data.transactionModel.to = val;
+            data.transactionModel.credit = val;
           },
-          value: data.transactionModel.to,
+          value: data.transactionModel.credit,
           labelText: "To",
           prefixIcon: FluentIcons.building_bank_16_filled,
         ),

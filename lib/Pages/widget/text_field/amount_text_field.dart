@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
 import '../../../constant/app_colors.dart';
 
 class AmountTextField extends StatefulWidget {
   final double? value;
   final void Function(String)? onChange;
 
-
-  const AmountTextField({Key? key, required this.value, this.onChange}) : super(key: key);
+  const AmountTextField({Key? key, this.value, this.onChange})
+      : super(key: key);
 
   @override
   State<AmountTextField> createState() => _AmountTextFieldState();
@@ -37,7 +36,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
         controller.text = widget.value?.toString() ?? "";
       }
     });
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -62,6 +61,11 @@ class _AmountTextFieldState extends State<AmountTextField> {
                 color: AppColors.white),
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
+              hintText: "0.0",
+              hintStyle: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.cardColor),
               border: InputBorder.none,
             ),
           ),
