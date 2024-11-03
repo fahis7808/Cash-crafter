@@ -5,7 +5,7 @@ import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
 import 'package:money_manage_app2/Pages/widget/graph/graph_chart.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
-import 'account_page.dart';
+import '../../widget/custom_widget/transaction_card.dart';
 
 class SingleAccountPage extends StatelessWidget {
   final String title;
