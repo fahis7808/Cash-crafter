@@ -147,7 +147,8 @@ class BalanceProvider extends ChangeNotifier {
   }
 
   /// Edit account balance
-  Future<void> updateAccountBalance(String? accName, double? amount, bool add) async {
+  Future<void> updateAccountBalance(
+      String? accName, double? amount, bool add) async {
     var value = getACBalance(accName, amount, add);
     try {
       await CollectionReferenceData.accounts
@@ -159,31 +160,60 @@ class BalanceProvider extends ChangeNotifier {
     }
   }
 
+  Future<String> getTransactionID() async {
+    const String initialId = "trans001";
+    String newId = initialId;
+
+    DocumentSnapshot docs =
+        await CollectionReferenceData.transaction.doc(initialId).get();
+    try {
+      if (docs.exists) {
+        QuerySnapshot querySnapshot = await CollectionReferenceData.transaction
+            .orderBy(FieldPath.documentId)
+            .startAt([initialId]).get();
+        if (querySnapshot.docs.isNotEmpty) {
+          String lastId = querySnapshot.docs.last.id;
+
+          int idNumber = int.parse(lastId.replaceAll('trans', '')) + 1;
+          newId = 'trans${idNumber.toString().padLeft(3, '0')}';
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return newId.toString();
+  }
+
   Future<bool> addTransfer() async {
     isBtnLoading = true;
     onRefresh();
+    String newId = await getTransactionID();
     transactionModel.date = transactionModel.date ??
         DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transactionType =
         transactionModel.transactionType ?? "transfer";
     try {
       if (transactionModel.transactionType == "transfer") {
-        await updateAccountBalance(transactionModel.debit, transactionModel.amount, false);
-        await updateAccountBalance(transactionModel.credit, transactionModel.amount, true);
+        await updateAccountBalance(
+            transactionModel.debit, transactionModel.amount, false);
+        await updateAccountBalance(
+            transactionModel.credit, transactionModel.amount, true);
       } else if (transactionModel.transactionType == "income") {
-        await updateAccountBalance(transactionModel.credit, transactionModel.amount, true);
-        await updateMainBalance(
-            transactionModel.amount?.toDouble() ?? 0, true);
-      }else if(transactionModel.transactionType == "expense"){
-        await updateAccountBalance(transactionModel.debit, transactionModel.amount, false);
+        await updateAccountBalance(
+            transactionModel.credit, transactionModel.amount, true);
+        await updateMainBalance(transactionModel.amount?.toDouble() ?? 0, true);
+      } else if (transactionModel.transactionType == "expense") {
+        await updateAccountBalance(
+            transactionModel.debit, transactionModel.amount, false);
         await updateMainBalance(
             transactionModel.amount?.toDouble() ?? 0, false);
-      }else{
+      } else {
         print("debt");
       }
 
       await CollectionReferenceData.transaction
-          .doc()
+          .doc(newId)
           .set(transactionModel.toMap());
       isBtnLoading = false;
       onRefresh();

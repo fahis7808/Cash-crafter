@@ -22,5 +22,5 @@ class CollectionReferenceData {
       .doc(user?.uid)
       .collection(DataBaseName.accDetails)
       .doc("balance001")
-      .collection(DataBaseName.transfer);
+      .collection(DataBaseName.transaction);
 }
