@@ -141,21 +141,21 @@ class BalanceProvider extends ChangeNotifier {
       );
       double balance =
           (account.balance ?? 0) + (add ? (amount ?? 0) : -(amount ?? 0));
-
       String id = account.accId.toString();
       return {'balance': balance, 'id': id};
     }
   }
 
   /// Edit account balance
-  Future<void> updateAccountBalance(String accId, double balance) async {
+  Future<void> updateAccountBalance(String? accName, double? amount, bool add) async {
+    var value = getACBalance(accName, amount, add);
     try {
       await CollectionReferenceData.accounts
-          .doc(accId)
-          .update({'balance': balance});
+          .doc(value["id"])
+          .update({'balance': value["balance"]});
     } catch (e) {
       print("Error updating account balance: $e");
-      throw Exception("Failed to update account: $accId");
+      throw Exception("Failed to update account: ${value["id"]}");
     }
   }
 
@@ -166,27 +166,20 @@ class BalanceProvider extends ChangeNotifier {
         DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transactionType =
         transactionModel.transactionType ?? "transfer";
-    print("from account name : ${transactionModel.debit}");
-    print("to account name : ${transactionModel.credit}");
-    var fromAcc =
-        getACBalance(transactionModel.debit, transactionModel.amount, false);
-    var toAcc =
-        getACBalance(transactionModel.credit, transactionModel.amount, true);
     try {
-      print("from : ${transactionModel.debit}");
-      print("to : ${transactionModel.credit}");
-      print(toAcc);
-      if (fromAcc != null) {
-        await updateAccountBalance(fromAcc["id"], fromAcc["balance"]);
-        if(transactionModel.transactionType != "transfer"){
-          await updateMainBalance(transactionModel.amount?.toDouble() ?? 0, false);
-        }
-      }
-      if (toAcc != null) {
-        await updateAccountBalance(toAcc["id"], toAcc["balance"]);
-        if(transactionModel.transactionType != "transfer"){
-          await updateMainBalance(transactionModel.amount?.toDouble() ?? 0, true);
-        }
+      if (transactionModel.transactionType == "transfer") {
+        await updateAccountBalance(transactionModel.debit, transactionModel.amount, false);
+        await updateAccountBalance(transactionModel.credit, transactionModel.amount, true);
+      } else if (transactionModel.transactionType == "income") {
+        await updateAccountBalance(transactionModel.credit, transactionModel.amount, true);
+        await updateMainBalance(
+            transactionModel.amount?.toDouble() ?? 0, true);
+      }else if(transactionModel.transactionType == "expense"){
+        await updateAccountBalance(transactionModel.debit, transactionModel.amount, false);
+        await updateMainBalance(
+            transactionModel.amount?.toDouble() ?? 0, false);
+      }else{
+        print("debt");
       }
 
       await CollectionReferenceData.transaction

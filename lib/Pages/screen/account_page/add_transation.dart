@@ -114,15 +114,13 @@ class _AddTransactionState extends State<AddTransaction> {
                     buttonText: "Transfer",
                     loading: data.isBtnLoading,
                     onPressed: () {
-                      // data.getACBalance(data.transactionModel.from, 100, false);
-
                       data.addTransfer().then((value) {
                         if(value == true){
                           final snackBar = CustomSnackBar.successesSnackBar(
                             "Successfully added your account",
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // Navigator.pop(context);
+                          Navigator.pop(context);
                         }else{
                           final snackBar = CustomSnackBar.errorSnackBar(
                             "Something went wrong",

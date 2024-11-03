@@ -28,10 +28,16 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           items: provider.accountList.map((e) {
             return e.accountName.toString();
           }).toList(),
-          onChanged: (val) {
-            widget.isIncome
-                ? provider.transactionModel.credit = val
-                : provider.transactionModel.debit = val;
+          onChanged: (val) {setState(() {
+            if(widget.isIncome){
+              provider.transactionModel.credit = val;
+              provider.transactionModel.debit = null;
+            }else{
+              provider.transactionModel.debit = val;
+              provider.transactionModel.credit = null;
+            }
+          });
+
             print(provider.transactionModel.debit);
             print(provider.transactionModel.credit);
           },
