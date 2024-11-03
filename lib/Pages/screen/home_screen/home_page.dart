@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/add_transation.dart';
+import 'package:money_manage_app2/Pages/screen/transaction/add_transation.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/screen/profile_page/profile_page.dart';

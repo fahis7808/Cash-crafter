@@ -1,8 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/debt_tab.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/income_expense_tab.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/transactionTab/transfer_tab.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -11,6 +8,9 @@ import 'package:provider/provider.dart';
 
 import '../../../util/snack_bar.dart';
 import '../../widget/button/button.dart';
+import 'transactionTab/debt_tab.dart';
+import 'transactionTab/income_expense_tab.dart';
+import 'transactionTab/transfer_tab.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
