@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/add_card_page.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/balance_initial_open.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/single_acc_page.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
@@ -47,17 +46,17 @@ class AccountPage extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: GestureDetector(
-                                        onTap: () => Navigator.push(
+                                        /*onTap: () => Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         const AddAccountPage()))
                                             .then((value) {
                                           data.getData();
-                                        }),
-                                        // onTap: (){
-                                        //   data.getData();
-                                        // },
+                                        }),*/
+                                        onTap: (){
+                                          data.getTransferList("Wallet");
+                                        },
                                         child: Container(
                                           height: 35,
                                           width: 70,
@@ -80,16 +79,18 @@ class AccountPage extends StatelessWidget {
                                       runSpacing: 8,
                                       // Vertical space between rows of cards
                                       children: data.accountList
-                                          .map((data) => InkWell(
+                                          .map((e) => InkWell(
                                                 onTap: () {
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               SingleAccountPage(
-                                                                  title: data
-                                                                      .accountName
-                                                                      .toString())));
+                                                                account: e,
+                                                                list: data.getTransferList(e.accountName.toString()),
+                                                              )));
+                                                  data.accountName =
+                                                      e.accountName.toString();
                                                 },
                                                 child: SizedBox(
                                                   width: MediaQuery.of(context)
@@ -99,11 +100,11 @@ class AccountPage extends StatelessWidget {
                                                       15,
                                                   // Each card takes half of the width minus spacing
                                                   child: AccountCard(
-                                                    accName: data.accountName
+                                                    accName: e.accountName
                                                         .toString(),
-                                                    amount: data.balance
-                                                            ?.toDouble() ??
-                                                        0,
+                                                    amount:
+                                                        e.balance?.toDouble() ??
+                                                            0,
                                                   ),
                                                 ),
                                               ))
@@ -121,9 +122,8 @@ class AccountPage extends StatelessWidget {
                                       height: 5,
                                     ),
                                     Expanded(
-                                      child: ListView.builder(
-                                          itemBuilder: ((context, index) =>
-                                              const TransactionCard())),
+                                      child: TransactionCard(
+                                          data: data.getTransferList("")),
                                     ),
                                   ],
                                 ),

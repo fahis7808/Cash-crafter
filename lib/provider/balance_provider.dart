@@ -18,6 +18,7 @@ class BalanceProvider extends ChangeNotifier {
   TransactionModel transactionModel = TransactionModel();
 
   List<AccountModel> accountList = [];
+  List<TransactionModel> transferList = [];
 
   BalanceProvider() {
     getData();
@@ -56,6 +57,13 @@ class BalanceProvider extends ChangeNotifier {
         accountList = accounts.docs.map((e) {
           return AccountModel.fromMap(e.data() as Map<String, dynamic>);
         }).toList();
+
+        /// transaction data ///
+        QuerySnapshot transfer =
+            await CollectionReferenceData.transaction.get();
+        transferList = transfer.docs.map((e) {
+          return TransactionModel.fromMap(e.data() as Map<String, dynamic>);
+        }).toList();
       } else {
         wallet = true;
       }
@@ -66,6 +74,20 @@ class BalanceProvider extends ChangeNotifier {
       print(e);
       notifyListeners();
     }
+  }
+
+  String accountName = "";
+
+  List<TransactionModel> getTransferList(String accountName) {
+    List<TransactionModel> transList = [];
+    if (accountName != "") {
+      transList = transferList.where((e) {
+        return e.credit == accountName || e.debit == accountName;
+      }).toList();
+    } else {
+      transList = transferList;
+    }
+    return transList;
   }
 
   Future<bool> addBalance() async {
@@ -229,6 +251,17 @@ class BalanceProvider extends ChangeNotifier {
   onNextButton() {
     wallet = false;
     notifyListeners();
+  }
+
+  String formatDateString(String dateString) {
+    if (dateString != "") {
+      DateFormat inputFormat = DateFormat('dd-MM-yyyy');
+      DateTime date = inputFormat.parse(dateString);
+      DateFormat outputFormat = DateFormat('dd MMM yy');
+      return outputFormat.format(date);
+    } else {
+      return "";
+    }
   }
 
   onRefresh() {
