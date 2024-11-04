@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../widget/custom_widget/transaction_card.dart';
 import '../../widget/graph/graph_chart.dart';
+import 'add_card_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -46,17 +47,14 @@ class AccountPage extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: GestureDetector(
-                                        /*onTap: () => Navigator.push(
+                                        onTap: () => Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         const AddAccountPage()))
                                             .then((value) {
                                           data.getData();
-                                        }),*/
-                                        onTap: (){
-                                          data.getTransferList("Wallet");
-                                        },
+                                        }),
                                         child: Container(
                                           height: 35,
                                           width: 70,
