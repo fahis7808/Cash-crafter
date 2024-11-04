@@ -108,9 +108,9 @@ class AccountPage extends StatelessWidget {
                                               ))
                                           .toList(),
                                     ),
-                                    const SizedBox(
-                                      height: 210,
-                                      child: LineChartSample2(),
+                                     SizedBox(
+                                      height: 250,
+                                      child: LineChartSample2(transList: data.getTransferList("")),
                                     ),
                                     Text(
                                       "Transaction History",

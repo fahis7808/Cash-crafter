@@ -1,10 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/widget/button/button.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
+import '../../../Model/account_model/transaction_model.dart';
+
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
+  final List<TransactionModel> transList;
+  const LineChartSample2({super.key, required this.transList});
 
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
@@ -16,10 +20,34 @@ class _LineChartSample2State extends State<LineChartSample2> {
     Color(0xBD4857C0),
   ];
 
+  List<FlSpot> flSpot = [];
+  double xLength = 0;
+
+  void setFlSpot(){
+    flSpot = widget.transList.asMap().entries.map((e) {
+      int index = e.key;
+      TransactionModel data = e.value;
+      double x = index.toDouble();
+      double y = data.amount?.toDouble() ?? 0;
+      print(flSpot);
+      xLength = widget.transList.length.toDouble();
+      return FlSpot(x, y);
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: <Widget>[
+        SizedBox(
+          height: 50,
+          width: 200,
+          child: CustomButton(buttonText: "demo", onPressed: (){
+            print("<<<<<<<<<object>>>>>>>>>");
+            print("<<<<<<<<<object>>>>>>>>>");
+          setFlSpot();
+          }),
+        ),
         AspectRatio(
           aspectRatio: 2  ,
           child: Padding(
@@ -118,25 +146,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
         show: false,
       ),
       minX: 0,
-      maxX: 11,
+      maxX: xLength,
       minY: 0,
-      maxY: 10,
+      maxY: 600,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 5),
-            FlSpot(1, 3),
-            FlSpot(2, 2),
-            FlSpot(3, 3),
-            FlSpot(4, 4),
-            FlSpot(5, 8),
-            FlSpot(6, 2),
-            FlSpot(7, 1),
-            FlSpot(8, 4.2),
-            FlSpot(9, 3),
-            FlSpot(10, 3.5),
-            FlSpot(11, 2),
-          ],
+          spots: flSpot,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,

@@ -46,7 +46,7 @@ final List<TransactionModel> list;
                       //     ],
                       //   ),
                       // ),
-                      const LineChartSample2(),
+                       LineChartSample2(transList: list),
                       const SizedBox(
                         height: 10,
                       ),
