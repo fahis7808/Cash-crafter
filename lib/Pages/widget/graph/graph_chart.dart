@@ -117,7 +117,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         ),
       ),
       gridData: const FlGridData(
-        show: false,
+        show: true,
         drawVerticalLine: false,
       ),
       titlesData: FlTitlesData(

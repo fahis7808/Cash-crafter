@@ -10,6 +10,6 @@ class AppColors {
   static const containerColor = Color(0x10C6C6C9);
   static const positiveColor = Color(0xFF297B32);
   static const negativeColor = Color(0xFFA80000);
-  static const barBackground = Color(0x320B3ECC);
+  static const barBackground = Color(0x3D0B3ECC);
   static const backgroundColors = Color(0xFF09023D);
 }
