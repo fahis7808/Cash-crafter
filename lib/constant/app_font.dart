@@ -51,7 +51,7 @@ class AppFont {
     color: AppColors.white,
   );
   static TextStyle cardColored = const TextStyle(
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.colour2
   );
