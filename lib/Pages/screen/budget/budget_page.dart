@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budge_add_page.dart';
+import 'package:money_manage_app2/Pages/screen/budget/on_budget_page.dart';
 import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
@@ -9,16 +10,8 @@ import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 
-
 class BudgetPage extends StatelessWidget {
-  final List<Map<String, dynamic>> accountData = [
-    {"title": "Food & Drinks", "amount": 2342.5, "spent": 3423.0},
-    {"title": "Petrol", "amount": 2563.0, "spent": 534.0},
-    {"title": "Savings", "amount": 1578.0, "spent": 2364.0},
-    {"title": "Dress", "amount": 9587.0, "spent": 9873.0},
-  ];
-
-  BudgetPage({Key? key}) : super(key: key);
+  const BudgetPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +23,16 @@ class BudgetPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Monthly Budget",style: AppFont.cardColored,),
+              Text(
+                "Monthly Budget",
+                style: AppFont.text16,
+              ),
               CustomCard(
-                  padding: EdgeInsets.all(15),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => const OnBudgetPage()));
+                  },
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -49,17 +49,17 @@ class BudgetPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "15 Nov - 15 Dec",
+                            "15 Days left",
                             style: AppFont.cardSubTitle,
                           ),
-                         /* Text(
+                          /* Text(
                             "Left Amount ${FormattedText.formattedAmount(9874)}",
                             style: AppFont.cardSubTitle,
                           ),*/
@@ -69,13 +69,13 @@ class BudgetPage extends StatelessWidget {
                                   // style: AppFont.subCardMainText,
                                   style: AppFont.cardTitle,
                                   children: [
-                                    TextSpan(
-                                        text:
+                                TextSpan(
+                                    text:
                                         " / ${FormattedText.formattedAmount(56245)}",
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            color: AppColors.secondaryColor))
-                                  ])),
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.secondaryColor))
+                              ])),
                         ],
                       ),
                       const SizedBox(
@@ -93,7 +93,7 @@ class BudgetPage extends StatelessWidget {
       ),
       floatingActionButton: CustomFloatingActionButton(
         onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddBudgetPage())),
+            context, MaterialPageRoute(builder: (context) => const AddBudgetPage())),
       ),
     );
   }
