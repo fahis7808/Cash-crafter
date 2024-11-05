@@ -7,6 +7,8 @@ import 'package:money_manage_app2/Pages/widget/graph/percentage_bar.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 import 'package:money_manage_app2/util/formated_text.dart';
 
+import '../../../constant/app_colors.dart';
+
 
 class BudgetPage extends StatelessWidget {
   final List<Map<String, dynamic>> accountData = [
@@ -26,7 +28,9 @@ class BudgetPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text("Monthly Budget",style: AppFont.cardColored,),
               CustomCard(
                   padding: EdgeInsets.all(15),
                   child: Column(
@@ -40,7 +44,7 @@ class BudgetPage extends StatelessWidget {
                             style: AppFont.white20,
                           ),
                           Text(
-                            FormattedText.formattedAmount(34870),
+                            FormattedText.formattedAmount(2659),
                             style: AppFont.white20,
                           )
                         ],
@@ -55,10 +59,23 @@ class BudgetPage extends StatelessWidget {
                             "15 Nov - 15 Dec",
                             style: AppFont.cardSubTitle,
                           ),
-                          Text(
+                         /* Text(
                             "Left Amount ${FormattedText.formattedAmount(9874)}",
                             style: AppFont.cardSubTitle,
-                          ),
+                          ),*/
+                          RichText(
+                              text: TextSpan(
+                                  text: FormattedText.formattedAmount(45232),
+                                  // style: AppFont.subCardMainText,
+                                  style: AppFont.cardTitle,
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                        " / ${FormattedText.formattedAmount(56245)}",
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.secondaryColor))
+                                  ])),
                         ],
                       ),
                       const SizedBox(
