@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/debt/total_loan_card.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-
+import 'package:money_manage_app2/constant/app_colors.dart';
+import 'package:money_manage_app2/constant/app_font.dart';
 
 class DebtPage extends StatelessWidget {
   const DebtPage({Key? key}) : super(key: key);
@@ -15,8 +16,8 @@ class DebtPage extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -28,7 +29,50 @@ class DebtPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            MainLoanCard()
+            const MainLoanCard(),
+            const SizedBox(
+              height: 10,
+            ),
+            CustomCard(
+                circularRadius: 10,
+                color: AppColors.primaryColor,
+                child: Row(
+                  children: [
+                    CustomCard(
+                        child: Text(
+                      "AF",
+                      style: AppFont.white20,
+                    )),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Aboobacker Fahis",
+                          style: AppFont.textFieldLabel,
+                        ),
+                        Text(
+                          "88932 88945",
+                          style: AppFont.cardSubTitle,
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const Column(
+                      children: [
+                        Text(
+                          "-234",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.negativeColor),
+                        )
+                      ],
+                    )
+                  ],
+                ))
           ],
         ),
       ),

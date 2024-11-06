@@ -10,7 +10,6 @@ class GoalPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      color1: AppColors.containerColor,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

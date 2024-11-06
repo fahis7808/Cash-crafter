@@ -23,12 +23,12 @@ class AppFont {
   static TextStyle cardTitle = const TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
-    color: Colors.white,
+    color: AppColors.white,
   );
   static TextStyle white20 = const TextStyle(
     fontSize: 20.0,
     fontWeight: FontWeight.w700,
-    color: Colors.white,
+    color: AppColors.white,
   );
   static TextStyle cardSubTitle = const TextStyle(
     fontSize: 15.0,
@@ -51,8 +51,5 @@ class AppFont {
     color: AppColors.white,
   );
   static TextStyle text16 = const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: AppColors.colour2
-  );
+      fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.colour2);
 }

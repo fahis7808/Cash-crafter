@@ -5,20 +5,20 @@ import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
 
 class CustomCard extends StatelessWidget {
-  final Color? color1;
-  final Color? color2;
+  final Color? color;
   final Widget child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final void Function()? onTap;
+  final double? circularRadius;
 
   const CustomCard(
       {Key? key,
-      this.color1,
-      this.color2,
+      this.color,
       required this.child,
       this.padding,
-      this.onTap, this.margin})
+      this.onTap,
+      this.margin, this.circularRadius})
       : super(key: key);
 
   @override
@@ -28,30 +28,21 @@ class CustomCard extends StatelessWidget {
       highlightColor: Colors.black,
       onTap: onTap,
       child: Container(
-        margin: margin,
+          margin: margin,
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-             Color(0x254F4F4F),
-              Color(0x8006031E)
-            ],
-            begin: Alignment.topCenter,end: Alignment.bottomCenter
-            ),
-         /*   gradient: color1 != null && color2 != null
-                ? LinearGradient(colors: [
-                    color1 ?? const Color(0x24EAEAEA),
-                    color2 ?? const Color(0x800A015D)
-                  ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
-                : null,*/
-            // color: color2 == null ? color1 ?? AppColors.containerColor : null,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                20,
+              gradient:color == null ? LinearGradient(
+                  colors: [Color(0x660E3177), Color(0x8006031E)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter) : null,
+              color: color,
+              borderRadius:  BorderRadius.all(
+                Radius.circular(
+                 circularRadius ?? 20,
+                ),
               ),
-            ),
-            border: Border.all(color: AppColors.cardColor)
-          ),
-          padding:
-              padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              border: Border.all(color: AppColors.cardColor)),
+          padding: padding ??
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: child),
     );
   }
@@ -105,8 +96,10 @@ class IncomeExpenseCard extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 15,),
-          TextAmount(text: income ? "Income" : "Spending", amount:amount)
+          SizedBox(
+            height: 15,
+          ),
+          TextAmount(text: income ? "Income" : "Spending", amount: amount)
         ],
       ),
     );
@@ -117,16 +110,19 @@ class TextAmount extends StatelessWidget {
   final String text;
   final double amount;
   final TextStyle? textStyle;
-  const TextAmount({Key? key, required this.text, required this.amount, this.textStyle}) : super(key: key);
+
+  const TextAmount(
+      {Key? key, required this.text, required this.amount, this.textStyle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           text,
-          style:textStyle?? AppFont.cardTitle,
+          style: textStyle ?? AppFont.cardTitle,
         ),
         const SizedBox(
           height: 5,
