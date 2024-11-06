@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
 import 'package:money_manage_app2/Pages/screen/transaction/add_transation.dart';
@@ -115,28 +115,30 @@ class HomePage extends StatelessWidget {
                     totalAmount: 23424),
                 const SizedBox(
                   height: 10,
-                ),
+                ),  
                 const GoalPart(),
               ]),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppColors.primaryColor,
-          unselectedItemColor: AppColors.cardColor,
-          items: [
-            BottomNavigationBarItem(
-                backgroundColor: AppColors.primaryColor,
-                icon: Icon(CupertinoIcons.archivebox_fill),
-                label: "Dashboard"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.archivebox_fill), label: "Accounts"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.archivebox_fill), label: "Budget"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.archivebox_fill), label: "Goal"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.archivebox_fill), label: "Debt"),
-          ]),
+      bottomNavigationBar: CustomCard(
+          height: 75,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          bottomItem(FluentIcons.home_28_regular, "Home"),
+          bottomItem(FluentIcons.person_24_regular, "Account"),
+          bottomItem(FluentIcons.toolbox_24_regular, "Budget"),
+          bottomItem(FluentIcons.money_hand_24_regular, "Debt"),
+        ],
+      )),
+    );
+  }
+  Widget bottomItem(IconData icon,String text){
+    return Column(
+      children: [
+        Icon(icon,color: AppColors.cardColor,size: 35,),
+        Text(text,style: const TextStyle(fontSize: 15,color: AppColors.colour2,fontWeight: FontWeight.w600),)
+      ],
     );
   }
 }

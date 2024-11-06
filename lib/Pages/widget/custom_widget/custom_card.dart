@@ -11,6 +11,8 @@ class CustomCard extends StatelessWidget {
   final EdgeInsets? margin;
   final void Function()? onTap;
   final double? circularRadius;
+  final double? height;
+  final double? width;
 
   const CustomCard(
       {Key? key,
@@ -18,7 +20,7 @@ class CustomCard extends StatelessWidget {
       required this.child,
       this.padding,
       this.onTap,
-      this.margin, this.circularRadius})
+      this.margin, this.circularRadius, this.height, this.width})
       : super(key: key);
 
   @override
@@ -28,6 +30,8 @@ class CustomCard extends StatelessWidget {
       highlightColor: Colors.black,
       onTap: onTap,
       child: Container(
+        height: height,
+          width: width,
           margin: margin,
           decoration: BoxDecoration(
               gradient:color == null ? const LinearGradient(
