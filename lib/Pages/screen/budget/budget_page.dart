@@ -11,12 +11,13 @@ import 'package:money_manage_app2/util/formated_text.dart';
 import '../../../constant/app_colors.dart';
 
 class BudgetPage extends StatelessWidget {
-  const BudgetPage({Key? key}) : super(key: key);
+  final bool showBackBtn;
+  const BudgetPage({Key? key, this.showBackBtn = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Budget"),
+      appBar:  CustomAppBar(showBackBtn: showBackBtn,title: "Budget"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

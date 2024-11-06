@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/authentication/login_page.dart';
-import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 import 'package:money_manage_app2/service/secure_storage.dart';
+
+import 'Pages/screen/first_page.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       if (dbValue != null && dbValue.isNotEmpty) {
         if (mounted) {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomePage()));
+              MaterialPageRoute(builder: (context) => const FirstPage()));
         }
       } else {
         if (mounted) {

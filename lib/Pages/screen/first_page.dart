@@ -1,0 +1,113 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
+import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
+import 'package:money_manage_app2/Pages/screen/debt/debt.dart';
+import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
+import 'package:money_manage_app2/Pages/screen/transaction/add_transation.dart';
+
+import '../../constant/app_colors.dart';
+import '../widget/button/floating_action_button.dart';
+import '../widget/custom_widget/custom_card.dart';
+
+class FirstPage extends StatefulWidget {
+  const FirstPage({Key? key}) : super(key: key);
+
+  @override
+  State<FirstPage> createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  int pageIndex = 0;
+  final page = [
+    const HomePage(),
+    const AccountPage(showBackBtn: false),
+    const BudgetPage(showBackBtn: false),
+    const DebtPage(
+      showBackBtn: false,
+    )
+  ];
+  bool isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: CustomFloatingActionButton(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddTransaction()));
+        },
+      ),
+      body: page[pageIndex],
+      bottomNavigationBar: CustomCard(
+          height: 75,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              bottomItem(
+                  icon: FluentIcons.home_28_regular,
+                  text: "Home",
+                  onTap: () {
+                    setState(() {
+                      pageIndex = 0;
+                    });
+                  },
+                  isSelected: pageIndex == 0),
+              bottomItem(
+                  icon: FluentIcons.person_24_regular,
+                  text: "Account",
+                  onTap: () {
+                    setState(() {
+                      pageIndex = 1;
+                    });
+                  },
+                  isSelected: pageIndex == 1),
+              bottomItem(
+                  icon: FluentIcons.toolbox_24_regular,
+                  text: "Budget",
+                  onTap: () {
+                    setState(() {
+                      pageIndex = 2;
+                    });
+                  },
+                  isSelected: pageIndex == 2),
+              bottomItem(
+                  icon: FluentIcons.money_hand_24_regular,
+                  text: "Debt",
+                  onTap: () {
+                    setState(() {
+                      pageIndex = 3;
+                    });
+                  },
+                  isSelected: pageIndex == 3),
+            ],
+          )),
+    );
+  }
+
+  Widget bottomItem(
+      {required IconData icon,
+      required String text,
+      required VoidCallback onTap,
+      required bool isSelected}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: isSelected ? AppColors.white : AppColors.cardColor,
+            size: 35,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: 15,
+                color: isSelected ? AppColors.white : AppColors.colour2,
+                fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
+    );
+  }
+}

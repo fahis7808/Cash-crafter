@@ -1,11 +1,7 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
-import 'package:money_manage_app2/Pages/screen/transaction/add_transation.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
-import 'package:money_manage_app2/Pages/screen/home_screen/goal_part.dart';
 import 'package:money_manage_app2/Pages/screen/profile_page/profile_page.dart';
-import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -18,12 +14,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: CustomFloatingActionButton(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddTransaction()));
-        },
-      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         child: SingleChildScrollView(
@@ -116,29 +106,12 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),  
-                const GoalPart(),
+                // const GoalPart(),
               ]),
         ),
       ),
-      bottomNavigationBar: CustomCard(
-          height: 75,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          bottomItem(FluentIcons.home_28_regular, "Home"),
-          bottomItem(FluentIcons.person_24_regular, "Account"),
-          bottomItem(FluentIcons.toolbox_24_regular, "Budget"),
-          bottomItem(FluentIcons.money_hand_24_regular, "Debt"),
-        ],
-      )),
+
     );
   }
-  Widget bottomItem(IconData icon,String text){
-    return Column(
-      children: [
-        Icon(icon,color: AppColors.cardColor,size: 35,),
-        Text(text,style: const TextStyle(fontSize: 15,color: AppColors.colour2,fontWeight: FontWeight.w600),)
-      ],
-    );
-  }
+
 }

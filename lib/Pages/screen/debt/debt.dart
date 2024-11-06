@@ -7,12 +7,13 @@ import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 
 class DebtPage extends StatelessWidget {
-  const DebtPage({Key? key}) : super(key: key);
+  final bool showBackBtn;
+  const DebtPage({Key? key,  this.showBackBtn = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Debt Page"),
+      appBar:  CustomAppBar(showBackBtn: showBackBtn,title: "Debt Page"),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

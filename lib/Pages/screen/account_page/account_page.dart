@@ -14,7 +14,9 @@ import '../../widget/graph/graph_chart.dart';
 import 'add_card_page.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  final bool showBackBtn;
+
+  const AccountPage({Key? key, this.showBackBtn = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class AccountPage extends StatelessWidget {
       create: (context) => BalanceProvider(),
       child: Consumer<BalanceProvider>(builder: (context, data, _) {
         return Scaffold(
-          appBar: const CustomAppBar(title: "Balance"),
+          appBar: CustomAppBar(showBackBtn: showBackBtn, title: "Balance"),
           body: data.isLoading
               ? const Column()
               : data.wallet
@@ -85,7 +87,9 @@ class AccountPage extends StatelessWidget {
                                                           builder: (context) =>
                                                               SingleAccountPage(
                                                                 account: e,
-                                                                list: data.getTransferList(e.accountName.toString()),
+                                                                list: data.getTransferList(e
+                                                                    .accountName
+                                                                    .toString()),
                                                               )));
                                                   data.accountName =
                                                       e.accountName.toString();
@@ -108,9 +112,10 @@ class AccountPage extends StatelessWidget {
                                               ))
                                           .toList(),
                                     ),
-                                     SizedBox(
+                                    SizedBox(
                                       height: 250,
-                                      child: LineChartSample2(transList: data.getTransferList("")),
+                                      child: LineChartSample2(
+                                          transList: data.getTransferList("")),
                                     ),
                                     Text(
                                       "Transaction History",
