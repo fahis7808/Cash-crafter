@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/debt/loan_page.dart';
 
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
@@ -10,6 +11,9 @@ class MainLoanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (ctx) => LoanPage()));
+      },
       margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.only(left: 20, top: 5, bottom: 20),
       child: Column(

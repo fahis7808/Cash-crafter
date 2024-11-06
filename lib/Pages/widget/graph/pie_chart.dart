@@ -1,10 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
 
 class PieChartSample2 extends StatefulWidget {
   final double? radius;
+
   const PieChartSample2({super.key, this.radius});
 
   @override
@@ -16,37 +16,33 @@ class PieChart2State extends State<PieChartSample2> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        PieChart(
-          PieChartData(
-            borderData: FlBorderData(
-              show: false,
-            ),
-            sectionsSpace: 0,
-            startDegreeOffset: -90,
-            centerSpaceRadius: widget.radius ?? 60,
-            sections: [
-              PieChartSectionData(
-                color: AppColors.secondaryColor,
-                value: 50,
-                title: '40%',
-                showTitle: false,
-                radius: 15,
-              ),
-              PieChartSectionData(
-                color: AppColors.barBackground,
-                value: 50,
-                title: '40%',
-                showTitle: false,
-                radius: 15,
-              )
-            ],
+    return PieChart(
+      PieChartData(
+        sectionsSpace: 0,
+        startDegreeOffset: -90,
+        centerSpaceRadius: widget.radius ?? 40,
+        sections: [
+          PieChartSectionData(
+            color: AppColors.tertiaryColor,
+            value: 70,
+            title: '40%',
+            showTitle: false,
+            radius: 13,
+            badgeWidget: null, // Ensure no badge overlap with rounding
+            badgePositionPercentageOffset: .98,
+            // borderSide: BorderSide(width: 2,color: AppColors.containerColor,strokeAlign: 5)
           ),
-        ),
-        Text("54%",style: AppFont.appBarHead,)
-      ],
+          PieChartSectionData(
+              color: AppColors.primaryColor,
+              value: 30,
+              title: '40%',
+              showTitle: false,
+              radius: 13,
+              badgeWidget: null,
+              badgePositionPercentageOffset: .10,
+              borderSide: BorderSide(width: 2, color: AppColors.containerColor))
+        ],
+      ),
     );
   }
 
