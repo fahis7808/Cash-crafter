@@ -9,6 +9,7 @@ class CustomCard extends StatelessWidget {
   final Color? color2;
   final Widget child;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final void Function()? onTap;
 
   const CustomCard(
@@ -17,7 +18,7 @@ class CustomCard extends StatelessWidget {
       this.color2,
       required this.child,
       this.padding,
-      this.onTap})
+      this.onTap, this.margin})
       : super(key: key);
 
   @override
@@ -27,19 +28,27 @@ class CustomCard extends StatelessWidget {
       highlightColor: Colors.black,
       onTap: onTap,
       child: Container(
+        margin: margin,
           decoration: BoxDecoration(
-            gradient: color1 != null && color2 != null
+            gradient: LinearGradient(colors: [
+             Color(0x254F4F4F),
+              Color(0x8006031E)
+            ],
+            begin: Alignment.topCenter,end: Alignment.bottomCenter
+            ),
+         /*   gradient: color1 != null && color2 != null
                 ? LinearGradient(colors: [
                     color1 ?? const Color(0x24EAEAEA),
                     color2 ?? const Color(0x800A015D)
                   ], begin: Alignment.topLeft, end: const Alignment(1.0, 1.0))
-                : null,
-            color: color2 == null ? color1 ?? AppColors.containerColor : null,
+                : null,*/
+            // color: color2 == null ? color1 ?? AppColors.containerColor : null,
             borderRadius: const BorderRadius.all(
               Radius.circular(
-                10,
+                20,
               ),
             ),
+            border: Border.all(color: AppColors.cardColor)
           ),
           padding:
               padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -97,20 +106,37 @@ class IncomeExpenseCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 15,),
-          Text(
-            income ? "Income" : "Spending",
-            style: AppFont.cardTitle,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            FormattedText.formattedAmount(amount),
-            textAlign: TextAlign.center,
-            style: AppFont.buttonText,
-          ),
+          TextAmount(text: income ? "Income" : "Spending", amount:amount)
         ],
       ),
+    );
+  }
+}
+
+class TextAmount extends StatelessWidget {
+  final String text;
+  final double amount;
+  final TextStyle? textStyle;
+  const TextAmount({Key? key, required this.text, required this.amount, this.textStyle}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style:textStyle?? AppFont.cardTitle,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          FormattedText.formattedAmount(amount),
+          textAlign: TextAlign.center,
+          style: AppFont.buttonText,
+        ),
+      ],
     );
   }
 }
