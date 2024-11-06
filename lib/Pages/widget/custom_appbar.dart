@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../constant/app_colors.dart';
 import '../../constant/app_font.dart';
+import 'button/back_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -20,14 +21,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        onPressed: onBackPressed ?? () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(
-          CupertinoIcons.back,
-          color: AppColors.white,
-        ),
+      leading: CustomBackButton(
+        onBackPressed: onBackPressed,
       ),
       backgroundColor: AppColors.primaryColor,
       title: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/debt/on_dept_tap.dart';
 import 'package:money_manage_app2/Pages/screen/debt/total_loan_card.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
@@ -34,6 +35,9 @@ class DebtPage extends StatelessWidget {
               height: 10,
             ),
             CustomCard(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (ctx)=> OnDeptTap()));
+              },
                 circularRadius: 10,
                 color: AppColors.primaryColor,
                 child: Row(
