@@ -6,7 +6,8 @@ import 'package:money_manage_app2/constant/app_colors.dart';
 
 class CategoryPage extends StatefulWidget {
   final bool isListData;
-  const CategoryPage({Key? key,  this.isListData = false}) : super(key: key);
+  final bool isIncome;
+  const CategoryPage({Key? key,  this.isListData = false,  this.isIncome = false}) : super(key: key);
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -17,6 +18,8 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+  List<CategoryItem> category = widget.isIncome ?incomeCategoryIcon : expenseCategoryIcon;
+
     return Scaffold(
       appBar: const CustomAppBar(title: "Category",),
       body: Padding(
@@ -27,7 +30,7 @@ class _CategoryPageState extends State<CategoryPage> {
               child: Wrap(
                 spacing: 5,
                 runSpacing: 5,
-                children: categoryItems.map((e) {
+                children: category.map((e) {
 
                   bool isSelected = selectedCategory.contains(e.name);
 

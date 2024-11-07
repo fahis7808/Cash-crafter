@@ -5,7 +5,7 @@ class CategoryItem {
   CategoryItem({required this.name, required this.image});
 }
 
-List<CategoryItem> categoryItems = [
+List<CategoryItem> expenseCategoryIcon = [
   CategoryItem(name: "Bills", image: "bill.png"),
   CategoryItem(name: "Books", image: "books.png"),
   CategoryItem(name: "Transport", image: "bus.png"),
@@ -33,4 +33,21 @@ List<CategoryItem> categoryItems = [
   CategoryItem(name: "Clothes", image: "woman-clothes.png"),
   CategoryItem(name: "Restaurant", image: "restaurant.png"),
   CategoryItem(name: "Furniture", image: "wooden-chair.png"),
+];
+
+List<CategoryItem> incomeCategoryIcon = [
+  CategoryItem(name: "Salary", image: "income/salary.png"),
+  CategoryItem(name: "Business", image: "income/business.png"),
+  CategoryItem(name: "Investment", image: "income/investment.png"),
+  CategoryItem(name: "Freelancing", image: "income/freelance-work.png"),
+  CategoryItem(name: "Rental Income", image: "income/rental.png"),
+  CategoryItem(name: "Bonuses", image: "income/bonus.png"),
+  CategoryItem(name: "Interest Income", image: "income/interest.png"),
+  CategoryItem(name: "Gifts", image: "gift.png"),
+  CategoryItem(name: "Grants and Scholarship", image: "income/grant.png"),
+  CategoryItem(name: "Pension", image: "income/retirement.png"),
+  CategoryItem(name: "Royalties", image: "income/royalties.png"),
+  CategoryItem(name: "Refunds and Reimbursements", image: "income/refund.png"),
+  CategoryItem(name: "Government Aid", image: "income/government_aid.png"),
+  CategoryItem(name: "Others", image: "income/other.png"),
 ];

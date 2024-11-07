@@ -53,7 +53,7 @@ class _IncomeExpenseTabState extends State<IncomeExpenseTab> {
           value: provider.transactionModel.category,
           onTap: () async {
             await Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const CategoryPage()))
+                    MaterialPageRoute(builder: (ctx) =>  CategoryPage(isIncome: widget.isIncome,)))
                 .then((value) {
               if (value != null) {
                 setState(() {
