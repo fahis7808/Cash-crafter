@@ -64,9 +64,31 @@ class OnBudgetPage extends StatelessWidget {
                             ])),
                       ],
                     ),
-                    const SizedBox(
-                      height: 5,
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(FormattedText.formattedAmount(2342),style: AppFont.textFieldLabel,),
+                            Text("Daily Average",style: AppFont.cardTitle,)
+                          ],
+                        ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(FormattedText.formattedAmount(2342),style: AppFont.textFieldLabel,),
+                              Text("Daily recommended",style: AppFont.cardTitle,)
+                            ],
+                          )
+
+                        ],
+                      ),
                     ),
+
                     Text(
                       "You have left 10000 for remaining 15 days",
                       style: AppFont.text16,
