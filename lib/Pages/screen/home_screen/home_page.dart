@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
-import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/profile_page/profile_page.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/pie_chart_card.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
 import 'package:money_manage_app2/constant/app_font.dart';
 import '../../widget/custom_widget/custom_card.dart';
+import '../../widget/graph/graph_chart_2.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -93,16 +92,21 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                PieChartCard(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BudgetPage()));
-                    },
-                    title: "Monthly Budget",
-                    spentAmount: 1232,
-                    totalAmount: 23424),
+                SizedBox(
+                  height: 250,
+                  child:/* LineChartSample2(
+                      transList: [])*/LineChartSample1(),
+                ),
+                // PieChartCard(
+                //     onTap: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => BudgetPage()));
+                //     },
+                //     title: "Monthly Budget",
+                //     spentAmount: 1232,
+                //     totalAmount: 23424),
                 const SizedBox(
                   height: 10,
                 ),  
