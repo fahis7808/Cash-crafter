@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/budget/budge_add_page.dart';
 import 'package:money_manage_app2/Pages/screen/budget/on_budget_page.dart';
-import 'package:money_manage_app2/Pages/widget/button/floating_action_button.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
 import 'package:money_manage_app2/Pages/widget/graph/percentage_bar.dart';
@@ -92,10 +90,10 @@ class BudgetPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: CustomFloatingActionButton(
+   /*   floatingActionButton: CustomFloatingActionButton(
         onTap: () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => const AddBudgetPage())),
-      ),
+      ),*/
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
+import 'package:money_manage_app2/Pages/screen/budget/budge_add_page.dart';
 import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
 import 'package:money_manage_app2/Pages/screen/debt/debt.dart';
 import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
@@ -34,8 +35,13 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       floatingActionButton: CustomFloatingActionButton(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddTransaction()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            if (pageIndex == 2) {
+              return AddBudgetPage();
+            } else {
+              return AddTransaction();
+            }
+          }));
         },
       ),
       body: page[pageIndex],

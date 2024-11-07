@@ -75,8 +75,8 @@ class IncomeExpenseCard extends StatelessWidget {
                 height: 25,
                 decoration: BoxDecoration(
                     color: income
-                        ? AppColors.positiveColor
-                        : AppColors.negativeColor,
+                        ? AppColors.tertiaryColor
+                        : AppColors.textColor,
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
                 child: Transform.rotate(
                   angle: income ? 1.6 : 0,
