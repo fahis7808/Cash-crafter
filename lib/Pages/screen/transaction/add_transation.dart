@@ -13,7 +13,8 @@ import 'transactionTab/income_expense_tab.dart';
 import 'transactionTab/transfer_tab.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key}) : super(key: key);
+  final bool isDebt;
+  const AddTransaction({Key? key,  this.isDebt = false}) : super(key: key);
 
   @override
   _AddTransactionState createState() => _AddTransactionState();
@@ -24,6 +25,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    selectedIndex = widget.isDebt ? 3 :0;
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
       body: ChangeNotifierProvider(
@@ -47,8 +49,9 @@ class _AddTransactionState extends State<AddTransaction> {
                 SizedBox(
                   width: 310,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      if(!widget.isDebt)
                       TransactionSwitch(
                         icon: Icons.swap_horiz,
                         label: 'Transfer',
@@ -62,6 +65,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           });
                         },
                       ),
+                      if(!widget.isDebt)
                       TransactionSwitch(
                         icon: FluentIcons.arrow_square_up_right_24_filled,
                         label: 'Income',
@@ -75,6 +79,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           });
                         },
                       ),
+                      if(!widget.isDebt)
                       TransactionSwitch(
                         icon: FluentIcons.arrow_square_up_right_24_filled,
                         label: 'Expense',
@@ -89,6 +94,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           });
                         },
                       ),
+                      if(widget.isDebt)
                       TransactionSwitch(
                         icon: FluentIcons.money_hand_24_filled,
                         label: 'Debt',
@@ -97,6 +103,19 @@ class _AddTransactionState extends State<AddTransaction> {
                         onTap: () {
                           setState(() {
                             selectedIndex = 3;
+                            data.transactionModel.transactionType = "debt";
+                          });
+                        },
+                      ),
+                      if(widget.isDebt)
+                      TransactionSwitch(
+                        icon: FluentIcons.building_bank_16_regular,
+                        label: 'Debt',
+                        index: 3,
+                        isSelected: selectedIndex == 4,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 4;
                             data.transactionModel.transactionType = "debt";
                           });
                         },

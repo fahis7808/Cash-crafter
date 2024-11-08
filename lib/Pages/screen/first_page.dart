@@ -24,9 +24,7 @@ class _FirstPageState extends State<FirstPage> {
     const HomePage(),
     const AccountPage(showBackBtn: false),
     const BudgetPage(showBackBtn: false),
-    const DebtPage(
-      showBackBtn: false,
-    )
+    const DebtPage(showBackBtn: false)
   ];
   bool isSelected = false;
 
@@ -38,6 +36,10 @@ class _FirstPageState extends State<FirstPage> {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             if (pageIndex == 2) {
               return AddBudgetPage();
+            } else if (pageIndex == 3) {
+              return AddTransaction(
+                isDebt: true,
+              );
             } else {
               return AddTransaction();
             }
