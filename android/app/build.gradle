@@ -1,3 +1,9 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -6,29 +12,22 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+// Load Flutter SDK path
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
+// Load Flutter version code and name
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '1'
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'
+// Apply the Flutter Gradle script
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 34 // Replace 'flutter.compileSdkVersion' with a concrete value
-    ndkVersion '25.1.8937393' // Replace 'flutter.ndkVersion' with a specific version
+    compileSdkVersion 34
+    ndkVersion '25.1.8937393'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -57,16 +56,10 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-
             shrinkResources true
-
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-flutter {
-    source '../..'
 }
 
 dependencies {
