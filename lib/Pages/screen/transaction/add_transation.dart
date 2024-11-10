@@ -22,10 +22,14 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   int selectedIndex = 0;
+  @override
+  void initState() {
+    selectedIndex = widget.isDebt ? 3 :0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    selectedIndex = widget.isDebt ? 3 :0;
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
       body: ChangeNotifierProvider(
