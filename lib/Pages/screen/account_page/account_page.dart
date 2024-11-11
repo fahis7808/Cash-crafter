@@ -55,7 +55,7 @@ class AccountPage extends StatelessWidget {
                                                     builder: (context) =>
                                                         const AddAccountPage()))
                                             .then((value) {
-                                          data.getData();
+                                          data.getData(0);
                                         }),
                                         child: Container(
                                           height: 35,

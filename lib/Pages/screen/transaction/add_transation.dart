@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manage_app2/Pages/screen/transaction/transactionTab/add_loan_tab.dart';
 import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
 import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
 import 'package:money_manage_app2/constant/app_colors.dart';
@@ -22,6 +23,7 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   int selectedIndex = 0;
+
   @override
   void initState() {
     selectedIndex = widget.isDebt ? 3 :0;
@@ -33,13 +35,13 @@ class _AddTransactionState extends State<AddTransaction> {
     return Scaffold(
       appBar: const CustomAppBar(title: "Add Transaction"),
       body: ChangeNotifierProvider(
-        create: (cxt) => BalanceProvider(),
+        create: (cxt) => BalanceProvider(selectedIndex: selectedIndex),
         child: Consumer<BalanceProvider>(builder: (context, data, _) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-            child: /*data.wallet
-                ? Column()
-                :*/ Column(
+            child: data.isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Column(
               children: [
                 const SizedBox(height: 15),
                 AmountTextField(
@@ -113,8 +115,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       ),
                       if(widget.isDebt)
                       TransactionSwitch(
-                        icon: FluentIcons.building_bank_16_regular,
-                        label: 'Debt',
+                        icon: FluentIcons.building_retail_money_20_regular,
+                        label: 'Loan',
                         index: 3,
                         isSelected: selectedIndex == 4,
                         onTap: () {
@@ -159,6 +161,8 @@ class _AddTransactionState extends State<AddTransaction> {
       ),
     );
   }
+
+
 }
 
 class TransactionSwitch extends StatelessWidget {
@@ -223,6 +227,8 @@ Widget tabPage(int index) {
       return const IncomeExpenseTab();
     case 3:
       return const DebtTab();
+    case 4:
+      return const AddLoanTab();
     default:
       return const MoneyTransfer();
   }

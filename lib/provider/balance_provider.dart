@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manage_app2/Model/account_model/account_model.dart';
 import 'package:money_manage_app2/Model/account_model/balance_model.dart';
@@ -19,9 +20,11 @@ class BalanceProvider extends ChangeNotifier {
 
   List<AccountModel> accountList = [];
   List<TransactionModel> transferList = [];
+  int selectedTabIndex = 0;
 
-  BalanceProvider() {
-    getData();
+  BalanceProvider({int selectedIndex = 0}) {
+    getData(selectedIndex);
+    // isLoading = false;
     onRefresh();
   }
 
@@ -30,13 +33,16 @@ class BalanceProvider extends ChangeNotifier {
       print(e);
     }
   }
+  List<Contact> contact = [];
+  bool permissionDenied = false;
+  Contact contactData = Contact();
 
   Future<String> getLoginID() async {
     String uid = await LocalDB.readFromDB("LoginID");
     return uid.toString();
   }
 
-  getData() async {
+  getData(int selectedIndex) async {
     isLoading = true;
     notifyListeners();
     try {
@@ -64,16 +70,29 @@ class BalanceProvider extends ChangeNotifier {
         transferList = transfer.docs.map((e) {
           return TransactionModel.fromMap(e.data() as Map<String, dynamic>);
         }).toList();
+
+        /// contact details ///
+        if(selectedIndex == 3){
+          bool permissionStatus = await FlutterContacts.requestPermission(readonly: true);
+          if (permissionStatus) {
+            contact = await FlutterContacts.getContacts(withProperties: true);
+            print("<<<<<object>>>>>");
+            print(contact.length);
+            print("<<<<<object>>>>>");
+
+          }
+        }
       } else {
         wallet = true;
       }
-      isLoading = false;
-      notifyListeners();
+
     } catch (e) {
       wallet = false;
       print(e);
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   String accountName = "";
