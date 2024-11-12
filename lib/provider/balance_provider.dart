@@ -4,6 +4,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manage_app2/Model/account_model/account_model.dart';
 import 'package:money_manage_app2/Model/account_model/balance_model.dart';
+import 'package:money_manage_app2/Model/account_model/debt&load_model.dart';
 import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
 import 'package:money_manage_app2/util/collection_reference.dart';
 
@@ -17,6 +18,7 @@ class BalanceProvider extends ChangeNotifier {
   BalanceModel balanceModel = BalanceModel();
   AccountModel accModel = AccountModel();
   TransactionModel transactionModel = TransactionModel();
+  DebtAndLoanModel debtLoanModel = DebtAndLoanModel();
 
   List<AccountModel> accountList = [];
   List<TransactionModel> transferList = [];

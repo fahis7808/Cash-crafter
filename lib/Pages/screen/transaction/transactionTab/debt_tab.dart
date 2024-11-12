@@ -66,18 +66,25 @@ class _DebtTabState extends State<DebtTab> {
           },
         ),*/
         ContactField(
-          hintText: "To whom",
+          hintText:
+              provider.transactionModel.debtType == 0 ? "To Whom" : "From Whom",
           contact: provider.contact.toList(),
           onSelected: (Contact selection) {
             provider.contactData = selection;
+            provider.debtLoanModel.name = selection.displayName.toString();
+            provider.debtLoanModel.phoneNumber =
+                selection.phones.first.toString();
             provider.onRefresh();
           },
         ),
+        SizedBox(
+          height: 10,
+        ),
         CustomTextField(
-          value:  provider.transactionModel.credit,
+          value: provider.debtLoanModel.phoneNumber,
           labelText: "Phone Number",
           onChanged: (val) {
-            provider.transactionModel.phoneNumber = double.tryParse(val);
+            provider.debtLoanModel.phoneNumber = val;
           },
         ),
         CustomDropdownField<String>(
