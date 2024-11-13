@@ -4,7 +4,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manage_app2/Model/account_model/account_model.dart';
 import 'package:money_manage_app2/Model/account_model/balance_model.dart';
-import 'package:money_manage_app2/Model/account_model/debt&load_model.dart';
+import 'package:money_manage_app2/Model/account_model/debt&loan_model.dart';
 import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
 import 'package:money_manage_app2/util/collection_reference.dart';
 
@@ -18,7 +18,7 @@ class BalanceProvider extends ChangeNotifier {
   BalanceModel balanceModel = BalanceModel();
   AccountModel accModel = AccountModel();
   TransactionModel transactionModel = TransactionModel();
-  DebtAndLoanModel debtLoanModel = DebtAndLoanModel();
+  DebtModel debtLoanModel = DebtModel();
 
   List<AccountModel> accountList = [];
   List<TransactionModel> transferList = [];
@@ -35,6 +35,7 @@ class BalanceProvider extends ChangeNotifier {
       print(e);
     }
   }
+
   List<Contact> contact = [];
   bool permissionDenied = false;
   Contact contactData = Contact();
@@ -74,20 +75,18 @@ class BalanceProvider extends ChangeNotifier {
         }).toList();
 
         /// contact details ///
-        if(selectedIndex == 3){
-          bool permissionStatus = await FlutterContacts.requestPermission(readonly: true);
+        if (selectedIndex == 3) {
+          bool permissionStatus =
+              await FlutterContacts.requestPermission(readonly: true);
           if (permissionStatus) {
-            contact = await FlutterContacts.getContacts(withProperties: true);
-            print("<<<<<object>>>>>");
-            print(contact.length);
-            print("<<<<<object>>>>>");
-
+            List<Contact> contacts =
+                await FlutterContacts.getContacts(withProperties: true);
+            contact = contacts.where((e) => e.phones.isNotEmpty).toList();
           }
         }
       } else {
         wallet = true;
       }
-
     } catch (e) {
       wallet = false;
       print(e);
@@ -203,22 +202,22 @@ class BalanceProvider extends ChangeNotifier {
     }
   }
 
-  Future<String> getTransactionID() async {
-    const String initialId = "trans001";
+  Future<String> getTransactionID(
+      String accName, CollectionReference document) async {
+    String initialId = "${accName}001";
     String newId = initialId;
 
-    DocumentSnapshot docs =
-        await CollectionReferenceData.transaction.doc(initialId).get();
+    DocumentSnapshot docs = await document.doc(initialId).get();
     try {
       if (docs.exists) {
-        QuerySnapshot querySnapshot = await CollectionReferenceData.transaction
+        QuerySnapshot querySnapshot = await document
             .orderBy(FieldPath.documentId)
             .startAt([initialId]).get();
         if (querySnapshot.docs.isNotEmpty) {
           String lastId = querySnapshot.docs.last.id;
 
-          int idNumber = int.parse(lastId.replaceAll('trans', '')) + 1;
-          newId = 'trans${idNumber.toString().padLeft(3, '0')}';
+          int idNumber = int.parse(lastId.replaceAll(accName, '')) + 1;
+          newId = '$accName${idNumber.toString().padLeft(3, '0')}';
         }
       }
     } catch (e) {
@@ -228,14 +227,15 @@ class BalanceProvider extends ChangeNotifier {
     return newId.toString();
   }
 
-  Future<bool> addTransfer() async {
+  Future<bool> addTransfer(int value) async {
     isBtnLoading = true;
     onRefresh();
-    String newId = await getTransactionID();
+    String newTransID =
+        await getTransactionID("trans", CollectionReferenceData.transaction);
     transactionModel.date = transactionModel.date ??
         DateFormat('dd-MM-yyyy').format(DateTime.now());
     transactionModel.transactionType =
-        transactionModel.transactionType ?? "transfer";
+        transactionModel.transactionType == null || value== 3 ?  "debt" : "transfer";
     try {
       if (transactionModel.transactionType == "transfer") {
         await updateAccountBalance(
@@ -251,13 +251,59 @@ class BalanceProvider extends ChangeNotifier {
             transactionModel.debit, transactionModel.amount, false);
         await updateMainBalance(
             transactionModel.amount?.toDouble() ?? 0, false);
-      } else {
-        print("debt");
+      } else if (transactionModel.transactionType == "debt") {
+        if (transactionModel.credit != null) {
+          await updateAccountBalance(
+              transactionModel.credit, transactionModel.amount, true);
+          await updateMainBalance(
+              transactionModel.amount?.toDouble() ?? 0, true);
+        } else {
+          await updateAccountBalance(
+              transactionModel.debit, transactionModel.amount, false);
+          await updateMainBalance(
+              transactionModel.amount?.toDouble() ?? 0, false);
+        }
+        DebtModel debt = await getDebtList(contactData.id);
+        print(debt);
+        if (debt.id != null) {
+          debt.lendAmount = transactionModel.debtType == 0
+              ? (debt.lendAmount ?? 0) + (transactionModel.amount ?? 0)
+              : debt.lendAmount ?? 0;
+          debt.borrowedAmount = transactionModel.debtType == 1
+              ? (debt.borrowedAmount ?? 0) + (transactionModel.amount ?? 0)
+              : debt.borrowedAmount ?? 0;
+
+          List<TransactionModel> updatedTransactionList = List.from(
+              (debt.transactionList ?? [])
+                  .map((e) => TransactionModel.fromMap(e.toMap())));
+          updatedTransactionList.add(transactionModel);
+          debt.transactionList = updatedTransactionList;
+          debt.totalAmount =
+              (debt.lendAmount ?? 0) - (debt.borrowedAmount ?? 0);
+          print(debt.id);
+          await CollectionReferenceData.debt.doc(debt.id).update(debt.toMap());
+        } else {
+          String newDebtId =
+              await getTransactionID("debtAcc", CollectionReferenceData.debt);
+
+          await CollectionReferenceData.debt.doc(newDebtId).set(DebtModel(
+              id: newDebtId,
+              contactId: contactData.id,
+              name: debtLoanModel.name,
+              phoneNumber: debtLoanModel.phoneNumber,
+              borrowedAmount:
+                  transactionModel.debtType == 1 ? transactionModel.amount : 0,
+              lendAmount:
+                  transactionModel.debtType == 0 ? transactionModel.amount : 0,
+              totalAmount: transactionModel.amount,
+              transactionList: [transactionModel]).toMap());
+        }
       }
 
       await CollectionReferenceData.transaction
-          .doc(newId)
+          .doc(newTransID)
           .set(transactionModel.toMap());
+      transferList = [];
       isBtnLoading = false;
       onRefresh();
       return true;
@@ -266,6 +312,26 @@ class BalanceProvider extends ChangeNotifier {
       isBtnLoading = false;
       onRefresh();
       return false;
+    }
+  }
+
+  Future getDebtList(String? id) async {
+    if (id == null) {
+      return null;
+    } else {
+      try {
+        QuerySnapshot debt = await CollectionReferenceData.debt.get();
+        List<DebtModel> debtList = debt.docs
+            .map((e) => DebtModel.fromMap(e.data() as Map<String, dynamic>))
+            .toList();
+        DebtModel debtData = debtList.firstWhere(
+          (e) => e.contactId == id,
+          orElse: () => DebtModel(),
+        );
+        return debtData;
+      } catch (e) {
+        return null;
+      }
     }
   }
 

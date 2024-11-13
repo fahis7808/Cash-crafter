@@ -139,7 +139,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     buttonText: "Transfer",
                     loading: data.isBtnLoading,
                     onPressed: () {
-                      data.addTransfer().then((value) {
+                      data.addTransfer(selectedIndex).then((value) {
                         if(value == true){
                           final snackBar = CustomSnackBar.successesSnackBar(
                             "Successfully added your account",

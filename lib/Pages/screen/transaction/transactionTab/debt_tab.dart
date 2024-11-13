@@ -66,22 +66,26 @@ class _DebtTabState extends State<DebtTab> {
           },
         ),*/
         ContactField(
+          value: provider.transactionModel.name,
           hintText:
               provider.transactionModel.debtType == 0 ? "To Whom" : "From Whom",
           contact: provider.contact.toList(),
           onSelected: (Contact selection) {
             provider.contactData = selection;
-            provider.debtLoanModel.name = selection.displayName.toString();
-            provider.debtLoanModel.phoneNumber =
-                selection.phones.first.toString();
-            provider.onRefresh();
+            print(selection);
+            setState(() {
+              provider.debtLoanModel.name = selection.displayName.toString();
+              provider.debtLoanModel.phoneNumber =
+                  selection.phones.first.number;
+              provider.transactionModel.name = selection.displayName;
+            });
           },
         ),
         SizedBox(
           height: 10,
         ),
         CustomTextField(
-          value: provider.debtLoanModel.phoneNumber,
+          value: provider.debtLoanModel.phoneNumber ?? "",
           labelText: "Phone Number",
           onChanged: (val) {
             provider.debtLoanModel.phoneNumber = val;
@@ -93,7 +97,7 @@ class _DebtTabState extends State<DebtTab> {
           }).toList(),
           onChanged: (val) {
             provider.transactionModel.debtType == 0
-                ? provider.transactionModel.debit
+                ? provider.transactionModel.debit = val
                 : provider.transactionModel.credit = val;
           },
           value: provider.transactionModel.debtType == 0
@@ -103,7 +107,7 @@ class _DebtTabState extends State<DebtTab> {
           // prefixIcon: FluentIcons.building_bank_16_filled,
         ),
         CustomDateField(
-          labelText: "Till Date",
+          labelText: "Date",
           // prefixIcon: FluentIcons.calendar_3_day_16_filled,
           onDateSelected: (val) {
             provider.transactionModel.date =

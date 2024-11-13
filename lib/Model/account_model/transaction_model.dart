@@ -2,23 +2,23 @@ class TransactionModel {
   double? amount;
   String? transactionType;
   String? debit;
-  double? phoneNumber;
   String? credit;
   String? note;
   String? category;
   int? debtType;
   String? date;
+  String? name;
 
   TransactionModel({
     this.amount,
     this.transactionType,
     this.debit,
-    this.phoneNumber,
     this.credit,
     this.note,
     this.category,
     this.debtType = 0,
     this.date,
+    this.name
   });
 
   Map<String, dynamic> toMap() {
@@ -26,12 +26,12 @@ class TransactionModel {
       "amount": amount,
       "transactionType": transactionType,
       "debitAccount": debit,
-      "phoneNumber" : phoneNumber,
       "creditAccount": credit,
       "note": note,
       "category": category,
       "debtType": debtType,
       "date": date,
+      "name":name
     };
   }
 
@@ -39,11 +39,11 @@ class TransactionModel {
     amount = map["amount"];
     transactionType = map["transactionType"];
     debit = map["debitAccount"];
-    phoneNumber = map["phoneNumber"];
     credit = map["creditAccount"];
     note = map["note"];
     category = map["category"];
     debtType = map["debtType"];
     date = map["date"];
+    name=map['name'];
   }
 }

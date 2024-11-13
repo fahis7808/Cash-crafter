@@ -23,4 +23,11 @@ class CollectionReferenceData {
       .collection(DataBaseName.accDetails)
       .doc("balance001")
       .collection(DataBaseName.transaction);
+
+  static CollectionReference debt = FirebaseFirestore.instance
+      .collection(DataBaseName.user)
+      .doc(user?.uid)
+      .collection(DataBaseName.accDetails)
+      .doc("balance001")
+      .collection(DataBaseName.debt);
 }

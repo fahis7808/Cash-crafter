@@ -8,7 +8,8 @@ class ContactField extends StatelessWidget {
   final String? hintText;
   final void Function(Contact) onSelected;
   final List<Contact> contact;
-  const ContactField({Key? key, this.hintText, required this.onSelected, required this.contact}) : super(key: key);
+  final String? value;
+  const ContactField({Key? key, this.hintText, required this.onSelected, required this.contact, this.value}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,9 @@ class ContactField extends StatelessWidget {
       },
       displayStringForOption: (Contact option) => option.displayName,
       fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+        if (value != null && controller.text.isEmpty) {
+          controller.text = value!;
+        }
         return TextFormField(
           controller: controller,
           focusNode: focusNode,
