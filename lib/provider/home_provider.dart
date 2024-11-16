@@ -7,13 +7,14 @@ import 'package:money_manage_app2/util/collection_reference.dart';
 class HomeProvider extends ChangeNotifier {
   BalanceModel balanceData = BalanceModel();
   List<TransactionModel> transferList = [];
+  double income = 0;
+  double expense = 0;
 
   HomeProvider() {
     getData();
   }
 
   getData() async {
-    print("<<<<<<<<<<<object>>>>>>>>>>>");
     try {
       QuerySnapshot data = await CollectionReferenceData.accountDetails.get();
       Map<String, dynamic> accountMap =
@@ -30,7 +31,7 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
-  Map<String, List<dynamic>> getGraphData(List<TransactionModel> dataList) {
+  Map<String, dynamic> getGraphData(List<TransactionModel> dataList) {
     Map<String, double> dailyIncomeSums = {};
     Map<String, double> dailyExpenseSums = {};
 
@@ -45,33 +46,43 @@ class HomeProvider extends ChangeNotifier {
       }
     }
 
-    List<double> incomeList = dailyIncomeSums.values.toList();
-    List<double> expenseList = dailyExpenseSums.values.toList();
-    List<String> yData = [];
+    List<Map<String, dynamic>> resultData = [];
 
     Set<String> allDates = {...dailyIncomeSums.keys, ...dailyExpenseSums.keys};
+
     for (String date in allDates) {
-      double income = dailyIncomeSums[date] ?? 0;
-      double expense = dailyExpenseSums[date] ?? 0;
+      double income = dailyIncomeSums[date] ?? 0.0;
+      double expense = dailyExpenseSums[date] ?? 0.0;
 
       DateTime parsedDate = parseDate(date);
-      // print(parsedDate);
       String formattedDate =
           "${parsedDate.day.toString().padLeft(2, '0')}/${parsedDate.month.toString().padLeft(2, '0')}";
 
-      if (income >= expense) {
-        yData.add(formattedDate);
-      } else {
-        yData.add(formattedDate);
-      }
+      resultData.add({
+        "date": formattedDate,
+        "income": income,
+        "expense": expense,
+        "parsedDate": parsedDate
+      });
     }
 
-    print(dailyIncomeSums);
-    print(dailyExpenseSums);
-    print(yData);
+    resultData.sort((a, b) => a["parsedDate"].compareTo(b["parsedDate"]));
 
-    return {"income": incomeList, "expense": expenseList, "yData": yData};
+    resultData = resultData.map((entry) {
+      return {
+        "date": entry["date"],
+        "income": entry["income"],
+        "expense": entry["expense"],
+      };
+    }).toList();
+
+    print(resultData);
+
+    return {
+      "data": resultData,
+    };
   }
+
 
   DateTime parseDate(String date) {
     try {

@@ -10,7 +10,6 @@ import 'package:money_manage_app2/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_widget/transaction_card.dart';
-import '../../widget/graph/graph_chart_2.dart';
 import 'add_card_page.dart';
 
 class AccountPage extends StatelessWidget {
@@ -113,10 +112,10 @@ class AccountPage extends StatelessWidget {
                                           .toList(),
                                     ),
                                     SizedBox(height: 10,),
-                                    SizedBox(
+                                   /* const SizedBox(
                                       height: 250,
                                       child: LineChartSample1()
-                                    ),
+                                    ),*/
                                     Text(
                                       "Transaction History",
                                       style: AppFont.buttonText,

@@ -1,66 +1,118 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
+import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 
-class _LineChart extends StatefulWidget {
-  const _LineChart();
+class LineChartSample1 extends StatefulWidget {
+  final Map<String, dynamic> listData;
+
+  const LineChartSample1({
+    super.key,
+    required this.listData,
+  });
 
   @override
-  State<_LineChart> createState() => _LineChartState();
+  State<LineChartSample1> createState() => _LineChartSample1State();
 }
 
-class _LineChartState extends State<_LineChart> {
+class _LineChartSample1State extends State<LineChartSample1> {
   late double touchedValue;
 
   @override
   void initState() {
     touchedValue = -1;
+    setFlSpot();
     super.initState();
+  }
+
+  List<FlSpot> incomeFlSpot = [];
+  List<FlSpot> expenseFlSpot = [];
+  List<String> yValue = [];
+  double maxY = 0;
+
+  void setFlSpot() {
+    List<Map<String, dynamic>> data = widget.listData["data"] ?? [];
+
+    incomeFlSpot = data.asMap().entries.map((e) {
+      double x = e.key.toDouble(); // Index for x-axis
+      double y = e.value["income"]?.toDouble() ?? 0.0; // Income value for y-axis
+      return FlSpot(x, y);
+    }).toList();
+
+    expenseFlSpot = data.asMap().entries.map((e) {
+      double x = e.key.toDouble(); // Index for x-axis
+      double y = e.value["expense"]?.toDouble() ?? 0.0; // Expense value for y-axis
+      return FlSpot(x, y);
+    }).toList();
+
+    yValue = data.map((e) => e["date"] as String).toList(); // Extract dates for x-axis labels
+
+    double maxIncome = incomeFlSpot.isEmpty ? 0 : incomeFlSpot.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
+    double maxExpense = expenseFlSpot.isEmpty ? 0 : expenseFlSpot.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
+    maxY = (maxIncome > maxExpense ? maxIncome : maxExpense).ceilToDouble();
+
+    if (maxY < 25) maxY = 25; // Ensure maxY has a minimum value for visibility
+
+    print("Income FlSpot: $incomeFlSpot");
+    print("Expense FlSpot: $expenseFlSpot");
   }
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-
-      sampleData1,
-      curve: Curves.bounceIn,
-      duration: const Duration(milliseconds: 250),
+    return CustomCard(
+      padding: const EdgeInsets.fromLTRB(0, 15, 20, 1),
+      child: AspectRatio(
+        aspectRatio: 2,
+        child: LineChart(
+          LineChartData(
+            gridData: gridData,
+            titlesData: titlesData1,
+            lineTouchData: const LineTouchData(enabled: false),
+            borderData: FlBorderData(
+              show: false,
+            ),
+            lineBarsData: [
+              lineChartBarData1_1,
+              lineChartBarData1_2,
+            ],
+            minX: 0, // Start from index 0
+            maxX: incomeFlSpot.length - 1, // Max index
+            maxY: maxY,
+            minY:-30,
+          ),
+          curve: Curves.bounceIn,
+          duration: const Duration(milliseconds: 250),
+        ),
+      ),
     );
   }
 
-  LineChartData get sampleData1 => LineChartData(
-        gridData: gridData,
-        titlesData: titlesData1,
-    lineTouchData: LineTouchData(enabled: false),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        lineBarsData: lineBarsData1,
-        minX: 0,
-        maxX: 14,
-        maxY: 6,
-        minY: 0,
-      );
-
-  FlTitlesData get titlesData1 => FlTitlesData(
+  FlTitlesData get titlesData1 =>
+      FlTitlesData(
         bottomTitles: AxisTitles(
-          sideTitles: bottomTitles,
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 18,
+            interval: 1,
+            getTitlesWidget: bottomTitleWidgets,
+          ),
         ),
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles:
+        const AxisTitles(sideTitles: SideTitles(showTitles: false)),
         topTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
         leftTitles: AxisTitles(
-          sideTitles: leftTitles(),
+          sideTitles: SideTitles(
+            getTitlesWidget: leftTitleWidgets,
+            showTitles: true,
+            interval: (maxY / 4).ceilToDouble(),
+            reservedSize: 60,
+          ),
         ),
       );
-
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData1_1,
-        lineChartBarData1_2,
-      ];
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -68,39 +120,19 @@ class _LineChartState extends State<_LineChart> {
       color: AppColors.textColor,
       fontSize: 14,
     );
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '1m';
-        break;
-      case 2:
-        text = '2m';
-        break;
-      case 3:
-        text = '3m';
-        break;
-      case 4:
-        text = '5m';
-        break;
-      case 5:
-        text = '6m';
-        break;
-      default:
-        return Container();
-    }
 
+
+    String text;
+    if (value % (maxY / 4).ceilToDouble() == 0) {
+      text = FormattedText.formattedAmount(value.toInt().toDouble());
+    } else {
+      return Container();
+    }
     return Padding(
       padding: const EdgeInsets.only(right: 5),
       child: Text(text, style: style, textAlign: TextAlign.center),
     );
   }
-
-  SideTitles leftTitles() => SideTitles(
-        getTitlesWidget: leftTitleWidgets,
-        showTitles: true,
-        interval: 1,
-        reservedSize: 30,
-      );
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -108,98 +140,46 @@ class _LineChartState extends State<_LineChart> {
       color: AppColors.textColor,
       fontSize: 14,
     );
-    Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = const Text('SEPT', style: style);
-        break;
-      case 7:
-        text = const Text('OCT', style: style);
-        break;
-      case 12:
-        text = const Text('DEC', style: style);
-        break;
-      default:
-        text = const Text('');
-        break;
+    int interval = (yValue.length > 6) ? (yValue.length / 6).ceil() : 1;
+
+    String text;
+    if (value.toInt() % interval == 0 && value.toInt() < yValue.length) {
+      text = yValue[value.toInt()];
+    } else {
+      text = ''; // Empty string for other values
     }
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 1,
-      child: text,
+      space: 3,
+      child: Text(text, style: style),
     );
   }
 
-  SideTitles get bottomTitles => SideTitles(
-        showTitles: true,
-        reservedSize: 18,
-        interval: 1,
-        getTitlesWidget: bottomTitleWidgets,
+  FlGridData get gridData =>
+      const FlGridData(
+        show: false,
+        drawVerticalLine: false,
+        horizontalInterval: 1,
       );
 
-  FlGridData get gridData => const FlGridData(show: true,drawVerticalLine: false,horizontalInterval: 1,);
+  LineChartBarData get lineChartBarData1_1 =>
+      LineChartBarData(
+          isCurved: true,
+          color: AppColors.tertiaryColor,
+          barWidth: 4,
+          isStrokeCapRound: true,
+          dotData: const FlDotData(show: false),
+          belowBarData: BarAreaData(show: false),
+          spots: incomeFlSpot);
 
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: true,
-        color: AppColors.tertiaryColor,
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(0, 0),
-          FlSpot(3, 6),
-          FlSpot(5, 0),
-          FlSpot(7,2),
-          FlSpot(10, 2.5),
-          FlSpot(12, 5),
-          FlSpot(13, 1.8),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: true,
-        color: AppColors.textColor,
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(0, 0),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3.9),
-        ],
-      );
-}
-
-class LineChartSample1 extends StatefulWidget {
-  const LineChartSample1({super.key});
-
-  @override
-  State<StatefulWidget> createState() => LineChartSample1State();
-}
-
-class LineChartSample1State extends State<LineChartSample1> {
-  late bool isShowingMainData;
-
-  @override
-  void initState() {
-    super.initState();
-    isShowingMainData = false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomCard(
-      padding: EdgeInsets.all(3),
-      child: AspectRatio(
-        aspectRatio: 2,
-        child: _LineChart(),
-      ),
-    );
-  }
+  LineChartBarData get lineChartBarData1_2 =>
+      LineChartBarData(
+          isCurved: true,
+          color: AppColors.textColor,
+          barWidth: 4,
+          isStrokeCapRound: true,
+          dotData: const FlDotData(show: false),
+          belowBarData: BarAreaData(show: false),
+          spots: expenseFlSpot);
 }

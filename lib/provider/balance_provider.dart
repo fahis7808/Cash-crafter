@@ -232,10 +232,14 @@ class BalanceProvider extends ChangeNotifier {
     onRefresh();
     String newTransID =
         await getTransactionID("trans", CollectionReferenceData.transaction);
+    print("Transfer Type: ${transactionModel.transactionType}");
     transactionModel.date = transactionModel.date ??
         DateFormat('dd-MM-yyyy').format(DateTime.now());
-    transactionModel.transactionType =
-        transactionModel.transactionType == null || value== 3 ?  "debt" : "transfer";
+    transactionModel.transactionType ??=
+        transactionModel.transactionType == null && value == 3
+            ? "debt"
+            : "transfer";
+    print("Transfer Type: ${transactionModel.transactionType}");
     try {
       if (transactionModel.transactionType == "transfer") {
         await updateAccountBalance(
