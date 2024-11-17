@@ -10,18 +10,20 @@ class HomeProvider extends ChangeNotifier {
   double income = 0;
   double expense = 0;
 
+  bool isLoading = false;
+
   HomeProvider() {
     getData();
   }
 
   getData() async {
+    isLoading = true;
+    onRefresh();
     try {
       QuerySnapshot data = await CollectionReferenceData.accountDetails.get();
       Map<String, dynamic> accountMap =
           data.docs.first.data() as Map<String, dynamic>;
       balanceData = BalanceModel.fromMap(accountMap);
-      print(balanceData.totalBalance);
-
       QuerySnapshot transfer = await CollectionReferenceData.transaction.get();
       transferList = transfer.docs.map((e) {
         return TransactionModel.fromMap(e.data() as Map<String, dynamic>);
@@ -30,8 +32,12 @@ class HomeProvider extends ChangeNotifier {
       if(transferList.isNotEmpty){
         getIncomeExpenseSum(transferList);
       }
+      isLoading = false;
+      onRefresh();
 
     } catch (e) {
+      isLoading = false;
+      onRefresh();
       print(e);
     }
   }
@@ -103,9 +109,6 @@ class HomeProvider extends ChangeNotifier {
         "expense": entry["expense"],
       };
     }).toList();
-
-    print(resultData);
-
     return {
       "data": resultData,
     };
@@ -125,5 +128,9 @@ class HomeProvider extends ChangeNotifier {
     } catch (e) {
       throw FormatException("Invalid date format: $date");
     }
+  }
+
+  onRefresh(){
+    notifyListeners();
   }
 }

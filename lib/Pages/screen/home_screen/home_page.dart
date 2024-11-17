@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-            child: SingleChildScrollView(
+            child:data.isLoading ? const Center(child: CircularProgressIndicator()) : SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
                             child: IncomeExpenseCard(
                                 income: true, amount: data.income),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Expanded(
