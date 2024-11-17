@@ -12,29 +12,47 @@ class DebtProvider extends ChangeNotifier {
   double totalLendAmt = 0;
   double totalOweAmt = 0;
 
+  DebtProvider(){
+    getDebtData();
+  }
+
   getDebtData() async {
     try {
       QuerySnapshot debtData = await CollectionReferenceData.debt.get();
       debtList = debtData.docs
           .map((e) => DebtModel.fromMap(e.data() as Map<String, dynamic>))
           .toList();
+      getTotalAmt(debtList);
       print(debtList);
     } catch (e) {
       print(e);
     }
   }
 
-  getTotalAmt() {
+  getTotalAmt(List<DebtModel> debtList) {
     double lentAmount = 0;
     double oweAmount = 0;
     for (var e in debtList) {
       if (e.totalAmount! > 0) {
         lentAmount += e.totalAmount?.toDouble() ?? 0;
+        totalLendAmt = lentAmount;
       } else if (e.totalAmount! < 0) {
         oweAmount += e.totalAmount?.toDouble() ?? 0;
+        totalOweAmt = oweAmount;
       }
     }
-    return lentAmount + oweAmount;
+    print(totalLendAmt);
+    print(totalOweAmt);
+  }
+
+  String getInitials(String name) {
+    List<String> parts = name.trim().split(' ');
+
+    if (parts.length == 1) {
+      return parts[0][0].toUpperCase();
+    } else {
+      return parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
+    }
   }
 
   Future<void> sendMessageToWhatsApp() async {
@@ -49,15 +67,7 @@ class DebtProvider extends ChangeNotifier {
   }
 
 
-  Future<void> sendMessageToWhatsApp1(String phoneNumber, String message) async {
-    final url = "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
 
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
 
 }

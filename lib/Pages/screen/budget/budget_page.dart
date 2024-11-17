@@ -18,7 +18,9 @@ class BudgetPage extends StatelessWidget {
       appBar:  CustomAppBar(showBackBtn: showBackBtn,title: "Budget"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
+        // child: Center(child: Text("Available on Next Update",style: AppFont.appBarHead,),)
+        
+       child:  SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -91,10 +93,6 @@ class BudgetPage extends StatelessWidget {
           ),
         ),
       ),
-   /*   floatingActionButton: CustomFloatingActionButton(
-        onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const AddBudgetPage())),
-      ),*/
     );
   }
 }
