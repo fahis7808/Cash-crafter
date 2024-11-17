@@ -87,20 +87,16 @@ class IncomeExpenseCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Row(
-                children: [
-                  Text(
-                    "+10%",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        color: AppColors.positiveColor),
-                  ),
-                ],
-              )
+            /*  const Text(
+                "+10%",
+                style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                    color: AppColors.positiveColor),
+              )*/
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           TextAmount(text: income ? "Income" : "Spending", amount: amount)

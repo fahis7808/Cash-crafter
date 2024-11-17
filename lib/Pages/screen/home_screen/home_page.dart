@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (ctx) => HomeProvider(),
       child: Consumer<HomeProvider>(builder: (context, data, _) {
+        final Map<String, dynamic> graph = data.getGraphData(data.transferList);
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -66,6 +67,7 @@ class HomePage extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           data.getData();
+                          print((graph["data"] as List).length);
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -79,20 +81,20 @@ class HomePage extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           Expanded(
-                            child:
-                                IncomeExpenseCard(income: true, amount: 23423),
+                            child: IncomeExpenseCard(
+                                income: true, amount: data.income),
                           ),
                           SizedBox(
                             width: 15,
                           ),
                           Expanded(
-                            child:
-                                IncomeExpenseCard(income: false, amount: 23423),
+                            child: IncomeExpenseCard(
+                                income: false, amount: data.expense),
                           ),
                         ],
                       ),
@@ -100,12 +102,12 @@ class HomePage extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    if(data.transferList.isNotEmpty || data.transferList.length > 7)
                       SizedBox(
-                      height: 350,
-                      child:  LineChartSample1(
-                          listData: data.getGraphData(data.transferList)) ,
-                    ),
+                        height: 350,
+                        child: (graph["data"] as List).length > 5
+                            ? LineChartSample1(listData: graph)
+                            : null,
+                      ),
                     // const GoalPart(),
                   ]),
             ),

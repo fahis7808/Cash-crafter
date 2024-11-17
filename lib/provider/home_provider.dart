@@ -26,8 +26,36 @@ class HomeProvider extends ChangeNotifier {
       transferList = transfer.docs.map((e) {
         return TransactionModel.fromMap(e.data() as Map<String, dynamic>);
       }).toList();
+
+      if(transferList.isNotEmpty){
+        getIncomeExpenseSum(transferList);
+      }
+
     } catch (e) {
       print(e);
+    }
+  }
+
+  getIncomeExpenseSum(List<TransactionModel> transferList){
+    DateTime currentDate = DateTime.now();
+    int currentMonth = currentDate.month;
+    int currentYear = currentDate.year;
+    double incomeAmt = 0;
+    double expenseAmt = 0;
+
+    for (var i in transferList) {
+      DateTime transferDate = parseDate(i.date.toString());
+      if (transferDate.month == currentMonth &&
+          transferDate.year == currentYear) {
+        if (i.transactionType == "income") {
+          incomeAmt += i.amount ?? 0;
+          income = incomeAmt;
+        }
+        if (i.transactionType == "expense") {
+          expenseAmt += i.amount ?? 0;
+          expense = expenseAmt;
+        }
+      }
     }
   }
 
@@ -82,7 +110,6 @@ class HomeProvider extends ChangeNotifier {
       "data": resultData,
     };
   }
-
 
   DateTime parseDate(String date) {
     try {
