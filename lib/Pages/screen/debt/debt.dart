@@ -20,86 +20,96 @@ class DebtPage extends StatelessWidget {
         child: Consumer<DebtProvider>(builder: (context, data, _) {
           return Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: data.isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
                     children: [
-                      TextAmount(text: "I Lend", amount: data.totalLendAmt),
-                      TextAmount(text: "I Owe", amount: data.totalOweAmt),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextAmount(
+                                text: "I Lend", amount: data.totalLendAmt),
+                            TextAmount(text: "I Owe", amount: data.totalOweAmt),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // const MainLoanCard(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: data.debtList.length,
+                            itemBuilder: (context, index) {
+                              final item = data.debtList[index];
+
+                              return CustomCard(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 3),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) => OnDeptTap(
+                                                  debtData: item,
+                                                )));
+                                  },
+                                  circularRadius: 10,
+                                  color: AppColors.primaryColor,
+                                  child: Row(
+                                    children: [
+                                      CustomCard(
+                                          child: Text(
+                                        data.getInitials(item.name.toString()),
+                                        style: AppFont.white20,
+                                      )),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.name?.toString() ?? "",
+                                            style: AppFont.textFieldLabel,
+                                          ),
+                                          Text(
+                                            item.phoneNumber?.toString() ?? '',
+                                            style: AppFont.cardSubTitle,
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            item.totalAmount.toString(),
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.w700,
+                                                color: item.totalAmount! < 0
+                                                    ? AppColors.negativeColor
+                                                    : item.totalAmount == 0
+                                                        ? AppColors.textColor
+                                                        : AppColors
+                                                            .positiveColor),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ));
+                            }),
+                      )
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                // const MainLoanCard(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: data.debtList.length,
-                      itemBuilder: (context, index) {
-                        final item = data.debtList[index];
-
-                        return CustomCard(
-                          margin: const EdgeInsets.symmetric(vertical: 3),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => OnDeptTap(debtData: item,)));
-                            },
-                            circularRadius: 10,
-                            color: AppColors.primaryColor,
-                            child: Row(
-                              children: [
-                                CustomCard(
-                                    child: Text(
-                                  data.getInitials(item.name.toString()),
-                                  style: AppFont.white20,
-                                )),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.name?.toString() ?? "",
-                                      style: AppFont.textFieldLabel,
-                                    ),
-                                    Text(
-                                      item.phoneNumber?.toString() ?? '',
-                                      style: AppFont.cardSubTitle,
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Column(
-                                  children: [
-                                    Text(
-                                      item.totalAmount.toString(),
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w700,
-                                          color: item.totalAmount! < 0
-                                              ? AppColors.negativeColor
-                                              : item.totalAmount == 0
-                                                  ? AppColors.textColor
-                                                  : AppColors.positiveColor),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ));
-                      }),
-                )
-              ],
-            ),
           );
         }),
       ),

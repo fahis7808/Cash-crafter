@@ -25,7 +25,7 @@ class AccountPage extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(showBackBtn: showBackBtn, title: "Balance"),
           body: data.isLoading
-              ? const Column()
+              ? const Center(child: CircularProgressIndicator(),)
               : data.wallet
                   ? const WalletInitialOpen()
                   : Padding(

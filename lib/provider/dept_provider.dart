@@ -12,11 +12,15 @@ class DebtProvider extends ChangeNotifier {
   double totalLendAmt = 0;
   double totalOweAmt = 0;
 
+  bool isLoading = false;
+
   DebtProvider(){
     getDebtData();
   }
 
   getDebtData() async {
+    isLoading = true;
+    onRefresh();
     try {
       QuerySnapshot debtData = await CollectionReferenceData.debt.get();
       debtList = debtData.docs
@@ -24,8 +28,12 @@ class DebtProvider extends ChangeNotifier {
           .toList();
       getTotalAmt(debtList);
       print(debtList);
+      isLoading = false;
+      onRefresh();
     } catch (e) {
       print(e);
+      isLoading = false;
+      onRefresh();
     }
   }
 
@@ -66,8 +74,7 @@ class DebtProvider extends ChangeNotifier {
     }
   }
 
-
-
-
-
+  onRefresh(){
+    notifyListeners();
+  }
 }

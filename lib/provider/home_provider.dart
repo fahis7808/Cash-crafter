@@ -48,7 +48,7 @@ class HomeProvider extends ChangeNotifier {
     int currentYear = currentDate.year;
     double incomeAmt = 0;
     double expenseAmt = 0;
-
+print(transferList.map((e) => e.transactionType));
     for (var i in transferList) {
       DateTime transferDate = parseDate(i.date.toString());
       if (transferDate.month == currentMonth &&
@@ -63,6 +63,8 @@ class HomeProvider extends ChangeNotifier {
         }
       }
     }
+      print(income);
+      print(expense);
   }
 
   Map<String, dynamic> getGraphData(List<TransactionModel> dataList) {

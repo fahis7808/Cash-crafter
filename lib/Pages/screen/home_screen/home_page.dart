@@ -7,6 +7,7 @@ import 'package:money_manage_app2/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 import '../../widget/custom_widget/custom_card.dart';
 import '../../widget/graph/graph_chart_2.dart';
+import '../account_page/account_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -66,12 +67,10 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () {
-                          data.getData();
-                          print((graph["data"] as List).length);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AccountPage()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AccountPage()));
                         },
                         child: MainBalance(
                           amount:
