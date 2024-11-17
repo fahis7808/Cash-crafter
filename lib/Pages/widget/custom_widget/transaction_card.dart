@@ -27,7 +27,7 @@ class TransactionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data[index].category.toString(),
+                      data[index].category?.toString() ?? "",
                       style: AppFont.textFieldLabel,
                     ),
                     Text(
