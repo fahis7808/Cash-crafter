@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manage_app2/Model/account_model/account_model.dart';
-import 'package:money_manage_app2/Model/account_model/balance_model.dart';
-import 'package:money_manage_app2/Model/account_model/debt&loan_model.dart';
-import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
-import 'package:money_manage_app2/util/collection_reference.dart';
+import 'package:cash_crafter/Model/account_model/account_model.dart';
+import 'package:cash_crafter/Model/account_model/balance_model.dart';
+import 'package:cash_crafter/Model/account_model/debt&loan_model.dart';
+import 'package:cash_crafter/Model/account_model/transaction_model.dart';
+import 'package:cash_crafter/util/collection_reference.dart';
 
 import '../service/secure_storage.dart';
 
@@ -107,6 +107,8 @@ class BalanceProvider extends ChangeNotifier {
     } else {
       transList = transferList;
     }
+    transList = transList.reversed.toList();
+
     return transList;
   }
 

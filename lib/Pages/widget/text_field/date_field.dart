@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
+import '../../../Pages/widget/text_field/custom_text_field.dart';
 
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/debt/on_dept_tap.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/dept_provider.dart';
+import 'package:cash_crafter/Pages/screen/debt/on_dept_tap.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/custom_card.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:provider/provider.dart';
 
 class DebtPage extends StatelessWidget {

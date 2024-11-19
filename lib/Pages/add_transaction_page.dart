@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:money_manage_app2/Model/db_model.dart';
-import 'package:money_manage_app2/Widgets/first_widget.dart';
+import '../../../Model/db_model.dart';
+import '../../../Widgets/first_widget.dart';
 
 class TransactionPage extends StatefulWidget {
   const TransactionPage({Key? key}) : super(key: key);

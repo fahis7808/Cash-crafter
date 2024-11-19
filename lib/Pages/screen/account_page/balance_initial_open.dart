@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/button/next_button.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:cash_crafter/Pages/widget/button/next_button.dart';
+import 'package:cash_crafter/Pages/widget/text_field/amount_text_field.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../util/snack_bar.dart';

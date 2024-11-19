@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/authentication/login_page.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/service/secure_storage.dart';
+import '../../../Pages/screen/authentication/login_page.dart';
+import '../../../constant/app_font.dart';
+import '../../../service/secure_storage.dart';
 
 import 'Pages/screen/first_page.dart';
 

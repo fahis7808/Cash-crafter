@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Model/account_model/debt&loan_model.dart';
-import 'package:money_manage_app2/util/collection_reference.dart';
+import '../../../Model/account_model/debt&loan_model.dart';
+import '../../../util/collection_reference.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DebtProvider extends ChangeNotifier {

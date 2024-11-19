@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
 
 class NextButton extends StatelessWidget {
   final void Function() onTap;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/balance_initial_open.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/single_acc_page.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:cash_crafter/Pages/screen/account_page/balance_initial_open.dart';
+import 'package:cash_crafter/Pages/screen/account_page/single_acc_page.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/balance_showing_widget.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/custom_card.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_widget/transaction_card.dart';

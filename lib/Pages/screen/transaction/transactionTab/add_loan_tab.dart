@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
+import 'package:cash_crafter/Pages/widget/text_field/custom_text_field.dart';
 
 class AddLoanTab extends StatelessWidget {
   const AddLoanTab({Key? key}) : super(key: key);

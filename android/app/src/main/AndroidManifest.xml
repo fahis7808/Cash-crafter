@@ -11,9 +11,9 @@
 
 
    <application
-        android:label="money_manage_app2"
+        android:label="CashCrafter"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
        <activity
             android:name=".MainActivity"
             android:exported="true"

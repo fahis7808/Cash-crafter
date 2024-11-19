@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/budget/on_budget_page.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-import 'package:money_manage_app2/Pages/widget/graph/percentage_bar.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
+import 'package:cash_crafter/Pages/screen/budget/on_budget_page.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/custom_card.dart';
+import 'package:cash_crafter/Pages/widget/graph/percentage_bar.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 
@@ -18,9 +18,9 @@ class BudgetPage extends StatelessWidget {
       appBar:  CustomAppBar(showBackBtn: showBackBtn,title: "Budget"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        // child: Center(child: Text("Available on Next Update",style: AppFont.appBarHead,),)
+        child: Center(child: Text("Available on Next Update",style: AppFont.appBarHead,),)
         
-       child:  SingleChildScrollView(
+      /* child:  SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -60,10 +60,10 @@ class BudgetPage extends StatelessWidget {
                             "15 Days left",
                             style: AppFont.cardSubTitle,
                           ),
-                          /* Text(
+                          *//* Text(
                             "Left Amount ${FormattedText.formattedAmount(9874)}",
                             style: AppFont.cardSubTitle,
-                          ),*/
+                          ),*//*
                           RichText(
                               text: TextSpan(
                                   text: FormattedText.formattedAmount(45232),
@@ -91,7 +91,7 @@ class BudgetPage extends StatelessWidget {
 
             ],
           ),
-        ),
+        ),*/
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
+import '../../../util/formated_text.dart';
 import '../../../Model/account_model/transaction_model.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';

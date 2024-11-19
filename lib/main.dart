@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/provider/balance_provider.dart';
-import 'package:money_manage_app2/splash_screen.dart';
+import '../../../constant/app_colors.dart';
+import '../../../provider/balance_provider.dart';
+import '../../../splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

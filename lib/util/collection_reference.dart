@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:money_manage_app2/util/data_base_name.dart';
+import '../../../util/data_base_name.dart';
 
 class CollectionReferenceData {
   static User? user = FirebaseAuth.instance.currentUser;

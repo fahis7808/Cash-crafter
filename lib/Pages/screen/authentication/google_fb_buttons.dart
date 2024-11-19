@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/provider/authentication_provider.dart';
+import 'package:cash_crafter/provider/authentication_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/app_colors.dart';

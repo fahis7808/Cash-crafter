@@ -1,10 +1,10 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/transaction/transactionTab/add_loan_tab.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/amount_text_field.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/provider/balance_provider.dart';
+import 'package:cash_crafter/Pages/screen/transaction/transactionTab/add_loan_tab.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/text_field/amount_text_field.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../util/snack_bar.dart';
@@ -15,7 +15,7 @@ import 'transactionTab/transfer_tab.dart';
 
 class AddTransaction extends StatefulWidget {
   final bool isDebt;
-  const AddTransaction({Key? key,  this.isDebt = false}) : super(key: key);
+  const AddTransaction({Key? key, this.isDebt = false}) : super(key: key);
 
   @override
   _AddTransactionState createState() => _AddTransactionState();
@@ -26,7 +26,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void initState() {
-    selectedIndex = widget.isDebt ? 3 :0;
+    selectedIndex = widget.isDebt ? 3 : 0;
     super.initState();
   }
 
@@ -42,127 +42,134 @@ class _AddTransactionState extends State<AddTransaction> {
             child: data.isLoading
                 ? Center(child: CircularProgressIndicator())
                 : Column(
-              children: [
-                const SizedBox(height: 15),
-                AmountTextField(
-                  value: data.transactionModel.amount,
-                  onChange: (val) {
-                    data.transactionModel.amount =
-                        double.tryParse(val) ?? 0;
-                  },
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 310,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      if(!widget.isDebt)
-                      TransactionSwitch(
-                        icon: Icons.swap_horiz,
-                        label: 'Transfer',
-                        index: 0,
-                        isSelected: selectedIndex == 0,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 0;
-                            data.transactionModel.transactionType =
-                            "transfer";
-                          });
+                      const SizedBox(height: 15),
+                      AmountTextField(
+                        value: data.transactionModel.amount,
+                        onChange: (val) {
+                          data.transactionModel.amount =
+                              double.tryParse(val) ?? 0;
                         },
                       ),
-                      if(!widget.isDebt)
-                      TransactionSwitch(
-                        icon: FluentIcons.arrow_square_up_right_24_filled,
-                        label: 'Income',
-                        index: 1,
-                        isSelected: selectedIndex == 1,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 1;
-                            data.transactionModel.transactionType = "income";
-                            data.transactionModel.debit = null;
-                          });
-                        },
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: 310,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            if (!widget.isDebt)
+                              TransactionSwitch(
+                                icon: Icons.swap_horiz,
+                                label: 'Transfer',
+                                index: 0,
+                                isSelected: selectedIndex == 0,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 0;
+                                    data.transactionModel.transactionType =
+                                        "transfer";
+                                  });
+                                },
+                              ),
+                            if (!widget.isDebt)
+                              TransactionSwitch(
+                                icon:
+                                    FluentIcons.arrow_square_up_right_24_filled,
+                                label: 'Income',
+                                index: 1,
+                                isSelected: selectedIndex == 1,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 1;
+                                    data.transactionModel.transactionType =
+                                        "income";
+                                    data.transactionModel.debit = null;
+                                  });
+                                },
+                              ),
+                            if (!widget.isDebt)
+                              TransactionSwitch(
+                                icon:
+                                    FluentIcons.arrow_square_up_right_24_filled,
+                                label: 'Expense',
+                                index: 2,
+                                isSelected: selectedIndex == 2,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 2;
+                                    data.transactionModel.transactionType =
+                                        "expense";
+                                    data.transactionModel.credit = null;
+                                  });
+                                },
+                              ),
+                            if (widget.isDebt)
+                              TransactionSwitch(
+                                icon: FluentIcons.money_hand_24_filled,
+                                label: 'Debt',
+                                index: 3,
+                                isSelected: selectedIndex == 3,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 3;
+                                    data.transactionModel.transactionType =
+                                        "debt";
+                                  });
+                                },
+                              ),
+                           /* if (widget.isDebt)
+                              TransactionSwitch(
+                                icon: FluentIcons
+                                    .building_retail_money_20_regular,
+                                label: 'Loan',
+                                index: 3,
+                                isSelected: selectedIndex == 4,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 4;
+                                    data.transactionModel.transactionType =
+                                        "debt";
+                                  });
+                                },
+                              ),*/
+                          ],
+                        ),
                       ),
-                      if(!widget.isDebt)
-                      TransactionSwitch(
-                        icon: FluentIcons.arrow_square_up_right_24_filled,
-                        label: 'Expense',
-                        index: 2,
-                        isSelected: selectedIndex == 2,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 2;
-                            data.transactionModel.transactionType =
-                            "expense";
-                            data.transactionModel.credit = null;
-                          });
-                        },
+                      const SizedBox(
+                        height: 30,
                       ),
-                      if(widget.isDebt)
-                      TransactionSwitch(
-                        icon: FluentIcons.money_hand_24_filled,
-                        label: 'Debt',
-                        index: 3,
-                        isSelected: selectedIndex == 3,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 3;
-                            data.transactionModel.transactionType = "debt";
-                          });
-                        },
-                      ),
-                      if(widget.isDebt)
-                      TransactionSwitch(
-                        icon: FluentIcons.building_retail_money_20_regular,
-                        label: 'Loan',
-                        index: 3,
-                        isSelected: selectedIndex == 4,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 4;
-                            data.transactionModel.transactionType = "debt";
-                          });
-                        },
-                      ),
+                      Expanded(
+                          child: SingleChildScrollView(
+                              child: tabPage(selectedIndex))),
+                      CustomButton(
+                          buttonText: "Transfer",
+                          loading: data.isBtnLoading,
+                          onPressed: () {
+                            data.addTransfer(selectedIndex).then((value) {
+                              if (value == true) {
+                                final snackBar =
+                                    CustomSnackBar.successesSnackBar(
+                                  "Successfully added your account",
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                Navigator.pop(context);
+                              } else {
+                                final snackBar = CustomSnackBar.errorSnackBar(
+                                  "Something went wrong",
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            });
+                          })
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Expanded(
-                    child: SingleChildScrollView(
-                        child: tabPage(selectedIndex))),
-                CustomButton(
-                    buttonText: "Transfer",
-                    loading: data.isBtnLoading,
-                    onPressed: () {
-                      data.addTransfer(selectedIndex).then((value) {
-                        if(value == true){
-                          final snackBar = CustomSnackBar.successesSnackBar(
-                            "Successfully added your account",
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Navigator.pop(context);
-                        }else{
-                          final snackBar = CustomSnackBar.errorSnackBar(
-                            "Something went wrong",
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      });
-                    })
-              ],
-            ),
           );
         }),
       ),
     );
   }
-
-
 }
 
 class TransactionSwitch extends StatelessWidget {
@@ -222,7 +229,9 @@ Widget tabPage(int index) {
     case 0:
       return const MoneyTransfer();
     case 1:
-      return const IncomeExpenseTab(isIncome: true,);
+      return const IncomeExpenseTab(
+        isIncome: true,
+      );
     case 2:
       return const IncomeExpenseTab();
     case 3:

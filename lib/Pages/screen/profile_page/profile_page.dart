@@ -1,11 +1,11 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/button/button.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/profile_Provider.dart';
-import 'package:money_manage_app2/util/snack_bar.dart';
+import 'package:cash_crafter/Pages/widget/button/button.dart';
+import 'package:cash_crafter/Pages/widget/text_field/custom_text_field.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/provider/profile_Provider.dart';
+import 'package:cash_crafter/util/snack_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_appbar.dart';

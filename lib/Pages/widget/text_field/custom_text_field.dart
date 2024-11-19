@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
+import '../../../constant/app_font.dart';
 
 import '../../../constant/app_colors.dart';
 

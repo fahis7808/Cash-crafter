@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/button/button.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
+import '../../widget/button/button.dart';
+import '../../../constant/app_colors.dart';
+import '../../../constant/app_font.dart';
 
 import '../../../Model/account_model/transaction_model.dart';
 

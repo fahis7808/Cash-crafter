@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/profile_page/profile_page.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/balance_showing_widget.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/provider/home_provider.dart';
+import 'package:cash_crafter/Pages/screen/profile_page/profile_page.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/balance_showing_widget.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 import '../../widget/custom_widget/custom_card.dart';
 import '../../widget/graph/graph_chart_2.dart';

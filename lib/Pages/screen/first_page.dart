@@ -1,11 +1,11 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/screen/account_page/account_page.dart';
-import 'package:money_manage_app2/Pages/screen/budget/budge_add_page.dart';
-import 'package:money_manage_app2/Pages/screen/budget/budget_page.dart';
-import 'package:money_manage_app2/Pages/screen/debt/debt.dart';
-import 'package:money_manage_app2/Pages/screen/home_screen/home_page.dart';
-import 'package:money_manage_app2/Pages/screen/transaction/add_transation.dart';
+import 'package:cash_crafter/Pages/screen/account_page/account_page.dart';
+import 'package:cash_crafter/Pages/screen/budget/budge_add_page.dart';
+import 'package:cash_crafter/Pages/screen/budget/budget_page.dart';
+import 'package:cash_crafter/Pages/screen/debt/debt.dart';
+import 'package:cash_crafter/Pages/screen/home_screen/home_page.dart';
+import 'package:cash_crafter/Pages/screen/transaction/add_transation.dart';
 
 import '../../constant/app_colors.dart';
 import '../widget/button/floating_action_button.dart';
@@ -31,7 +31,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: CustomFloatingActionButton(
+      floatingActionButton:pageIndex == 2 ? null : CustomFloatingActionButton(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             if (pageIndex == 2) {

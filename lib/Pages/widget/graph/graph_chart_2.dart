@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
+import '../../../Pages/widget/custom_widget/custom_card.dart';
+import '../../../util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/custom_widget/custom_card.dart';
-import 'package:money_manage_app2/Pages/widget/graph/pie_chart.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/constant/app_font.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/custom_widget/custom_card.dart';
+import 'package:cash_crafter/Pages/widget/graph/pie_chart.dart';
+import 'package:cash_crafter/constant/app_colors.dart';
+import 'package:cash_crafter/constant/app_font.dart';
+import 'package:cash_crafter/util/formated_text.dart';
 
 class LoanPage extends StatelessWidget {
   const LoanPage({Key? key}) : super(key: key);

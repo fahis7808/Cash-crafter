@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
+import '../../../constant/app_colors.dart';
+import '../../../util/formated_text.dart';
 
 import '../../../constant/app_font.dart';
 import '../graph/pie_chart.dart';

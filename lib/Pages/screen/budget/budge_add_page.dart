@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Pages/widget/button/button.dart';
-import 'package:money_manage_app2/Pages/widget/custom_appbar.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/custom_drop_down_field.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/custom_text_field.dart';
-import 'package:money_manage_app2/Pages/widget/text_field/date_field.dart';
+import 'package:cash_crafter/Pages/widget/button/button.dart';
+import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
+import 'package:cash_crafter/Pages/widget/text_field/custom_drop_down_field.dart';
+import 'package:cash_crafter/Pages/widget/text_field/custom_text_field.dart';
+import 'package:cash_crafter/Pages/widget/text_field/date_field.dart';
 
 class AddBudgetPage extends StatelessWidget {
   const AddBudgetPage({Key? key}) : super(key: key);

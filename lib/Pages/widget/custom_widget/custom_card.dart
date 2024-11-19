@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/util/formated_text.dart';
 
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_font.dart';
+import '../../../util/formated_text.dart';
 
 class CustomCard extends StatelessWidget {
   final Color? color;

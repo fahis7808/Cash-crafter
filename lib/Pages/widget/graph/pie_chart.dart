@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/constant/app_colors.dart';
+import '../../../constant/app_colors.dart';
 
 class PieChartSample2 extends StatefulWidget {
   final double? radius;

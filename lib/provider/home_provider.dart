@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:money_manage_app2/Model/account_model/balance_model.dart';
-import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
-import 'package:money_manage_app2/util/collection_reference.dart';
+import '../../../Model/account_model/balance_model.dart';
+import '../../../Model/account_model/transaction_model.dart';
+import '../../../util/collection_reference.dart';
 
 class HomeProvider extends ChangeNotifier {
   BalanceModel balanceData = BalanceModel();

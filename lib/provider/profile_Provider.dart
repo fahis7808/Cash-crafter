@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manage_app2/Model/user_model.dart';
-import 'package:money_manage_app2/service/secure_storage.dart';
+import '../../../Model/user_model.dart';
+import '../../../service/secure_storage.dart';
 
 class ProfileProvider extends ChangeNotifier {
   UserModel userData = UserModel();

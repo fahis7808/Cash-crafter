@@ -1,4 +1,5 @@
-import 'package:money_manage_app2/Model/account_model/transaction_model.dart';
+
+import 'transaction_model.dart';
 
 class DebtModel {
   String? id;
