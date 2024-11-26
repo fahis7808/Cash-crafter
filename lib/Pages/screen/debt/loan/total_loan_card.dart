@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cash_crafter/Pages/screen/debt/loan_page.dart';
+import 'package:cash_crafter/Pages/screen/debt/loan/loan_page.dart';
 
-import '../../../constant/app_colors.dart';
-import '../../../constant/app_font.dart';
-import '../../widget/custom_widget/custom_card.dart';
+import '../../../../constant/app_colors.dart';
+import '../../../../constant/app_font.dart';
+import '../../../widget/custom_widget/custom_card.dart';
 
 class MainLoanCard extends StatelessWidget {
   const MainLoanCard({Key? key}) : super(key: key);

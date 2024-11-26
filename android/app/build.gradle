@@ -45,13 +45,22 @@ android {
     defaultConfig {
         applicationId "com.example.money_manage_app2"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
 
     namespace 'com.example.money_manage_app2'
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a'
+            universalApk true
+        }
+    }
 
     buildTypes {
         release {

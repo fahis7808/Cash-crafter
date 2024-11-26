@@ -7,6 +7,8 @@ import 'package:cash_crafter/constant/app_font.dart';
 import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'loan/total_loan_card.dart';
+
 class DebtPage extends StatelessWidget {
   final bool showBackBtn;
   const DebtPage({Key? key, this.showBackBtn = true}) : super(key: key);
@@ -40,7 +42,7 @@ class DebtPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      // const MainLoanCard(),
+                      const MainLoanCard(),
                       const SizedBox(
                         height: 10,
                       ),
