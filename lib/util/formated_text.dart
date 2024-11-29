@@ -7,6 +7,7 @@ class FormattedText {
 }
 
   static String formatDate(String dateString) {
+
     if (dateString != "") {
       DateFormat inputFormat = DateFormat('dd-MM-yyyy');
       DateTime date = inputFormat.parse(dateString);
