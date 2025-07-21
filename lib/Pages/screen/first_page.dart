@@ -1,3 +1,5 @@
+import 'package:cash_crafter/constant/provider.dart';
+import 'package:cash_crafter/provider/home_provider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_crafter/Pages/screen/account_page/account_page.dart';
@@ -6,6 +8,7 @@ import 'package:cash_crafter/Pages/screen/budget/budget_page.dart';
 import 'package:cash_crafter/Pages/screen/debt/debt.dart';
 import 'package:cash_crafter/Pages/screen/home_screen/home_page.dart';
 import 'package:cash_crafter/Pages/screen/transaction/add_transation.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant/app_colors.dart';
 import '../widget/button/floating_action_button.dart';
@@ -31,21 +34,27 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:pageIndex == 2 ? null : CustomFloatingActionButton(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            if (pageIndex == 2) {
-              return AddBudgetPage();
-            } else if (pageIndex == 3) {
-              return AddTransaction(
-                isDebt: true,
-              );
-            } else {
-              return AddTransaction();
-            }
-          }));
-        },
-      ),
+      floatingActionButton: pageIndex == 2
+          ? null
+          : CustomFloatingActionButton(
+              onTap: () async {
+                bool? needRefresh = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  if (pageIndex == 2) {
+                    return AddBudgetPage();
+                  } else if (pageIndex == 3) {
+                    return AddTransaction(
+                      isDebt: true,
+                    );
+                  } else {
+                    return AddTransaction();
+                  }
+                }));
+                if (needRefresh == true) {
+                  Provider.of<HomeProvider>(context, listen: false).getData();
+                }
+              },
+            ),
       body: page[pageIndex],
       bottomNavigationBar: CustomCard(
           height: 75,

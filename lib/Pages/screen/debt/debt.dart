@@ -46,6 +46,9 @@ class DebtPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      TextButton(onPressed: (){
+                        print(data.debtList);
+                      }, child: Text("data")),
                       Expanded(
                         child: ListView.builder(
                             itemCount: data.debtList.length,

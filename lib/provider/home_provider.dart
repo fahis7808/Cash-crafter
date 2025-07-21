@@ -15,7 +15,6 @@ class HomeProvider extends ChangeNotifier {
   HomeProvider() {
     getData();
   }
-
   getData() async {
     isLoading = true;
     onRefresh();
@@ -29,12 +28,11 @@ class HomeProvider extends ChangeNotifier {
         return TransactionModel.fromMap(e.data() as Map<String, dynamic>);
       }).toList();
 
-      if(transferList.isNotEmpty){
+      if (transferList.isNotEmpty) {
         getIncomeExpenseSum(transferList);
       }
       isLoading = false;
       onRefresh();
-
     } catch (e) {
       isLoading = false;
       onRefresh();
@@ -42,13 +40,13 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
-  getIncomeExpenseSum(List<TransactionModel> transferList){
+  getIncomeExpenseSum(List<TransactionModel> transferList) {
     DateTime currentDate = DateTime.now();
     int currentMonth = currentDate.month;
     int currentYear = currentDate.year;
     double incomeAmt = 0;
     double expenseAmt = 0;
-print(transferList.map((e) => e.transactionType));
+    print(transferList.map((e) => e.transactionType));
     for (var i in transferList) {
       DateTime transferDate = parseDate(i.date.toString());
       if (transferDate.month == currentMonth &&
@@ -63,8 +61,8 @@ print(transferList.map((e) => e.transactionType));
         }
       }
     }
-      print(income);
-      print(expense);
+    print(income);
+    print(expense);
   }
 
   Map<String, dynamic> getGraphData(List<TransactionModel> dataList) {
@@ -132,7 +130,7 @@ print(transferList.map((e) => e.transactionType));
     }
   }
 
-  onRefresh(){
+  onRefresh() {
     notifyListeners();
   }
 }

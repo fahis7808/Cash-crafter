@@ -17,6 +17,11 @@ class MainLoanCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.only(left: 20, top: 5, bottom: 20),
       child: Column(
+
+      ),
+
+
+      /*Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           RichText(text: TextSpan(
@@ -45,7 +50,7 @@ class MainLoanCard extends StatelessWidget {
             ],
           )
         ],
-      ),
+      ),*/
     );
   }
 }

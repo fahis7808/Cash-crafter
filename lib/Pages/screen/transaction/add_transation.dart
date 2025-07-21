@@ -117,7 +117,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   });
                                 },
                               ),
-                           /* if (widget.isDebt)
+                            /* if (widget.isDebt)
                               TransactionSwitch(
                                 icon: FluentIcons
                                     .building_retail_money_20_regular,
@@ -153,7 +153,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                Navigator.pop(context);
+                                Navigator.pop(context, true);
                               } else {
                                 final snackBar = CustomSnackBar.errorSnackBar(
                                   "Something went wrong",

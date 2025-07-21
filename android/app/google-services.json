@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "222440238198",
+    "project_id": "cashcrafter-money-management",
+    "storage_bucket": "cashcrafter-money-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222440238198:android:d33e23c752d9189f468357",
+        "android_client_info": {
+          "package_name": "com.example.money_manage_app2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222440238198-bs8rn749lht1k1m887s78dculeekcntd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.money_manage_app2",
+            "certificate_hash": "c9be0696cd80e57707deccdf3a2da00b41a146e3"
+          }
+        },
+        {
+          "client_id": "222440238198-hedm3mepq48ctgbqfpj6fe9loeukpbho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7Mor5EfQQZR4TcHzhFH3Q9vQyr25_FwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222440238198-hedm3mepq48ctgbqfpj6fe9loeukpbho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
