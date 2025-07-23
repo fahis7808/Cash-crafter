@@ -15,6 +15,7 @@ import 'transactionTab/transfer_tab.dart';
 
 class AddTransaction extends StatefulWidget {
   final bool isDebt;
+
   const AddTransaction({Key? key, this.isDebt = false}) : super(key: key);
 
   @override
@@ -26,7 +27,14 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void initState() {
-    selectedIndex = widget.isDebt ? 3 : 0;
+    final provider = Provider.of<BalanceProvider>(context, listen: false);
+    if (widget.isDebt) {
+      selectedIndex = 3;
+    } else if (provider.accountList.length < 1) {
+      selectedIndex = 1;
+    } else {
+      selectedIndex = 0;
+    }
     super.initState();
   }
 
@@ -145,24 +153,25 @@ class _AddTransactionState extends State<AddTransaction> {
                           buttonText: "Transfer",
                           loading: data.isBtnLoading,
                           onPressed: () {
-                            data.addTransfer(selectedIndex).then((value) {
-                              if (value == true) {
-                                final snackBar =
-                                    CustomSnackBar.successesSnackBar(
-                                  "Successfully added your account",
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                Navigator.pop(context, true);
-                              } else {
-                                final snackBar = CustomSnackBar.errorSnackBar(
-                                  "Something went wrong",
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                            });
-                          })
+                                  print(selectedIndex);
+                                  print(data.accountList.length);
+                                  data.addTransfer(selectedIndex).then((value) {
+                                    if (value == true) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        CustomSnackBar.successesSnackBar(
+                                            "Successfully added your account"),
+                                      );
+                                      Navigator.pop(context, true);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        CustomSnackBar.errorSnackBar(
+                                            "Something went wrong"),
+                                      );
+                                    }
+                                  });
+                                })
                     ],
                   ),
           );

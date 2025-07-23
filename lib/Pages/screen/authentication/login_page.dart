@@ -1,7 +1,7 @@
+import 'package:cash_crafter/Pages/screen/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_crafter/Pages/screen/authentication/google_fb_buttons.dart';
 import 'package:cash_crafter/Pages/screen/authentication/registration_page.dart';
-import 'package:cash_crafter/Pages/screen/home_screen/home_page.dart';
 import 'package:cash_crafter/Pages/widget/button/button.dart';
 import 'package:cash_crafter/Pages/widget/text_field/custom_text_field.dart';
 import 'package:cash_crafter/constant/app_colors.dart';
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
+                                  builder: (context) => const FirstPage()));
                         } else {
                           setState(() {
                             _isLoading = false;

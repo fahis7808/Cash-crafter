@@ -19,125 +19,122 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => BalanceProvider(),
-      child: Consumer<BalanceProvider>(builder: (context, data, _) {
-        return Scaffold(
-          appBar: CustomAppBar(showBackBtn: showBackBtn, title: "Balance"),
-          body: data.isLoading
-              ? const Center(child: CircularProgressIndicator(),)
-              : data.wallet
-                  ? const WalletInitialOpen()
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MainBalance(
-                            amount:
-                                data.balanceModel.totalBalance?.toDouble() ?? 0,
-                            text: "Main",
-                          ),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: SizedBox(
-                                height: MediaQuery.of(context).size.height,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const AddAccountPage()))
-                                            .then((value) {
-                                          data.getData(0);
-                                        }),
-                                        child: Container(
-                                          height: 35,
-                                          width: 70,
-                                          margin: const EdgeInsets.fromLTRB(
-                                              0, 0, 5, 15),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.secondaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Center(
-                                              child: Text(
-                                            "+Add",
-                                            style: AppFont.white20,
-                                          )),
-                                        ),
+    return Consumer<BalanceProvider>(builder: (context, data, _) {
+      return Scaffold(
+        appBar: CustomAppBar(showBackBtn: showBackBtn, title: "Balance"),
+        body: data.isLoading
+            ? const Center(child: CircularProgressIndicator(),)
+            : data.wallet
+                ? const WalletInitialOpen()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MainBalance(
+                          amount:
+                              data.balanceModel.totalBalance?.toDouble() ?? 0,
+                          text: "Main",
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const AddAccountPage()))
+                                          .then((value) {
+                                        data.getData(0);
+                                      }),
+                                      child: Container(
+                                        height: 35,
+                                        width: 70,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            0, 0, 5, 15),
+                                        decoration: BoxDecoration(
+                                            color: AppColors.secondaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: Center(
+                                            child: Text(
+                                          "+Add",
+                                          style: AppFont.white20,
+                                        )),
                                       ),
                                     ),
-                                    Wrap(
-                                      spacing: 8,
-                                      runSpacing: 8,
-                                      // Vertical space between rows of cards
-                                      children: data.accountList
-                                          .map((e) => InkWell(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              SingleAccountPage(
-                                                                account: e,
-                                                                list: data.getTransferList(e
-                                                                    .accountName
-                                                                    .toString()),
-                                                              )));
-                                                  data.accountName =
-                                                      e.accountName.toString();
-                                                },
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          2 -
-                                                      15,
-                                                  // Each card takes half of the width minus spacing
-                                                  child: AccountCard(
-                                                    accName: e.accountName
-                                                        .toString(),
-                                                    amount:
-                                                        e.balance?.toDouble() ??
-                                                            0,
-                                                  ),
+                                  ),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    // Vertical space between rows of cards
+                                    children: data.accountList
+                                        .map((e) => InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SingleAccountPage(
+                                                              account: e,
+                                                              list: data.getTransferList(e
+                                                                  .accountName
+                                                                  .toString()),
+                                                            )));
+                                                data.accountName =
+                                                    e.accountName.toString();
+                                              },
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    15,
+                                                // Each card takes half of the width minus spacing
+                                                child: AccountCard(
+                                                  accName: e.accountName
+                                                      .toString(),
+                                                  amount:
+                                                      e.balance?.toDouble() ??
+                                                          0,
                                                 ),
-                                              ))
-                                          .toList(),
-                                    ),
-                                    SizedBox(height: 10,),
-                                   /* const SizedBox(
-                                      height: 250,
-                                      child: LineChartSample1()
-                                    ),*/
-                                    Text(
-                                      "Transaction History",
-                                      style: AppFont.buttonText,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Expanded(
-                                      child: TransactionCard(
-                                          data: data.getTransferList("")),
-                                    ),
-                                  ],
-                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
+                                  SizedBox(height: 10,),
+                                 /* const SizedBox(
+                                    height: 250,
+                                    child: LineChartSample1()
+                                  ),*/
+                                  Text(
+                                    "Transaction History",
+                                    style: AppFont.buttonText,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Expanded(
+                                    child: TransactionCard(
+                                        data: data.getTransferList("")),
+                                  ),
+                                ],
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-        );
-      }),
-    );
+                  ),
+      );
+    });
   }
 }
 

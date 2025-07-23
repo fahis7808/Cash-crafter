@@ -1,4 +1,4 @@
-import 'package:cash_crafter/constant/provider.dart';
+import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:cash_crafter/provider/home_provider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,12 @@ class _FirstPageState extends State<FirstPage> {
                   }
                 }));
                 if (needRefresh == true) {
-                  Provider.of<HomeProvider>(context, listen: false).getData();
+                  if (pageIndex == 0) {
+                    Provider.of<HomeProvider>(context, listen: false).getData();
+                  } else if (pageIndex == 1) {
+                    Provider.of<BalanceProvider>(context, listen: false)
+                        .getData(0);
+                  }
                 }
               },
             ),
