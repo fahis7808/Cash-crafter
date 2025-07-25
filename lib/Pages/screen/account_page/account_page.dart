@@ -1,3 +1,5 @@
+import 'package:cash_crafter/Pages/screen/account_page/AddAccount/select_bank.dart';
+import 'package:cash_crafter/Pages/widget/button/small_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_crafter/Pages/screen/account_page/balance_initial_open.dart';
 import 'package:cash_crafter/Pages/screen/account_page/single_acc_page.dart';
@@ -10,7 +12,7 @@ import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_widget/transaction_card.dart';
-import 'add_card_page.dart';
+import 'AddAccount/add_acount_page.dart';
 
 class AccountPage extends StatelessWidget {
   final bool showBackBtn;
@@ -23,7 +25,9 @@ class AccountPage extends StatelessWidget {
       return Scaffold(
         appBar: CustomAppBar(showBackBtn: showBackBtn, title: "Balance"),
         body: data.isLoading
-            ? const Center(child: CircularProgressIndicator(),)
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
             : data.wallet
                 ? const WalletInitialOpen()
                 : Padding(
@@ -44,33 +48,19 @@ class AccountPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Align(
-                                    alignment: Alignment.centerRight,
-                                    child: GestureDetector(
-                                      onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const AddAccountPage()))
-                                          .then((value) {
-                                        data.getData(0);
-                                      }),
-                                      child: Container(
-                                        height: 35,
-                                        width: 70,
-                                        margin: const EdgeInsets.fromLTRB(
-                                            0, 0, 5, 15),
-                                        decoration: BoxDecoration(
-                                            color: AppColors.secondaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Center(
-                                            child: Text(
-                                          "+Add",
-                                          style: AppFont.white20,
-                                        )),
-                                      ),
-                                    ),
-                                  ),
+                                      alignment: Alignment.centerRight,
+                                      child: SmallButton(
+                                        text: "Add Bank",
+                                        onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddAccountPage()))
+                                            .then((value) {
+                                          data.getData(0);
+                                        }),
+                                      )),
+                                  SizedBox(height: 10,),
                                   Wrap(
                                     spacing: 8,
                                     runSpacing: 8,
@@ -84,9 +74,10 @@ class AccountPage extends StatelessWidget {
                                                         builder: (context) =>
                                                             SingleAccountPage(
                                                               account: e,
-                                                              list: data.getTransferList(e
-                                                                  .accountName
-                                                                  .toString()),
+                                                              list: data
+                                                                  .getTransferList(e
+                                                                      .accountName
+                                                                      .toString()),
                                                             )));
                                                 data.accountName =
                                                     e.accountName.toString();
@@ -99,8 +90,8 @@ class AccountPage extends StatelessWidget {
                                                     15,
                                                 // Each card takes half of the width minus spacing
                                                 child: AccountCard(
-                                                  accName: e.accountName
-                                                      .toString(),
+                                                  accName:
+                                                      e.accountName.toString(),
                                                   amount:
                                                       e.balance?.toDouble() ??
                                                           0,
@@ -109,8 +100,10 @@ class AccountPage extends StatelessWidget {
                                             ))
                                         .toList(),
                                   ),
-                                  SizedBox(height: 10,),
-                                 /* const SizedBox(
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  /* const SizedBox(
                                     height: 250,
                                     child: LineChartSample1()
                                   ),*/
