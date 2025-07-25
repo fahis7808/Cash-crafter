@@ -125,8 +125,8 @@ class MySampleState extends State<MySample> {
                       // cardBgColor: isLightTheme
                       //     ? AppColors.cardBgLightColor
                       //     : AppColors.cardBgColor,
-                      backgroundImage:
-                      useBackgroundImage ? 'assets/card_bg.png' : null,
+                      // backgroundImage:
+                      // useBackgroundImage ? 'assets/card_bg.png' : null,
                       isSwipeGestureEnabled: true,
                       onCreditCardWidgetChange:
                           (CreditCardBrand creditCardBrand) {},

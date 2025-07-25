@@ -58,14 +58,18 @@ class BalanceProvider extends ChangeNotifier {
         wallet = false;
         Map<String, dynamic> accountMap =
             walletData.docs.first.data() as Map<String, dynamic>;
+        print(accountMap);
         balanceModel = BalanceModel.fromMap(accountMap);
 
         /// accounts data ///
         QuerySnapshot accounts = await CollectionReferenceData.accounts.get();
         print(accounts);
+        print("<<<<<<<<<<<accounts>>>>>>>>>>>");
         accountList = accounts.docs.map((e) {
           return AccountModel.fromMap(e.data() as Map<String, dynamic>);
         }).toList();
+        print(accountList);
+        print("<<<<<<<<<<<object>>>>>>>>>>>");
 
         /// transaction data ///
         QuerySnapshot transfer =

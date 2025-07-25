@@ -6,13 +6,14 @@ class AccountModel {
   String? accountNumber;
   String? accountType;
   bool? debitCard;
-  double? debitCardNumber;
+  String? debitCardNumber;
   String? debitValidUpTo;
-  double? debitCVV;
+  String? debitCVV;
+  String? debitCardHolderName;
   bool? creditCard;
-  double? creditCardNumber;
+  String? creditCardNumber;
   String? creditValidUpTo;
-  double? creditCVV;
+  String? creditCVV;
   double? creditLimit;
   DateTime? creditDueDate;
 
@@ -27,6 +28,7 @@ class AccountModel {
     this.debitCardNumber,
     this.debitValidUpTo,
     this.debitCVV,
+    this.debitCardHolderName,
     this.creditCard = false,
     this.creditCardNumber,
     this.creditValidUpTo,
@@ -47,6 +49,7 @@ class AccountModel {
       "debitCardNumber": debitCardNumber,
       "debitValidUpTo": debitValidUpTo,
       "debitCVV": debitCVV,
+      "debitCardHolderName": debitCardHolderName,
       "creditCard": creditCard,
       "creditCardNumber": creditCardNumber,
       "creditValidUpTo": creditValidUpTo,
@@ -56,22 +59,26 @@ class AccountModel {
     };
   }
 
-  AccountModel.fromMap(Map<String, dynamic> map) {
-    accId = map["id"];
-    balance = map["balance"];
-    accountName = map["accountName"];
-    bankName = map["bankName"];
-    accountNumber = map["accountNumber"];
-    accountType = map["accountType"];
-    debitCard = map["debitCard"];
-    debitCardNumber = map["debitCardNumber"];
-    debitValidUpTo = map["debitValidUpTo"];
-    debitCVV = map["debitCVV"];
-    creditCard = map["creditCard"];
-    creditCardNumber = map["creditCardNumber"];
-    creditValidUpTo = map["creditValidUpTo"];
-    creditCVV = map["creditCVV"];
-    creditLimit = map["creditLimit"];
-    creditDueDate = map["creditDueDate"] != null ? DateTime.parse(map["creditDueDate"]) : null; // Parse String to DateTime
+  factory AccountModel.fromMap(Map<String, dynamic> map) {
+    return AccountModel(
+      accId: map["id"]?.toString(),
+      balance: map["balance"] != null ? (map["balance"] as num).toDouble() : null,
+      accountName: map["accountName"],
+      bankName: map["bankName"],
+      accountNumber: map["accountNumber"]?.toString(),
+      accountType: map["accountType"],
+      debitCard: map["debitCard"] ?? false,
+      debitCardNumber: map["debitCardNumber"]?.toString(),
+      debitValidUpTo: map["debitValidUpTo"]?.toString(),
+      debitCVV: map["debitCVV"]?.toString(),
+      debitCardHolderName: map["debitCardHolderName"]?.toString(),
+      creditCard: map["creditCard"] ?? false,
+      creditCardNumber: map["creditCardNumber"]?.toString(),
+      creditValidUpTo: map["creditValidUpTo"]?.toString(),
+      creditCVV: map["creditCVV"]?.toString(),
+      creditLimit: map["creditLimit"] != null ? (map["creditLimit"] as num).toDouble() : null,
+      creditDueDate: map["creditDueDate"] != null ? DateTime.parse(map["creditDueDate"]) : null,
+    );
   }
+
 }

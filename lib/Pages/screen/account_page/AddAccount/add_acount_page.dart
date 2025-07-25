@@ -1,4 +1,4 @@
-import 'package:cash_crafter/Pages/screen/account_page/AddAccount/add_card.dart';
+import 'package:cash_crafter/Pages/screen/CardDetails/add_card.dart';
 import 'package:cash_crafter/Pages/widget/button/small_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_crafter/Pages/widget/button/button.dart';
