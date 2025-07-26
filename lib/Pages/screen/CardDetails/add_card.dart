@@ -16,13 +16,7 @@ class AddCard extends StatefulWidget {
 }
 
 class _AddCardState extends State<AddCard> {
-  String cardNumber = "";
-  String expiryDate = "";
-  String cardHolderName = "";
-  String cvv = "";
   bool showBackView = false;
-  bool useGlassMorphism = false;
-
   CardModel cardData = CardModel(
     cardNumber: "",
     expiryDate: "",
