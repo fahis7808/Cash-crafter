@@ -1,9 +1,9 @@
+import 'package:cash_crafter/Model/account_model/card_model.dart';
 import 'package:cash_crafter/Pages/widget/button/button.dart';
 import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
 import 'package:cash_crafter/constant/app_colors.dart';
 import 'package:cash_crafter/constant/app_font.dart';
 import 'package:cash_crafter/provider/balance_provider.dart';
-import 'package:cash_crafter/service/card_details_fetch_from_bin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +23,13 @@ class _AddCardState extends State<AddCard> {
   bool showBackView = false;
   bool useGlassMorphism = false;
 
+  CardModel cardData = CardModel(
+    cardNumber: "",
+    expiryDate: "",
+    cardHolderName: "",
+    cvvCode: "",
+  );
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 
@@ -35,14 +42,13 @@ class _AddCardState extends State<AddCard> {
         children: [
           CreditCardWidget(
             // glassmorphismConfig: _getGlassmorphismConfig(),
-            cardNumber: cardNumber,
-            expiryDate: expiryDate,
-            cardHolderName: cardHolderName,
-            cvvCode: cvv,
+            cardNumber: cardData.cardNumber.toString(),
+            expiryDate: cardData.expiryDate.toString(),
+            cardHolderName: cardData.cardHolderName.toString(),
+            cvvCode: cardData.cvvCode.toString(),
             showBackView: showBackView,
             onCreditCardWidgetChange: (creditCardBrand) {},
             cardBgColor: Color(0xFF02081C),
-
             backCardBorder: Border.all(
               color: Color(0xFF000C75),
               width: 1.5,
@@ -51,14 +57,16 @@ class _AddCardState extends State<AddCard> {
               color: Color(0xFF000C78),
               width: 1.5,
             ),
+            isHolderNameVisible: true,
           ),
           Expanded(
             child: SingleChildScrollView(
               child: CreditCardForm(
-                cardNumber: cardNumber,
-                expiryDate: expiryDate,
-                cardHolderName: cardHolderName,
-                cvvCode: cvv,
+                cardNumber: cardData.cardNumber.toString(),
+                expiryDate: cardData.expiryDate.toString(),
+                isHolderNameVisible: true,
+                cardHolderName:  cardData.cardHolderName.toString(),
+                cvvCode:  cardData.cvvCode.toString(),
                 onCreditCardModelChange: onCreditCardModelChange,
                 formKey: formKey,
                 inputConfiguration: InputConfiguration(
@@ -90,10 +98,7 @@ class _AddCardState extends State<AddCard> {
             if (formKey.currentState?.validate() ?? false) {
             final provider = Provider.of<BalanceProvider>(context,listen: false);
               formKey.currentState?.save();
-              provider.accModel.debitCardNumber = cardNumber;
-              provider.accModel.debitValidUpTo = expiryDate;
-              provider.accModel.debitCardHolderName = cardHolderName;
-              provider.accModel.debitCVV = cvv;
+              provider.accModel.cardModel = cardData;
               Navigator.pop(context);
             } else {
               print('invalid!');
@@ -107,10 +112,10 @@ class _AddCardState extends State<AddCard> {
 
   void onCreditCardModelChange(CreditCardModel creditCardModel) {
     setState(() {
-      cardNumber = creditCardModel.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvv = creditCardModel.cvvCode;
+      cardData.cardNumber = creditCardModel.cardNumber;
+      cardData.expiryDate = creditCardModel.expiryDate;
+      cardData.cardHolderName = creditCardModel.cardHolderName;
+      cardData.cvvCode = creditCardModel.cvvCode;
       showBackView = creditCardModel.isCvvFocused;
     });
   }
@@ -144,14 +149,5 @@ class _AddCardState extends State<AddCard> {
     );
   }
 
-  Glassmorphism? _getGlassmorphismConfig() {
-    final LinearGradient gradient = LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: <Color>[Colors.grey.withAlpha(10), Colors.grey.withAlpha(10)],
-      stops: const <double>[0.1, 0],
-    );
 
-    return Glassmorphism(blurX: 10.0, blurY: 16.0, gradient: gradient);
-  }
 }

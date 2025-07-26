@@ -1,3 +1,5 @@
+import 'card_model.dart';
+
 class AccountModel {
   String? accId;
   double? balance;
@@ -16,6 +18,7 @@ class AccountModel {
   String? creditCVV;
   double? creditLimit;
   DateTime? creditDueDate;
+  CardModel? cardModel;
 
   AccountModel({
     this.accId,
@@ -24,17 +27,7 @@ class AccountModel {
     this.bankName,
     this.accountNumber,
     this.accountType,
-    this.debitCard = false,
-    this.debitCardNumber,
-    this.debitValidUpTo,
-    this.debitCVV,
-    this.debitCardHolderName,
-    this.creditCard = false,
-    this.creditCardNumber,
-    this.creditValidUpTo,
-    this.creditCVV,
-    this.creditLimit,
-    this.creditDueDate,
+    this.cardModel
   });
 
   Map<String, dynamic> toMap() {
@@ -45,17 +38,7 @@ class AccountModel {
       "bankName": bankName,
       "accountNumber": accountNumber,
       "accountType": accountType,
-      "debitCard": debitCard,
-      "debitCardNumber": debitCardNumber,
-      "debitValidUpTo": debitValidUpTo,
-      "debitCVV": debitCVV,
-      "debitCardHolderName": debitCardHolderName,
-      "creditCard": creditCard,
-      "creditCardNumber": creditCardNumber,
-      "creditValidUpTo": creditValidUpTo,
-      "creditCVV": creditCVV,
-      "creditLimit": creditLimit,
-      "creditDueDate": creditDueDate?.toIso8601String(), // Convert DateTime to String
+      "cardModel": cardModel?.toJson(),
     };
   }
 
@@ -67,17 +50,7 @@ class AccountModel {
       bankName: map["bankName"],
       accountNumber: map["accountNumber"]?.toString(),
       accountType: map["accountType"],
-      debitCard: map["debitCard"] ?? false,
-      debitCardNumber: map["debitCardNumber"]?.toString(),
-      debitValidUpTo: map["debitValidUpTo"]?.toString(),
-      debitCVV: map["debitCVV"]?.toString(),
-      debitCardHolderName: map["debitCardHolderName"]?.toString(),
-      creditCard: map["creditCard"] ?? false,
-      creditCardNumber: map["creditCardNumber"]?.toString(),
-      creditValidUpTo: map["creditValidUpTo"]?.toString(),
-      creditCVV: map["creditCVV"]?.toString(),
-      creditLimit: map["creditLimit"] != null ? (map["creditLimit"] as num).toDouble() : null,
-      creditDueDate: map["creditDueDate"] != null ? DateTime.parse(map["creditDueDate"]) : null,
+      cardModel: map["cardModel"] != null ? CardModel.fromJson(map["cardModel"]) : null,
     );
   }
 
