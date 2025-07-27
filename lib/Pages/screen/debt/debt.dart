@@ -9,7 +9,6 @@ import 'package:cash_crafter/constant/app_font.dart';
 import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class DebtPage extends StatelessWidget {
   final bool showBackBtn;
 
@@ -33,15 +32,15 @@ class DebtPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextAmount(text: "I Lend", amount: data.balanceModel.lend ?? 0),
-                          TextAmount(text: "I Owe", amount: data.balanceModel.owe ?? 0),
+                          TextAmount(text: "I Lend", amount: data.totalLendAmt),
+                          TextAmount(text: "I Owe", amount: data.totalOweAmt),
                         ],
                       ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                  /*  const MainLoanCard(),
+                    /*  const MainLoanCard(),
                     const SizedBox(
                       height: 10,
                     ),
@@ -118,17 +117,16 @@ class DebtPage extends StatelessWidget {
         );
       }),
       floatingActionButton: CustomFloatingActionButton(onTap: () {
-    Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => AddDebt(),
           ),
-        ).then((val){
-          if(val == true){
+        ).then((val) {
+          if (val == true) {
             Provider.of<DebtProvider>(context, listen: false).getDebtData();
           }
-    });
-
+        });
       }),
     );
   }

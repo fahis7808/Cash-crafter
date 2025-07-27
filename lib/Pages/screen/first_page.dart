@@ -63,6 +63,7 @@ class _FirstPageState extends State<FirstPage> {
       body: page[pageIndex],
       bottomNavigationBar: CustomCard(
           height: 75,
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

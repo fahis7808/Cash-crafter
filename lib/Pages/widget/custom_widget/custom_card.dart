@@ -33,6 +33,7 @@ class CustomCard extends StatelessWidget {
         height: height,
           width: width,
           margin: margin,
+
           decoration: BoxDecoration(
               gradient:color == null ? const LinearGradient(
                   colors: [Color(0x660E3177), Color(0x8006031E)],

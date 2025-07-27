@@ -66,7 +66,7 @@ class _DebtTabState extends State<DebtTab> {
           },
         ),*/
         ContactField(
-          value: provider.transactionModel.name,
+          // value: provider.transactionModel.name,
           hintText:
               provider.transactionModel.debtType == 0 ? "To Whom" : "From Whom",
           contact: provider.contact.toList(),

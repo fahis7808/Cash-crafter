@@ -33,16 +33,6 @@ class DebtProvider extends ChangeNotifier {
     isLoading = true;
     onRefresh();
     try {
-      QuerySnapshot walletData =
-          await CollectionReferenceData.accountDetails.get();
-      print(walletData);
-      if (walletData.docs.isNotEmpty) {
-        Map<String, dynamic> accountMap =
-            walletData.docs.first.data() as Map<String, dynamic>;
-        print(accountMap);
-        balanceModel = BalanceModel.fromMap(accountMap);
-      }
-
       QuerySnapshot debtData = await CollectionReferenceData.debt.get();
       print("debtData");
       print(debtData);
@@ -50,7 +40,7 @@ class DebtProvider extends ChangeNotifier {
           .map((e) => DebtModel.fromMap(e.data() as Map<String, dynamic>))
           .toList();
       print("debtData");
-
+      getTotalAmt(debtList);
       print(debtList);
       isLoading = false;
       onRefresh();
@@ -97,14 +87,20 @@ class DebtProvider extends ChangeNotifier {
       print(e);
     }
   }
+  String formatPhoneNumber(String rawNumber) {
+    String digits = rawNumber.replaceAll(RegExp(r'\D'), '');
+    if (digits.length > 10) {
+      digits = digits.substring(digits.length - 10);
+    }
+    return digits;
+  }
 
   saveToDB() async {
     isBtnLoading = true;
     onRefresh();
     bool isUpdate = debtList.any((val) {
-      print(val.phoneNumber);
-      print(debtModel.phoneNumber);
-      return val.phoneNumber == debtModel.phoneNumber;
+      return val.contactId == debtModel.contactId ||
+          val.phoneNumber == debtModel.phoneNumber;
     });
     print(isUpdate);
     try {
@@ -121,17 +117,7 @@ class DebtProvider extends ChangeNotifier {
             : existingDebt.lendAmount;
         existingDebt.totalAmount =
             (existingDebt.lendAmount ?? 0) - (existingDebt.borrowedAmount ?? 0);
-        if (existingDebt.totalAmount == 0) {
-          balanceModel.owe =
-              (balanceModel.owe ?? 0) - (debtModel.borrowedAmount ?? 0);
-          balanceModel.lend =
-              (balanceModel.lend ?? 0) - (debtModel.lendAmount ?? 0);
-        } else {
-          balanceModel.owe =
-              (balanceModel.owe ?? 0) + (debtModel.borrowedAmount ?? 0);
-          balanceModel.lend =
-              (balanceModel.lend ?? 0) + (debtModel.lendAmount ?? 0);
-        }
+
         await CollectionReferenceData.debt
             .doc(existingDebt.id)
             .update(existingDebt.toMap());
@@ -148,17 +134,11 @@ class DebtProvider extends ChangeNotifier {
         debtModel.borrowedAmount = borrow;
         debtModel.lendAmount = lend;
         debtModel.totalAmount = transactionModel.amount ?? 0;
-        balanceModel.owe = (balanceModel.owe ?? 0) + (borrow ?? 0);
-        balanceModel.lend = (balanceModel.lend ?? 0) + (lend ?? 0);
-        await CollectionReferenceData.debt
+       await CollectionReferenceData.debt
             .doc(debtModel.id)
             .set(debtModel.toMap());
       }
-      print(balanceModel);
-      await CollectionReferenceData.accountDetails
-          .doc("balance001")
-          .update(balanceModel.toMap());
-      debtModel = DebtModel();
+       debtModel = DebtModel();
       transactionModel = TransactionModel();
       isBtnLoading = false;
       onRefresh();
