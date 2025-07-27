@@ -79,7 +79,7 @@ class _DebtTabState extends State<DebtTab> {
                   selection.phones.first.number;
               provider.transactionModel.name = selection.displayName;
             });
-          },
+          }, onChanged: (String ) {  },
         ),
         SizedBox(
           height: 10,

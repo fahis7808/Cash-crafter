@@ -34,7 +34,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: pageIndex == 2
+      floatingActionButton: pageIndex == 3 || pageIndex == 2
           ? null
           : CustomFloatingActionButton(
               onTap: () async {

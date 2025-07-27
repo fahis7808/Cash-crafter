@@ -1,3 +1,4 @@
+import 'package:cash_crafter/service/functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -208,36 +209,11 @@ class BalanceProvider extends ChangeNotifier {
     }
   }
 
-  Future<String> getTransactionID(
-      String accName, CollectionReference document) async {
-    String initialId = "${accName}001";
-    String newId = initialId;
-
-    DocumentSnapshot docs = await document.doc(initialId).get();
-    try {
-      if (docs.exists) {
-        QuerySnapshot querySnapshot = await document
-            .orderBy(FieldPath.documentId)
-            .startAt([initialId]).get();
-        if (querySnapshot.docs.isNotEmpty) {
-          String lastId = querySnapshot.docs.last.id;
-
-          int idNumber = int.parse(lastId.replaceAll(accName, '')) + 1;
-          newId = '$accName${idNumber.toString().padLeft(3, '0')}';
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    return newId.toString();
-  }
-
   Future<bool> addTransfer(int value) async {
     isBtnLoading = true;
     onRefresh();
-    String newTransID =
-        await getTransactionID("trans", CollectionReferenceData.transaction);
+    String newTransID = await dataGetFunctions.getTransactionID(
+        "trans", CollectionReferenceData.transaction);
     print("Transfer Type: ${transactionModel.transactionType}");
     transactionModel.date = transactionModel.date ??
         DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -293,8 +269,8 @@ class BalanceProvider extends ChangeNotifier {
           print(debt.id);
           await CollectionReferenceData.debt.doc(debt.id).update(debt.toMap());
         } else {
-          String newDebtId =
-              await getTransactionID("debtAcc", CollectionReferenceData.debt);
+          String newDebtId = await dataGetFunctions.getTransactionID(
+              "debtAcc", CollectionReferenceData.debt);
 
           await CollectionReferenceData.debt.doc(newDebtId).set(DebtModel(
               id: newDebtId,

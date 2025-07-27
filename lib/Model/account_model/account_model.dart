@@ -7,17 +7,6 @@ class AccountModel {
   String? bankName;
   String? accountNumber;
   String? accountType;
-  bool? debitCard;
-  String? debitCardNumber;
-  String? debitValidUpTo;
-  String? debitCVV;
-  String? debitCardHolderName;
-  bool? creditCard;
-  String? creditCardNumber;
-  String? creditValidUpTo;
-  String? creditCVV;
-  double? creditLimit;
-  DateTime? creditDueDate;
   CardModel? cardModel;
 
   AccountModel({

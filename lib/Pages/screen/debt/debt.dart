@@ -1,3 +1,5 @@
+import 'package:cash_crafter/Pages/screen/debt/add_debt.dart';
+import 'package:cash_crafter/Pages/widget/button/floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_crafter/Pages/screen/debt/on_dept_tap.dart';
 import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
@@ -7,10 +9,10 @@ import 'package:cash_crafter/constant/app_font.dart';
 import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'loan/total_loan_card.dart';
 
 class DebtPage extends StatelessWidget {
   final bool showBackBtn;
+
   const DebtPage({Key? key, this.showBackBtn = true}) : super(key: key);
 
   @override
@@ -31,22 +33,23 @@ class DebtPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextAmount(
-                              text: "I Lend", amount: data.totalLendAmt),
-                          TextAmount(text: "I Owe", amount: data.totalOweAmt),
+                          TextAmount(text: "I Lend", amount: data.balanceModel.lend ?? 0),
+                          TextAmount(text: "I Owe", amount: data.balanceModel.owe ?? 0),
                         ],
                       ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    const MainLoanCard(),
+                  /*  const MainLoanCard(),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextButton(onPressed: (){
-                      print(data.debtList);
-                    }, child: Text("data")),
+                    TextButton(
+                        onPressed: () {
+                          print(data.debtList);
+                        },
+                        child: Text("data")),*/
                     Expanded(
                       child: ListView.builder(
                           itemCount: data.debtList.length,
@@ -54,8 +57,7 @@ class DebtPage extends StatelessWidget {
                             final item = data.debtList[index];
 
                             return CustomCard(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 3),
+                                margin: const EdgeInsets.symmetric(vertical: 3),
                                 onTap: () {
                                   Navigator.push(
                                       context,
@@ -68,11 +70,11 @@ class DebtPage extends StatelessWidget {
                                 color: AppColors.primaryColor,
                                 child: Row(
                                   children: [
-                                    CustomCard(
+                                    /* CustomCard(
                                         child: Text(
                                       data.getInitials(item.name.toString()),
                                       style: AppFont.white20,
-                                    )),
+                                    )),*/
                                     const SizedBox(
                                       width: 10,
                                     ),
@@ -94,13 +96,13 @@ class DebtPage extends StatelessWidget {
                                     Column(
                                       children: [
                                         Text(
-                                          item.totalAmount.toString(),
+                                          item.totalAmount?.toString() ?? "0",
                                           style: TextStyle(
                                               fontSize: 25,
                                               fontWeight: FontWeight.w700,
-                                              color: item.totalAmount! < 0
+                                              color: (item.totalAmount ?? 0) < 0
                                                   ? AppColors.negativeColor
-                                                  : item.totalAmount == 0
+                                                  : (item.totalAmount ?? 0) == 0
                                                       ? AppColors.textColor
                                                       : AppColors
                                                           .positiveColor),
@@ -114,6 +116,19 @@ class DebtPage extends StatelessWidget {
                   ],
                 ),
         );
+      }),
+      floatingActionButton: CustomFloatingActionButton(onTap: () {
+    Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AddDebt(),
+          ),
+        ).then((val){
+          if(val == true){
+            Provider.of<DebtProvider>(context, listen: false).getDebtData();
+          }
+    });
+
       }),
     );
   }

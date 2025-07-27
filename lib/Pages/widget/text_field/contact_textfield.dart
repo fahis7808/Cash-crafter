@@ -7,9 +7,10 @@ import '../../../constant/app_font.dart';
 class ContactField extends StatelessWidget {
   final String? hintText;
   final void Function(Contact) onSelected;
+  final void Function(String) onChanged;
   final List<Contact> contact;
   final String? value;
-  const ContactField({Key? key, this.hintText, required this.onSelected, required this.contact, this.value}) : super(key: key);
+  const ContactField({Key? key, this.hintText, required this.onSelected, required this.contact, this.value, required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +67,7 @@ class ContactField extends StatelessWidget {
           controller: controller,
           focusNode: focusNode,
           style: AppFont.textFieldText,
+          onChanged: onChanged,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: AppFont.textFieldLabelText,
