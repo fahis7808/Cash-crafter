@@ -23,8 +23,8 @@ class ContactField extends StatefulWidget {
 }
 
 class _ContactFieldState extends State<ContactField> {
-
   List<Contact> _contacts = [];
+
   @override
   void initState() {
     super.initState();

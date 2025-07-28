@@ -86,8 +86,13 @@ class CustomDropdownField<T extends Object> extends StatelessWidget {
               borderSide:
                   const BorderSide(width: 2, color: AppColors.secondaryColor),
               borderRadius: BorderRadius.circular(10),
-            )),
+            ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+              width: 2, color: AppColors.negativeColor),
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
-    );
+    ));
   }
 }

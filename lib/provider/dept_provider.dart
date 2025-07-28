@@ -1,3 +1,4 @@
+import 'package:cash_crafter/Model/account_model/account_model.dart';
 import 'package:cash_crafter/Model/account_model/transaction_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../Model/account_model/balance_model.dart';
 import '../service/functions.dart';
+import 'balance_provider.dart';
 
 class DebtProvider extends ChangeNotifier {
   DebtModel debtModel = DebtModel();
@@ -24,6 +26,8 @@ class DebtProvider extends ChangeNotifier {
   bool isLoading = false;
   bool isBtnLoading = false;
   final formKey = GlobalKey<FormState>();
+
+  BalanceProvider balanceProvider = BalanceProvider();
 
   DebtProvider() {
     getDebtData();
@@ -87,6 +91,7 @@ class DebtProvider extends ChangeNotifier {
       print(e);
     }
   }
+
   String formatPhoneNumber(String rawNumber) {
     String digits = rawNumber.replaceAll(RegExp(r'\D'), '');
     if (digits.length > 10) {
@@ -103,6 +108,7 @@ class DebtProvider extends ChangeNotifier {
           val.phoneNumber == debtModel.phoneNumber;
     });
     print(isUpdate);
+
     try {
       if (isUpdate) {
         DebtModel existingDebt = debtList
@@ -134,11 +140,12 @@ class DebtProvider extends ChangeNotifier {
         debtModel.borrowedAmount = borrow;
         debtModel.lendAmount = lend;
         debtModel.totalAmount = transactionModel.amount ?? 0;
-       await CollectionReferenceData.debt
+        await CollectionReferenceData.debt
             .doc(debtModel.id)
             .set(debtModel.toMap());
       }
-       debtModel = DebtModel();
+      balanceSave(transactionModel);
+      debtModel = DebtModel();
       transactionModel = TransactionModel();
       isBtnLoading = false;
       onRefresh();
@@ -153,5 +160,26 @@ class DebtProvider extends ChangeNotifier {
 
   onRefresh() {
     notifyListeners();
+  }
+
+  balanceSave(TransactionModel transactionModel) async {
+    AccountModel acc = balanceProvider.accountList.firstWhere(
+      (element) =>
+          element.accountName == transactionModel.debit ||
+          element.accountName == transactionModel.credit,
+      orElse: () => AccountModel(),
+    );
+    if (transactionModel.debtType == 0) {
+      acc.balance = (acc.balance ?? 0) - (transactionModel.amount ?? 0);
+      balanceProvider.updateMainBalance(
+          transactionModel.amount?.toDouble() ?? 0, false);
+    } else if (transactionModel.debtType == 1) {
+      balanceProvider.updateMainBalance(
+          transactionModel.amount?.toDouble() ?? 0, true);
+      acc.balance = (acc.balance ?? 0) + (transactionModel.amount ?? 0);
+    }
+    await CollectionReferenceData.accounts
+        .doc(acc.accId)
+        .update({'balance': acc.balance});
   }
 }

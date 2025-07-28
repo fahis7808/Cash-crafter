@@ -1,3 +1,4 @@
+import 'package:cash_crafter/Model/account_model/account_model.dart';
 import 'package:cash_crafter/Pages/widget/custom_appbar.dart';
 import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:cash_crafter/util/snack_bar.dart';
@@ -138,6 +139,18 @@ class AddDebt extends StatelessWidget {
                           ? provider.transactionModel.debit
                           : provider.transactionModel.credit,
                       labelText: "Account",
+                      validator: (val) {
+                        AccountModel acc = balanceProvider.accountList.firstWhere(
+                          (element) => element.accountName == val,
+                          orElse: () => AccountModel(),
+                        );
+                        if (val == null || val.isEmpty)
+                          return 'Account required';
+                        if(acc.balance! <  (provider.transactionModel.amount ?? 0)) {
+                          return 'Insufficient balance in $val';
+                        }
+                        return null;
+                      },
                       // prefixIcon: FluentIcons.building_bank_16_filled,
                     );
                   }),
@@ -161,7 +174,7 @@ class AddDebt extends StatelessWidget {
                   ),
                   CustomButton(
                       buttonText: "Transfer",
-                      // loading: data.isBtnLoading,
+                      loading: provider.isBtnLoading,
                       onPressed: () {
                         if (provider.formKey.currentState?.validate() ??
                             false) {
