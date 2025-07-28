@@ -139,7 +139,8 @@ class DebtProvider extends ChangeNotifier {
         debtModel.transactionList = [transactionModel];
         debtModel.borrowedAmount = borrow;
         debtModel.lendAmount = lend;
-        debtModel.totalAmount = transactionModel.amount ?? 0;
+        debtModel.totalAmount =
+            (debtModel.lendAmount ?? 0) - (debtModel.borrowedAmount ?? 0);
         await CollectionReferenceData.debt
             .doc(debtModel.id)
             .set(debtModel.toMap());

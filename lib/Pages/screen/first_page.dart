@@ -1,4 +1,5 @@
 import 'package:cash_crafter/provider/balance_provider.dart';
+import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:cash_crafter/provider/home_provider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    final balanceProvider =
+        Provider.of<BalanceProvider>(context, listen: false);
     return Scaffold(
       floatingActionButton: pageIndex == 3 || pageIndex == 2
           ? null
@@ -54,8 +57,7 @@ class _FirstPageState extends State<FirstPage> {
                   if (pageIndex == 0) {
                     Provider.of<HomeProvider>(context, listen: false).getData();
                   } else if (pageIndex == 1) {
-                    Provider.of<BalanceProvider>(context, listen: false)
-                        .getData(0);
+                    balanceProvider.getData(0);
                   }
                 }
               },
@@ -73,6 +75,7 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 0;
+                      balanceProvider.getData(0);
                     });
                   },
                   isSelected: pageIndex == 0),
@@ -82,6 +85,7 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 1;
+                      balanceProvider.getData(1);
                     });
                   },
                   isSelected: pageIndex == 1),
@@ -91,6 +95,7 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 2;
+                      balanceProvider.getData(2);
                     });
                   },
                   isSelected: pageIndex == 2),
@@ -100,6 +105,7 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 3;
+                      Provider.of<DebtProvider>(context,listen: false).getDebtData();
                     });
                   },
                   isSelected: pageIndex == 3),
