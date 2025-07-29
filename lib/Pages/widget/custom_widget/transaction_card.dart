@@ -18,7 +18,7 @@ class TransactionCard extends StatelessWidget {
         itemCount: data.length,
         itemBuilder: ((context, index) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 5),
+            padding: const EdgeInsets.only(bottom: 8),
             child: CustomCard(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

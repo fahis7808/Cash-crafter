@@ -75,7 +75,7 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 0;
-                      balanceProvider.getData(0);
+                      Provider.of<HomeProvider>(context, listen: false).getData();
                     });
                   },
                   isSelected: pageIndex == 0),
