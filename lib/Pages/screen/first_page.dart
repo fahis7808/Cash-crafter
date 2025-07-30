@@ -1,3 +1,4 @@
+import 'package:cash_crafter/Pages/screen/credit_card/credit_card.dart';
 import 'package:cash_crafter/provider/balance_provider.dart';
 import 'package:cash_crafter/provider/dept_provider.dart';
 import 'package:cash_crafter/provider/home_provider.dart';
@@ -23,12 +24,13 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  int pageIndex = 0;
+  int pageIndex = 4;
   final page = [
     const HomePage(),
     const AccountPage(showBackBtn: false),
     const BudgetPage(showBackBtn: false),
-    const DebtPage(showBackBtn: false)
+    const DebtPage(showBackBtn: false),
+    const CreditCard(),
   ];
   bool isSelected = false;
 
@@ -75,7 +77,8 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 0;
-                      Provider.of<HomeProvider>(context, listen: false).getData();
+                      Provider.of<HomeProvider>(context, listen: false)
+                          .getData();
                     });
                   },
                   isSelected: pageIndex == 0),
@@ -89,6 +92,17 @@ class _FirstPageState extends State<FirstPage> {
                     });
                   },
                   isSelected: pageIndex == 1),
+              bottomItem(
+                  icon: FluentIcons.card_ui_20_regular,
+                  text: "Card",
+                  onTap: () {
+                    setState(() {
+                      pageIndex = 4;
+                      balanceProvider.getData(1);
+                    });
+                  },
+                  isSelected: pageIndex == 4),
+
               bottomItem(
                   icon: FluentIcons.toolbox_24_regular,
                   text: "Budget",
@@ -105,7 +119,8 @@ class _FirstPageState extends State<FirstPage> {
                   onTap: () {
                     setState(() {
                       pageIndex = 3;
-                      Provider.of<DebtProvider>(context,listen: false).getDebtData();
+                      Provider.of<DebtProvider>(context, listen: false)
+                          .getDebtData();
                     });
                   },
                   isSelected: pageIndex == 3),

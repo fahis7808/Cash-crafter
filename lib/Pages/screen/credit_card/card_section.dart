@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 
-void main() {
-  runApp(MaterialApp(home: SwipeCardAnimatedStack()));
-}
-
-class SwipeCardAnimatedStack extends StatefulWidget {
+class CardSection extends StatefulWidget {
   @override
-  _SwipeCardAnimatedStackState createState() => _SwipeCardAnimatedStackState();
+  _CardSectionState createState() => _CardSectionState();
 }
 
-class _SwipeCardAnimatedStackState extends State<SwipeCardAnimatedStack>
+class _CardSectionState extends State<CardSection>
     with TickerProviderStateMixin {
   List<CardData> cards = [
     CardData("Amazon Pay", "₹42,436.41", Colors.black),
@@ -35,7 +32,7 @@ class _SwipeCardAnimatedStackState extends State<SwipeCardAnimatedStack>
 
     _swipeAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, -2),
+      end: const Offset(0, -1),
     ).animate(CurvedAnimation(
       parent: _swipeController,
       curve: Curves.easeInOut,
@@ -69,9 +66,7 @@ class _SwipeCardAnimatedStackState extends State<SwipeCardAnimatedStack>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: GestureDetector(
+    return  GestureDetector(
         onVerticalDragEnd: (details) {
           if (details.primaryVelocity != null &&
               details.primaryVelocity! < -100) {
@@ -79,36 +74,39 @@ class _SwipeCardAnimatedStackState extends State<SwipeCardAnimatedStack>
           }
         },
         child: Center(
-          child: SizedBox(
-            height: 230,
-            child: Stack(
-              children: List.generate(cards.length, (index) {
-                final card = cards[index];
-                final isTop = index == 0;
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SizedBox(
+              height: 250,
+              child: Stack(
+                children: List.generate(cards.length, (index) {
+                  final card = cards[index];
+                  final isTop = index == 4;
 
-                return AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  top: index * 10.0,
-                  left: 0,
-                  right: 0,
-                  child: isTop
-                      ? SlideTransition(
-                          position: _swipeAnimation,
-                          child: FadeTransition(
-                            opacity: _opacityAnimation,
-                            child: CardWidget(card),
-                          ),
-                        )
-                      : Transform.scale(
-                          scale: 1.0 - (index * 0.04),
-                          child: CardWidget(card),
-                        ),
-                );
-              }),
+                  return AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    top: index * 5,
+                    left: index * -2,
+                    right: index * 1,
+                    child: isTop
+                        ? SlideTransition(
+                      position: _swipeAnimation,
+                      child: FadeTransition(
+                        opacity: _opacityAnimation,
+                        child: CardWidget(card),
+                      ),
+                    )
+                        : Transform.scale(
+                      scale: 1.1 - (index * 0.01),
+
+                      child: CardWidget(card),
+                    ),
+                  );
+                }),
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -129,7 +127,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 32),
+      margin: const EdgeInsets.symmetric(horizontal: 32,vertical: 15),
       padding: const EdgeInsets.all(20),
       height: 205,
       decoration: BoxDecoration(
@@ -156,9 +154,7 @@ class CardWidget extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold)),
-          const Spacer(),
-          const Text("Swipe up to continue",
-              style: TextStyle(color: Colors.white38)),
+          // const Spacer(),
         ],
       ),
     );
